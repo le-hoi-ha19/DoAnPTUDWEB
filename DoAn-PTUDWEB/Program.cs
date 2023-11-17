@@ -1,5 +1,12 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using DoAn_PTUDWEB.Models;
+using Microsoft.EntityFrameworkCore;
 
+var builder = WebApplication.CreateBuilder(args);
+
+// lấy chuỗi kết nối từ file appsetting.json
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+// truyền chuỗi kết nối vào tham số option của contructor DbContext
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 // Add Razor cho biên dịch lại html trong quá trình chạy

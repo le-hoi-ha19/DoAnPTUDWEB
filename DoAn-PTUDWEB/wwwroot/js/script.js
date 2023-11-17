@@ -1,32 +1,33 @@
-﻿// some scripts
-
-// jquery ready start
-$(document).ready(function() {
-	// jQuery code
-
-  // var html_download = '<a href="http://bootstrap-ecommerce.com/templates.html" class="btn btn-dark rounded-pill" style="font-size:13px; z-index:100; position: fixed; bottom:10px; right:10px;">Download theme</a>';
-  //  $('body').prepend(html_download);
-    
-
+﻿
+// đoạn mã bên trong sẽ được thực hiện khi dom load xong
+$(document).ready(function () {
+	
 	//////////////////////// Prevent closing from click inside dropdown
     $(document).on('click', '.dropdown-menu', function (e) {
       e.stopPropagation();
     });
-
-
-    
 
 	//////////////////////// Bootstrap tooltip
 	if($('[data-toggle="tooltip"]').length>0) {  // check if element exists
 		$('[data-toggle="tooltip"]').tooltip()
 	} // end if
 
+// Thay đổi ảnh to khi hover chuột vào ảnh nhỏ
+    var bigImage = document.querySelector(".bigImage");
+    console.log("bigImage:", bigImage)
+    var smallImages = document.querySelectorAll('.smallImage');
+    console.log("smallImages:", smallImages)
 
+    smallImages.forEach(function (smallImage) {
+        smallImage.addEventListener("mouseenter", function (e) {
+            bigImage.src = e.target.src;
+        });
+    });
 
-
+  
     
 }); 
-// jquery end
+
 
 // js phần bình luận
 // JavaScript để ẩn/hiển thị các bình luận và kích hoạt nút active
@@ -70,5 +71,4 @@ window.onload = function () {
         allCommentsButton.classList.add('active');
     }
 };
-
 

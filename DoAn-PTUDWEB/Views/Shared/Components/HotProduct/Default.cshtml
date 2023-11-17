@@ -1,0 +1,62 @@
+﻿@model IList<Product>
+
+<!-- ========================= Phần sản phẩm hot ========================= -->
+<section class="section-pagetop bg-light">
+	<div class="container">
+		<h2 class="title-page">Sản phẩm hot</h2>
+	</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+<section class="section-content bg-white padding-y">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card-banner overlay-gradient"
+					 style="min-height:320px; background-image: url('../images/banners/banner1.jpg');">
+					<div class="card-img-overlay white">
+						<h3 class="card-title">Iphone ra mắt sản phẩm mới  </h3>
+						<p class="card-text" style="max-width: 400px">
+							Hãy nhanh tay trải nghiệm và sắm ngay cho mình một chiếc Iphone thật xịn xò nào.
+						</p>
+						<a href="" class="btn btn-warning">Khám phá ngay</a>
+					</div>
+				</div> <!-- card-banner //end -->
+			</div> <!-- col.// -->
+			<div class="col-md-4">
+				<div class="card-banner"
+					 style="height:320px; background-image: url('../images/banners/banner8.jpg');">
+					<article class="caption bottom">
+						<h5 class="card-title">Smart Watches</h5>
+						<p> Mang lại cho bạn phong thái sang trọng lịch lãm như một quý ông</p>
+					</article>
+				</div><!-- card-banner //end -->
+			</div> <!-- col.// -->
+		</div> <!-- row.// -->
+
+		<br>
+
+		<div class="row">
+			 @foreach(var item in Model)
+            {
+			<div class="col-md-3">
+				<article class="card card-product-grid">
+					<div class="img-wrap">
+						<b class="badge badge-danger mr-1">SAVE %10</b>
+						<img src="@item.Thumbnail">
+					</div>
+					<div class="info-wrap">
+							<a href="#" class="title-product-custom">@item.Name</a>
+						<div class="price-wrap my-2">
+							<span class="price">@item.PriceSale</span>
+							<del class="price-old">@item.Price</del>
+						</div> <!-- price-wrap.// -->
+						<a href="#" class="btn btn-block btn-primary">Mua ngay</a>
+					</div>
+				</article>
+			</div> <!-- col.// -->
+			}
+		</div> <!-- row.// -->
+	</div> <!-- container .//  -->
+
+</section>
+<!-- ========================= SECTION DEAL END// ========================= -->
