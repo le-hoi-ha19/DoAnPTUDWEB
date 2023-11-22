@@ -1,111 +1,109 @@
-﻿@{
+﻿<!--Nhận dữ liệu từ Action Detail của ProductController truyền qua-->
+@model DoAn_PTUDWEB.Models.TbProduct
+@{
     ViewBag.Title = "Sản phẩm";
 }
 
+	<!-- ============================Start Phần sản phẩm ======================== -->
+	<section class="section-content bg-white padding-y">
+		<div class="container">
+			<div class="row">
+				<!--Start phần ảnh sản phẩm-->
+				<aside class="col-md-6">
+					<div class="card">
+						<article class="gallery-wrap">
+							<!--Start phần ảnh to-->
+							<div class="img-big-wrap">
+								<div> <a href="#"><img class="bigImage img-fluid" src="@Model.Thumbnail"></a></div>
+							</div>
+							<!--End phần ảnh to-->
+							<!--Start phần ảnh nhỏ-->
+							<div class="thumbs-wrap">
+								<a href="#" class="item-thumb"> <img class="smallImage" src="~/images/items/15.jpg"></a>
+								<a href="#" class="item-thumb"> <img class="smallImage" src="~/images/items/15-1.jpg"></a>
+								<a href="#" class="item-thumb"> <img class="smallImage" src="~/images/items/15-2.jpg"></a>
+								<a href="#" class="item-thumb"> <img class="smallImage" src="~/images/items/15-1.jpg"></a>
+							</div>
+							<!--End phần ảnh nhỏ-->
 
-		<!-- ============================Start Phần sản phẩm ======================== -->
-<section class="section-content bg-white padding-y">
-	<div class="container">
-		<div class="row">
-			<!--Start phần ảnh sản phẩm-->
-			<aside class="col-md-6">
-				<div class="card">
-					<article class="gallery-wrap">
-						<!--Start phần ảnh to-->
-						<div class="img-big-wrap">
-							<div> <a href="#"><img class="bigImage img-fluid" src="~/images/items/15.jpg"></a></div>
-						</div> 
-						<!--End phần ảnh to-->
-
-
-						<!--Start phần ảnh nhỏ-->
-						<div class="thumbs-wrap">
-							<a href="#" class="item-thumb"> <img  class="smallImage" src="~/images/items/15.jpg"></a>
-							<a href="#" class="item-thumb"> <img  class="smallImage" src="~/images/items/15-1.jpg"></a>
-							<a href="#" class="item-thumb"> <img  class="smallImage" src="~/images/items/15-2.jpg"></a>
-							<a href="#" class="item-thumb"> <img  class="smallImage" src="~/images/items/15-1.jpg"></a>
-						</div> 
-						<!--End phần ảnh nhỏ-->
-
-					</article> 
-				</div> 
-			</aside>
-			<!--End phần ảnh sản phẩm-->
-			<!--Start Phần thông tin sản phẩm-->
-			<main class="col-md-6">
-				<article class="product-info-aside">
-
-					<h2 class="title mt-3">Tông lào </h2>
-
-					<div class="rating-wrap my-3">
-						<ul class="rating-stars">
-							<li style="width:80%" class="stars-active">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-							</li>
-							<li>
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-							</li>
-						</ul>
-						<small class="label-rating text-muted">132 Đánh giá</small>
-						<small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 Đã bán </small>
-					</div> 
-					<!-- Start Giá sản phẩm-->
-					<div class="mb-3">
-						<var class="price h4">20 000 000</var>
-						<small>đ</small>
-						<del class="price-old">35 000 000</del>
-						<small class="text-muted">đ</small>
-					</div> 
-					<!-- End Giá sản phẩm-->
-
-					<!--Start chọn màu-->
-                    <div class="d-flex justify-content-start align-items-center my-3">
-						<label>Màu:</label>
-						<select class="input-select form-control w-25 ml-2">
-							<option value="0">Đỏ</option>
-							<option value="0">Vàng</option>
-							<option value="0">Cam</option>
-						</select>
+						</article>
 					</div>
-					<!--End chọn màu-->
+				</aside>
+				<!--End phần ảnh sản phẩm-->
+				<!--Start Phần thông tin sản phẩm-->
+				<main class="col-md-6">
+					<article class="product-info-aside">
+
+						<h2 class="title mt-3">@Model.Name </h2>
+
+						<div class="rating-wrap my-3">
+							<ul class="rating-stars">
+								<li style="width:80%" class="stars-active">
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</li>
+								<li>
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</li>
+							</ul>
+							<small class="label-rating text-muted">132 Đánh giá</small>
+							<small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 Đã bán </small>
+						</div>
+						<!-- Start Giá sản phẩm-->
+						<div class="mb-3">
+							<var class="price h4">@Model.PriceSale</var>
+							<small>đ</small>
+							<del class="price-old">@Model.Price</del>
+							<small class="text-muted">đ</small>
+						</div>
+						<!-- End Giá sản phẩm-->
+						<!--Start chọn màu-->
+						<div class="d-flex justify-content-start align-items-center my-3">
+							<label>Màu:</label>
+							<select class="input-select form-control w-25 ml-2">
+								<option value="0">Đỏ</option>
+								<option value="0">Vàng</option>
+								<option value="0">Cam</option>
+							</select>
+						</div>
+						<!--End chọn màu-->
 
 
-					<div class="form-row  mt-4">
-						<!--Thanh thêm bớt sản phẩm-->
-						<div class="form-group col-md flex-grow-0">
-							<div class="input-group mb-3 input-spinner">
-								<div class="input-group-prepend">
-									<button class="btn btn-light" type="button" id="button-plus"> + </button>
-								</div>
-								<input type="text" class="form-control" value="1">
-								<div class="input-group-append">
-									<button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
+						<div class="form-row  mt-4">
+							<!--Thanh thêm bớt sản phẩm-->
+							<div class="form-group col-md flex-grow-0">
+								<div class="input-group mb-3 input-spinner">
+									<div class="input-group-prepend">
+										<button class="btn btn-light" type="button" id="button-plus"> + </button>
+									</div>
+									<input type="text" class="form-control" value="1">
+									<div class="input-group-append">
+										<button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
+									</div>
 								</div>
 							</div>
-						</div> 
-						<!--2 nút -->
-						<div class="form-group col-md">
-							<a href="/Product/Cart" class="btn  btn-primary" >
-								<i class="fas fa-shopping-cart"></i> <span class="text">Thêm vào giỏ hàng</span>
-							</a>
-							<a href="#" class="btn btn-light" >
-								<i class="fa fa-heart"></i> <span class="text">Xem giỏ hàng</span>
-							</a>
-							
-						</div> 
-					</div> 
+							<!--2 nút -->
+							<div class="form-group col-md">
+								<a href="/Product/Cart" class="btn  btn-primary">
+									<i class="fas fa-shopping-cart"></i> <span class="text">Thêm vào giỏ hàng</span>
+								</a>
+								<a href="#" class="btn btn-light">
+									<i class="fa fa-heart"></i> <span class="text">Xem giỏ hàng</span>
+								</a>
 
-				</article> 
-			</main> 
-			<!--End Phần thông tin sản phẩm-->
-		</div> 
-	</div> 
-</section>
-		<!-- ================ End Phần sản phẩm ================= -->
+							</div>
+						</div>
+
+					</article>
+				</main>
+				<!--End Phần thông tin sản phẩm-->
+			</div>
+		</div>
+	</section>
+	<!-- ================ End Phần sản phẩm ================= -->
 
 
 <!-- ========================= Start Phần mô tả và Thông số kỹ thuật và sản phẩm liên quan  ========================= -->

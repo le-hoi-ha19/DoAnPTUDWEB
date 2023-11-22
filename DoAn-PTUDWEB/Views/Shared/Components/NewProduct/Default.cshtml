@@ -1,4 +1,5 @@
-﻿@model IList<Product>
+﻿<!--nhận dữ liệu để hiển thị các sản phẩm hot từ controller -->
+@model IList<TbProduct>
 
 <!-- =============== Phần sản phẩm Mới  =============== -->
 <section class="padding-bottom-sm">
@@ -11,15 +12,15 @@
 		@foreach (var item in Model)
 		{
 			<div class="col-xl-2 col-lg-3 col-md-4 col-6">
-				<div href="Product/Detail" class="card card-sm card-product-grid">
-					<a href="Product/Detail" class="img-wrap"> <img src="@item.Thumbnail"> </a>
+				<div  class="card card-sm card-product-grid">
+					<a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" class="img-wrap"> <img src="@item.Thumbnail"> </a>
 					<figcaption class="info-wrap">
-						<a href="Product/Detail" class="title-product-custom">@item.Name</a>
+						<a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" class="title-product-custom">@item.Name</a>
 						<div class="price-wrap my-2">
 							<span class="price">@item.PriceSale</span>
 							<del class="price-old">@item.Price</del>
 						</div> <!-- price-wrap.// -->
-						<a href="#" class="btn btn-block btn-primary">Mua ngay</a>
+						<a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" class="btn btn-block btn-primary">Mua ngay</a>
 					</figcaption>
 				</div>
 			</div>

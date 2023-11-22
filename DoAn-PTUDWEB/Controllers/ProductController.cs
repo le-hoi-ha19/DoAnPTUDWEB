@@ -15,12 +15,21 @@ namespace DoAn_PTUDWEB.Controllers
         }
 
 
-        [Route("/Product/Detail")]
-        public IActionResult Detail()
+		[Route("/Product/Detail/{id:int}", Name = "Detail")]
+        public IActionResult Detail(int id)
 		{
-
-			return View();
-		}
+            if (id <= 0)
+            {
+                return NotFound();
+            }
+            var product = _context.TbProducts.FirstOrDefault(m => (m.ProductId == id) && (m.IsActive == true));
+            if (product == null)
+            {
+                return NotFound();
+            }
+            
+            return View(product);
+        }
 
 		[Route("/Product/Cart")]
 		public IActionResult Cart()
