@@ -40,7 +40,6 @@ a:hover {
   -ms-flex-negative: 0;
       flex-shrink: 0;
   -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
           flex-grow: 0; }
 
 .icon-xs {
@@ -73,7 +72,6 @@ a:hover {
   -ms-flex-negative: 0;
       flex-shrink: 0;
   -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
           flex-grow: 0; }
 
 .img-xs {
@@ -451,10 +449,8 @@ p:last-child {
   .search-header .form-control, .search-header .custom-select {
     border-color: transparent; }
   .search-header select {
-    -ms-flex-preferred-size: 150px !important;
         flex-basis: 150px !important;
     -webkit-box-flex: 0 !important;
-        -ms-flex-positive: 0 !important;
             flex-grow: 0 !important; }
 
 .widget-header {
@@ -639,7 +635,6 @@ dl[class="row"] {
     font-weight: normal; }
   .dlist-align dd {
     -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
             flex-grow: 1; }
 
 /* -------------------- list.row--------------------- */
@@ -956,7 +951,6 @@ a[class*='card'] {
     -ms-flex-negative: 0;
         flex-shrink: 0;
     -webkit-box-flex: 0;
-        -ms-flex-positive: 0;
             flex-grow: 0; }
   .icontext .title {
     display: block;
@@ -1091,11 +1085,9 @@ a[class*='card'] {
   .input-spinner input.form-control {
     text-align: center;
     max-width: 46px;
-    -ms-flex-preferred-size: 46px;
         flex-basis: 46px;
     border-color: #e5e7ea;
     -webkit-box-flex: 0;
-        -ms-flex-positive: 0;
             flex-grow: 0; }
   .input-spinner .btn {
     width: 36px;
@@ -1182,7 +1174,6 @@ body {
           flex-direction: row; }
   .card-deal .col-heading {
     min-width: 300px;
-    -ms-flex-preferred-size: 350px;
         flex-basis: 350px;
     -ms-flex-negative: 0;
         flex-shrink: 0; }
@@ -1284,21 +1275,7 @@ body {
   display: block; }
 
 
-/* phần bình luận đánh giá sản phẩm*/
-.divide {
-    width:100%;
-    height: 1px;
-    background-color: lightgray;
-}
 
-.comments {
-    display: none;
-}
-
-button.active {
-    background-color: #FF69B4; /* Màu hồng */
-    color: white;
-}
   
 /*Trang liên hệ*/
 .service-icon {
@@ -1387,7 +1364,6 @@ body {
             -ms-transform: scale(1.02);
             transform: scale(1.02);
             opacity: .7;
-            filter: gray;
             -webkit-filter: grayscale(1);
             -webkit-transition: all .8s ease-in-out
         }
@@ -1542,9 +1518,6 @@ body {
     margin-bottom: 15px
 }
 
-    .comment-reply li:last-child {
-        margin-bottom: none
-    }
 
     .comment-reply li h5 {
         font-size: 18px
@@ -1567,6 +1540,11 @@ body {
     }
 
 @media (max-width: 640px) {
+    
+    .mt-phone-custom {
+        margin-top: 8px;
+    }
+
     .blog-page .left-box .single-comment-box > ul > li {
         padding: 25px 0
     }
@@ -1591,6 +1569,7 @@ body {
         padding: 30px
     }
 }
+
 
 
 /*Trang Blog chi tiết*/
@@ -1863,3 +1842,64 @@ Template sidebar
         .media-body h5 a:hover {
             color: #4782d3;
         }
+
+/*css hộp thoại đánh giá*/
+
+
+.rating-box {
+    max-width:400px;
+    background: #fff;
+    padding: 25px 50px 35px;
+    border-radius: 25px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+   
+.rating-box .stars {
+   display: flex;
+   align-items: center;
+   gap: 25px;
+}
+
+.stars i {
+    color: #e6e6e6;
+    font-size: 35px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.stars i.active {
+    color: #ff9c1a;
+}
+.openDialog{
+    position: relative;
+}
+.dialog {
+    /*    display: block;*/
+    display: none;
+    max-width: 600px;
+    position: absolute;
+    top: 15%;
+    left: 40%;
+    z-index: 999;
+    border: 1px dotted red;
+    border-radius: 8px;
+    background: #fff3e9;
+}
+
+/*phần review product*/
+.rating-stars-review {
+    display:flex;
+    list-style:none;
+    padding:unset;
+}
+.item_rating-stars-review {
+    margin: 0 2px;
+}
+
+.item_rating-stars-review i {
+    color:#ccc;
+}
+.orange-stars li {
+    color: orange;
+}

@@ -261,20 +261,20 @@ namespace DoAn_PTUDWEB.Models
 
             modelBuilder.Entity<TbProductColor>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.ProductColorId);
 
                 entity.ToTable("tb_ProductColor");
 
                 entity.Property(e => e.Description).HasMaxLength(100);
 
                 entity.HasOne(d => d.Color)
-                    .WithMany()
+                    .WithMany(p => p.TbProductColors)
                     .HasForeignKey(d => d.ColorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_ProductColor_tb_Color");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.TbProductColors)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_ProductColor_tb_Product");
@@ -282,28 +282,25 @@ namespace DoAn_PTUDWEB.Models
 
             modelBuilder.Entity<TbReview>(entity =>
             {
-                entity.HasKey(e => e.ReviewId);
+                entity.HasNoKey();
 
                 entity.ToTable("tb_Review");
 
-                entity.Property(e => e.ReviewId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Comment).HasMaxLength(250);
 
-                entity.Property(e => e.CreatedDate)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.TbReviews)
+                    .WithMany()
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_tb_Review_tb_Account");
-
-                entity.HasOne(d => d.Review)
-                    .WithOne(p => p.TbReview)
-                    .HasForeignKey<TbReview>(d => d.ReviewId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Review_tb_Product");
+
+                entity.HasOne(d => d.User)
+                    .WithMany()
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tb_Review_tb_User");
             });
 
             modelBuilder.Entity<TbRole>(entity =>

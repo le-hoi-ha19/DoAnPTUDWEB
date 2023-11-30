@@ -14,6 +14,10 @@
     width: 200px; } }
 @media (max-width: 992px) {
   /* small tablet devices */
+
+    .mt-phone-custom {
+        margin-top: 10px !important;
+    }
   .table-shopping-cart tr td:first-child {
     width: 250px; }
   .table-shopping-cart .itemside .info {

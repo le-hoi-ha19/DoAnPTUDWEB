@@ -9,6 +9,7 @@ namespace DoAn_PTUDWEB.Models
         {
             TbImageProducts = new HashSet<TbImageProduct>();
             TbOrderDetails = new HashSet<TbOrderDetail>();
+            TbProductColors = new HashSet<TbProductColor>();
             TbTuKhoaSanPhams = new HashSet<TbTuKhoaSanPham>();
         }
 
@@ -33,9 +34,9 @@ namespace DoAn_PTUDWEB.Models
 
         public virtual TbProductCategory CategoryProduct { get; set; } = null!;
         public virtual TbTrademark? Trademark { get; set; }
-        public virtual TbReview? TbReview { get; set; }
         public virtual ICollection<TbImageProduct> TbImageProducts { get; set; }
         public virtual ICollection<TbOrderDetail> TbOrderDetails { get; set; }
+        public virtual ICollection<TbProductColor> TbProductColors { get; set; }
         public virtual ICollection<TbTuKhoaSanPham> TbTuKhoaSanPhams { get; set; }
     }
 }

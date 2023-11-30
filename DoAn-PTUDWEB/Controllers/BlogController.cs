@@ -10,6 +10,10 @@ namespace DoAn_PTUDWEB.Controllers
             return View();
         }
         [Route("/Blog/Detail")]
+
+
+
+
         public IActionResult Detail()
         {
             return View();

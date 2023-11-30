@@ -1,4 +1,5 @@
 ﻿using DoAn_PTUDWEB.Models;
+using DoAn_PTUDWEB.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,23 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(conne
 builder.Services.AddControllersWithViews();
 // Add Razor cho biên dịch lại html trong quá trình chạy
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+
+builder.Services.AddScoped<ReviewService>();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromHours(1);
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+});
+
+
+
+
+
 
 var app = builder.Build();
 
@@ -28,6 +46,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",
