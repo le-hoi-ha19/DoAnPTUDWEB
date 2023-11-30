@@ -43,15 +43,15 @@
 				<article class="card card-product-grid">
 					<div class="img-wrap">
 						<b class="badge badge-danger mr-1">SAVE %10</b>
-							<a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"><img src="@item.Thumbnail"></a>
+							<a asp-controller="Product" asp-action="Detail" asp-route-ProductId="@item.ProductId"><img src="@item.Thumbnail"></a>
 					</div>
 					<div class="info-wrap">
-							<a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" class="title-product-custom">@item.Name</a>
+							<a asp-controller="Product" asp-action="Detail" asp-route-ProductId="@item.ProductId" class="title-product-custom">@item.Name</a>
 						<div class="price-wrap my-2">
 							<span class="price">@item.PriceSale</span>
 							<del class="price-old">@item.Price</del>
 						</div> <!-- price-wrap.// -->
-							<a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" class="btn btn-block btn-primary">Mua ngay</a>
+							<a asp-controller="Product" asp-action="Detail" asp-route-ProductId="@item.ProductId" class="btn btn-block btn-primary">Mua ngay</a>
 					</div>
 				</article>
 			</div> <!-- col.// -->

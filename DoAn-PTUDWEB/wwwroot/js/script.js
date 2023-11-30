@@ -57,32 +57,6 @@ $(document).ready(function () {
 
 
 
-   
-
-
-    // Lắng nghe sự kiện click cho nút "Tất cả"
-    $("#btnAll").click(function () {
-        $(this).addClass("border-primary");
-        
-        $("#btn5Star, #btn4Star, #btn3Star, #btn2Star, #btn1Star").removeClass("border-primary");
-        callApi(null); // rating = null
-    });
-
-    // Lắng nghe sự kiện click cho các nút đánh giá từ 1 đến 5 sao
-    for (let i = 1; i <= 5; i++) {
-        $(`#btn${i}Star`).click(function () {
-            $(this).addClass("border-primary");
-            // Bỏ lớp border-primary từ nút "Tất cả"
-            $("#btnAll").removeClass("border-primary");
-            // Bỏ lớp border-primary từ tất cả các nút đánh giá khác
-            $(`#btn5Star, #btn4Star, #btn3Star, #btn2Star, #btn1Star`).not(this).removeClass("border-primary");
-            callApi(i);
-        });
-    }
-
-
-
-
 
     // hàm tạp ra icon sao với số rating tương ứng
     function generateStarIcons(rating) {
@@ -93,15 +67,39 @@ $(document).ready(function () {
         return starIcons.join('');
     }
 
+
+
+    var ProductId = document.querySelector('.Product-Name').getAttribute('data-id')
+
+    // Lắng nghe sự kiện click cho nút "Tất cả"
+    $("#btnAll").click(function () {
+        $(this).addClass("border-primary");
+        
+        $("#btn5Star, #btn4Star, #btn3Star, #btn2Star, #btn1Star").removeClass("border-primary");
+        callApi(ProductId,null); // rating = null
+    });
+
+    // Lắng nghe sự kiện click cho các nút đánh giá từ 1 đến 5 sao
+    for (let i = 1; i <= 5; i++) {
+        $(`#btn${i}Star`).click(function () {
+            $(this).addClass("border-primary");
+            // Bỏ lớp border-primary từ nút "Tất cả"
+            $("#btnAll").removeClass("border-primary");
+            // Bỏ lớp border-primary từ tất cả các nút đánh giá khác
+            $(`#btn5Star, #btn4Star, #btn3Star, #btn2Star, #btn1Star`).not(this).removeClass("border-primary");
+            callApi(ProductId,i);
+        });
+    }
+
     // hàm goị api để xem từng loại đánh giá theo số sao
-    function callApi(rating) {
+    function callApi(ProductId,rating) {
         var reviewcomment = document.querySelector('.reviewcomment');
 
         // Xóa nội dung bình luận trước đó
         reviewcomment.innerHTML = ""; 
 
         // Gọi API bằng fetch 
-        fetch(`/Product/Reviews?rating=${rating}`)
+        fetch(`/Product/Reviews?ProductId=${ProductId}&rating=${rating}`)
             .then(response => response.json())
             .then(data => {
                 // Xử lý dữ liệu nhận được từ API

@@ -6,7 +6,6 @@
 @{
     ViewBag.Title = "Sản phẩm";
 }
-
 	<!-- ============================Start Phần sản phẩm ======================== -->
 	<section class="section-content bg-white padding-y">
 		<div class="container">
@@ -38,7 +37,7 @@
 				<main class="col-md-6">
 					<article class="product-info-aside">
 
-					<h2 class="title mt-3">@Model.Product.Name </h2>
+					<h2 class="title mt-3 Product-Name" data-id="@Model.Product.ProductId">@Model.Product.Name </h2>
 
 						<div class="rating-wrap my-3">
 							<ul class="rating-stars">
@@ -233,7 +232,6 @@
 							<button type="submit" class="btn btn-primary">Gửi đánh giá</button>
 						</form>
 					</div>
-                    <div class="background-black"></div>
 					<!-- end form đánh giá-->
 
 					<div>
@@ -306,14 +304,14 @@
 			
 		<div class="col-xl-2 col-lg-3 col-md-4 col-6">
 				<div class="card card-sm card-product-grid">
-					<a asp-controller="Product" asp-action="Detail" asp-route-id="@relatedProduct.ProductId" class="img-wrap"> <img  src="@relatedProduct.Thumbnail"> </a>
+					<a href="@Url.Action("Detail","Product",new{ProductId = @relatedProduct.ProductId})" class="img-wrap"> <img src="@relatedProduct.Thumbnail"> </a>
 					<figcaption class="info-wrap">
-						<a asp-controller="Product" asp-action="Detail" asp-route-id="@relatedProduct.ProductId" class="title-product-custom">@relatedProduct.Name</a>
+						<a href="@Url.Action("Detail","Product",new{ProductId = @relatedProduct.ProductId})" class="title-product-custom">@relatedProduct.Name</a>
 						<div class="price-wrap my-2">
 							<span class="price">@relatedProduct.PriceSale</span>
 							<del class="price-old">@relatedProduct.Price</del>
 						</div> <!-- price-wrap.// -->
-						<a asp-controller="Product" asp-action="Detail" asp-route-id="@relatedProduct.ProductId" class="btn btn-block btn-primary text-white">Mua ngay</a>
+						<a href="@Url.Action("Detail","Product",new{ProductId = @relatedProduct.ProductId})" class="btn btn-block btn-primary text-white">Mua ngay</a>
 					</figcaption>
 				</div>
 			</div>

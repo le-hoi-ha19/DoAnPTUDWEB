@@ -15,15 +15,8 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 
 builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<ProductService>();
 
-builder.Services.AddDistributedMemoryCache();
-
-builder.Services.AddSession(options =>
-{
-	options.IdleTimeout = TimeSpan.FromHours(1);
-	options.Cookie.HttpOnly = true;
-	options.Cookie.IsEssential = true;
-});
 
 
 
@@ -46,7 +39,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-app.UseSession();
 
 
 app.MapControllerRoute(

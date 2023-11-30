@@ -1,6 +1,7 @@
 ﻿using DoAn_PTUDWEB.Models;
 using DoAn_PTUDWEB.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 
@@ -12,63 +13,48 @@ namespace DoAn_PTUDWEB.Controllers
         private readonly DataContext _context;
 
 		private readonly ReviewService _reviewService;
+		private readonly ProductService _productService;
 
-        public ProductController(ILogger<ProductController> logger, DataContext context, ReviewService reviewService)
+		public ProductController(ILogger<ProductController> logger, DataContext context, ReviewService reviewService, ProductService productService)
         {
             _logger = logger;
             _context = context;
 			_reviewService = reviewService;
-        }
+			_productService = productService;
+
+		}
 
 
 		[Route("/Product/Detail/{ProductId:int}", Name = "Detail")]
-        public IActionResult Detail(int ProductId , int? rating = 0)
+		public IActionResult Detail(int ProductId , int rating =0)
 		{
-			// Lưu giá trị vào session
-			HttpContext.Session.SetInt32("CurrentProductId", ProductId);
-
 			if (ProductId <= 0)
             {
                 return NotFound();
             }
 			// truy vấn sản phẩm theo id
-			var product = _context.TbProducts.FirstOrDefault(m => (m.ProductId == ProductId) && (m.IsActive == true));
+			var product = _productService.GetProductById(ProductId);
 
 			if (product == null)
 			{
 				return NotFound();
 			}
-
 			//truy vấn các ảnh khác của sản phẩm
-			var imagesProduct = _context.TbImageProducts.Where(m => (m.ProductId == ProductId)).Take(4).ToList();
+			var imagesProduct = _productService.GetImagesForProduct(ProductId);
 
 			// truy vấn các màu của 1 sản phẩm
-			var colorProduct = (from ProductColor in _context.TbProductColors
-								join Product1 in _context.TbProducts on ProductColor.ProductId equals Product1.ProductId
-								join Color in _context.TbColors on ProductColor.ColorId equals Color.ColorId
-								where Product1.ProductId == ProductId
-								select new TbColor
-								{
-									ColorName = Color.ColorName
-								}).ToList();
+			var colorProduct = _productService.GetColorsForProduct(ProductId);
 
 			// truy vấn sản phẩm liên quan và k cho sản phẩm liên quan hiển thị sản phẩm đang xem
-			var relatedProduct = _context.TbProducts.Where(m => m.IsActive == true  && m.ProductId != ProductId && _context.TbProducts
-					.Where(p => p.ProductId == ProductId)
-					.Select(p => p.CategoryProductId)
-					.Contains(m.CategoryProductId))
-			.OrderByDescending(m => m.CreatedDate)
-			.Take(6)
-			.ToList();
+			var relatedProduct = _productService.GetRelatedProducts(ProductId);
 
-			List<ReviewDetail> AllReview = null;
 
 			if (rating == 0)
 			{
 				// truy vấn lấy ra tất cả các đánh giá của 1 sản phẩm
-				 AllReview = _reviewService.GetAllReview(ProductId);
+				var AllReview = _reviewService.GetAllReview(ProductId);
+				ViewBag.AllReview = AllReview;
 			}
-
 
 
 			// thông tin chi tiết của 1 sản phẩm
@@ -80,29 +66,27 @@ namespace DoAn_PTUDWEB.Controllers
 				relatedProducts = relatedProduct,
 			};
 
-			ViewBag.AllReview = AllReview;
+			
 
 			return View(inforDetail);
 		}
 
 		[HttpGet]
 		[Route("/Product/Reviews")]
-		public IActionResult Review( int? rating)
+		public IActionResult Review(int ProductId ,int? rating)
 		{
-			// Đọc giá trị từ session
-			int currentProductId = (int)HttpContext.Session.GetInt32("CurrentProductId");
-
-			var Product = _context.TbProducts.FirstOrDefault(m => (m.ProductId == currentProductId) && (m.IsActive == true));
-			if(Product == null)
+			var Product = _productService.GetProductById(ProductId);
+			if (Product == null)
 			{
 				return NotFound();
 			}
+
 			if(!rating.HasValue)
 			{
-				var AllReview = _reviewService.GetAllReview(currentProductId);
+				var AllReview = _reviewService.GetAllReview(ProductId);
 				return Ok(AllReview);
 			}
-			var ReviewByStar = _reviewService.GetReviewByStar(currentProductId , rating);
+			var ReviewByStar = _reviewService.GetReviewByStar(ProductId,rating);
 
 			return Ok(ReviewByStar);
 		}
