@@ -145,8 +145,11 @@ $(document).ready(function () {
                 console.error('Fetch error:', error);
             });
     }
-}); 
 
+
+    
+
+}); 
 
 
 

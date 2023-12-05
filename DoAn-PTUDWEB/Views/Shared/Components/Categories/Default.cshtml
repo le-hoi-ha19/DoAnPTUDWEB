@@ -1,0 +1,16 @@
+﻿@model IList<TbProductCategory>
+
+
+<aside class="col-lg col-md-3 flex-lg-grow-0">
+	<h6>Mặt hàng</h6>
+	<nav class="nav-home-aside">
+		<ul class="menu-category">
+			@foreach(var item in Model)
+			{
+			<li><a href="#">@item.Name</a></li>
+			}
+			
+
+		</ul>
+	</nav>
+</aside> 

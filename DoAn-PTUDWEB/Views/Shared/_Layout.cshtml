@@ -25,7 +25,7 @@
 	<link href="~/css/responsive.css" rel="stylesheet" type="text/css" />
 	<!-- custom javascript -->
 	<script src="~/js/script.js" type="text/javascript"></script>
-
+	<script src="~/js/cart.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -63,16 +63,20 @@
 								<a href="/Account" class="widget-view">
 									<div class="icon-area">
 										<i class="fa fa-user"></i>
-										<span class="notify">3</span>
 									</div>
 									<small class="text"> Tài khoản</small>
 								</a>
 							</div>
 							<div class="widget-header">
-								<a href="/Product/Cart" class="widget-view">
+								<a href="/Cart" class="widget-view">
+
 									<div class="icon-area">
 										<i class="fa fa-shopping-cart"></i>
+										@await Component.InvokeAsync("CartWidget")
+
 									</div>
+
+
 									<small class="text"> Giỏ hàng </small>
 								</a>
 							</div>
@@ -97,16 +101,15 @@
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="#">Điện thoại</a>
 								<a class="dropdown-item" href="#">Máy tính</a>
-								<a class="dropdown-item" href="#">Smart watch</a>
-								<a class="dropdown-item" href="#">Phụ kiện điện thoại</a>
-								<a class="dropdown-item" href="#">Phụ kiện máy tính</a>
+								<a class="dropdown-item" href="#">Phụ kiện</a>
+								
 							</div>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/">Trang chủ</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/Shop">Cửa hàng</a>
+							<a class="nav-link" href="/Product">Cửa hàng</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/Blog">Blog</a>

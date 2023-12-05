@@ -17,11 +17,7 @@ namespace DoAn_PTUDWEB.Controllers
             return View();
         }
 
-		[Route("/Shop")]
-		public IActionResult Shop()
-		{
-			return View();
-		}
+		
 
 		[Route("/Contact")]
 		public IActionResult Contact()

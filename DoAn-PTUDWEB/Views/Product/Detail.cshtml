@@ -57,7 +57,7 @@
 						</div>
 						<!-- Start Giá sản phẩm-->
 						<div class="mb-3">
-						<var class="price h4">@Model.Product.PriceSale</var>
+						<var class="price h4">@(Model.Product.Price * (1 - Model.Product.PriceDiscount))</var>
 							<small>đ</small>
 						<del class="price-old">@Model.Product.Price</del>
 							<small class="text-muted">đ</small>
@@ -92,13 +92,12 @@
 							</div>
 							<!--2 nút -->
 							<div class="form-group col-md">
-								<a href="#" class="btn  btn-primary">
+							<a href="@Url.Action("AddToCart","Cart",new{productId = @Model.Product.ProductId})" class="btn btn-primary btn-add-cart" data-id="@Model.Product.ProductId">
 									<i class="fas fa-shopping-cart"></i> <span class="text">Thêm vào giỏ hàng</span>
-								</a>
-							<a href="/Product/Cart" class="btn btn-light">
+							</a>
+							<a href="/Cart" class="btn btn-light">
 									<i class="fa fa-heart"></i> <span class="text">Xem giỏ hàng</span>
 								</a>
-
 							</div>
 						</div>
 
@@ -308,10 +307,9 @@
 					<figcaption class="info-wrap">
 						<a href="@Url.Action("Detail","Product",new{ProductId = @relatedProduct.ProductId})" class="title-product-custom">@relatedProduct.Name</a>
 						<div class="price-wrap my-2">
-							<span class="price">@relatedProduct.PriceSale</span>
+							<span class="price">@(relatedProduct.Price * (1 - relatedProduct.PriceDiscount))</span>
 							<del class="price-old">@relatedProduct.Price</del>
 						</div> <!-- price-wrap.// -->
-						<a href="@Url.Action("Detail","Product",new{ProductId = @relatedProduct.ProductId})" class="btn btn-block btn-primary text-white">Mua ngay</a>
 					</figcaption>
 				</div>
 			</div>

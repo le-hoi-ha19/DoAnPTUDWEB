@@ -23,6 +23,11 @@ namespace DoAn_PTUDWEB.Controllers
 			_productService = productService;
 
 		}
+		[Route("/Product")]
+
+		public ActionResult Index() { 
+			return View();
+		}
 
 
 		[Route("/Product/Detail/{ProductId:int}", Name = "Detail")]
@@ -91,11 +96,7 @@ namespace DoAn_PTUDWEB.Controllers
 			return Ok(ReviewByStar);
 		}
 
-		[Route("/Product/Cart")]
-		public IActionResult Cart()
-		{
-			return View();
-		}
+		
 
 		
 	}

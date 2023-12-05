@@ -1266,13 +1266,18 @@ body {
 /* ====================== shopping-cart ==================== */
 .table-shopping-cart.table td, .table-shopping-cart.table th {
   padding-left: 20px;
-  padding-right: 20px; }
+  padding-right: 20px; 
+}
 .table-shopping-cart .price-wrap {
-  line-height: 1.2; }
+  line-height: 1.2; 
+}
+
+
+
 .table-shopping-cart .price {
   font-weight: bold;
   margin-right: 5px;
-  display: block; }
+ }
 
 
 
@@ -1903,3 +1908,5 @@ Template sidebar
 .orange-stars li {
     color: orange;
 }
+
+

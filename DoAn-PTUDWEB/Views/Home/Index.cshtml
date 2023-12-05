@@ -8,22 +8,11 @@
 		<div class="card-body">
 
 			<div class="row">
-				<aside class="col-lg col-md-3 flex-lg-grow-0">
-					<h6>THỊ TRƯỜNG CỦA TÔI</h6>
-					<nav class="nav-home-aside">
-						<ul class="menu-category">
-							<li ><a href="#">Apple</a></li>
-							<li><a href="#">Sam sung</a></li>
-							<li><a href="#">Oppo</a></li>
-							<li><a href="#">Nokia</a></li>
-							<li><a href="#">Lenovo</a></li>
-							<li><a href="#">Dell</a></li>
-							<li><a href="#">Accer</a></li>
-							<li><a href="#">Xiaomi</a></li>
-							
-						</ul>
-					</nav>
-				</aside> <!-- col.// -->
+
+				@await Component.InvokeAsync("Categories")
+
+
+
 				<div class="col-md-9 col-xl-7 col-lg-7">
 
 					<!-- ================== COMPONENT SLIDER  BOOTSTRAP  ==================  -->
@@ -93,181 +82,12 @@
 
 </section>
 <!-- ========================= End Phần thị trường của tôi ========================= -->
-
-<!-- =============== Start Phần giảm giá sốc =============== -->
-<section class="padding-bottom">
-	<div class="card card-deal">
-		<div class="col-heading content-body">
-			<header class="section-heading">
-				<h3 class="section-title">Giảm giá sốc</h3>
-				<p>Cho tất cả mặt hàng</p>
-			</header><!-- sect-heading -->
-			<div class="timer">
-				<div> <span class="num">04</span> <small>Ngày</small></div>
-				<div> <span class="num">12</span> <small>Giờ</small></div>
-				<div> <span class="num">58</span> <small>Phút</small></div>
-				<div> <span class="num">02</span> <small>Giây</small></div>
-			</div>
-		</div> <!-- col.// -->
-		<div class="row no-gutters items-wrap">
-			<div class="col-md col-6">
-				<figure class="card-product-grid card-sm">
-					<a href="#" class="img-wrap">
-						<img src="~/images/items/iphone12tim.jpg">
-					</a>
-					<div class="text-wrap p-3">
-						<a href="#" class="title">Điện thoại</a>
-						<span class="badge badge-danger"> -20% </span>
-					</div>
-				</figure>
-			</div> <!-- col.// -->
-			<div class="col-md col-6">
-				<figure class="card-product-grid card-sm">
-					<a href="#" class="img-wrap">
-						<img src="~/images/items/laptopbieutuong.jpg">
-					</a>
-					<div class="text-wrap p-3">
-						<a href="#" class="title">Máy tính</a>
-						<span class="badge badge-danger"> -5% </span>
-					</div>
-				</figure>
-			</div> <!-- col.// -->
-			<div class="col-md col-6">
-				<figure class="card-product-grid card-sm">
-					<a href="#" class="img-wrap">
-						<img src="~/images/items/sacduphong.jpg">
-					</a>
-					<div class="text-wrap p-3">
-						<a href="#" class="title">Phụ kiện điện thoại</a>
-						<span class="badge badge-danger"> -20% </span>
-					</div>
-				</figure>
-			</div> <!-- col.// -->
-			<div class="col-md col-6">
-				<figure class="card-product-grid card-sm">
-					<a href="#" class="img-wrap">
-						<img src="~/images/items/tainghegaming.jpg">
-					</a>
-					<div class="text-wrap p-3">
-						<a href="#" class="title">Phụ kiện máy tính</a>
-						<span class="badge badge-danger"> -15% </span>
-					</div>
-				</figure>
-			</div> <!-- col.// -->
-			<div class="col-md col-6">
-				<figure class="card-product-grid card-sm">
-					<a href="#" class="img-wrap">
-						<img src="~/images/items/7.jpg">
-					</a>
-					<div class="text-wrap p-3">
-						<a href="#" class="title text-truncate">Smart watches</a>
-						<span class="badge badge-danger"> -10% </span>
-					</div>
-				</figure>
-			</div> <!-- col.// -->
-		</div>
-	</div>
-
-</section>
-<!-- =============== End Phần giảm giá sốc =============== -->
-
-
 <!-- Start sản phẩm Bán chạy nhất-->
 @await Component.InvokeAsync("BestSellerProduct")
 <!-- End sản phẩm Bán chạy nhất-->
-
-
-<!-- =============== Start phần mặt hàng =============== -->
-
-<section class="padding-bottom">
-	<header class="section-heading heading-line">
-		<h4 class="title-section text-uppercase">Mặt hàng</h4>
-	</header>
-
-	<div class="card card-home-category">
-		<div class="row no-gutters">
-			<div class="col-md-12">
-				<ul class="row no-gutters bordered-cols">
-					<li class="col-6 col-lg-3 col-md-4">
-						<a href="#" class="item">
-							<div class="card-body">
-								<h6 class="title">điện thoại  </h6>
-								<img class="img-sm float-right" src="~/images/items/icon-dienthoai.jpg">
-							</div>
-						</a>
-					</li>
-					<li class="col-6 col-lg-3 col-md-4">
-						<a href="#" class="item">
-							<div class="card-body">
-								<h6 class="title">Máy tính </h6>
-								<img class="img-sm float-right" src="~/images/items/icon-laptop.jpg">
-							</div>
-						</a>
-					</li>
-					<li class="col-6 col-lg-3 col-md-4">
-						<a href="#" class="item">
-							<div class="card-body">
-								<h6 class="title">Phụ kiện điện thoại </h6>
-								<img class="img-sm float-right" src="~/images/items/icon-phukiendienthoai.jpg">
-							</div>
-						</a>
-					</li>
-					<li class="col-6 col-lg-3 col-md-4">
-						<a href="#" class="item">
-							<div class="card-body">
-								<h6 class="title">Phụ kiện máy tính  </h6>
-								<img class="img-sm float-right" src="~/images/items/icon-phukienmaytinh.jpg">
-							</div>
-						</a>
-					</li>
-					<li class="col-6 col-lg-3 col-md-4">
-						<a href="#" class="item">
-							<div class="card-body">
-								<h6 class="title">Tai nghe  </h6>
-								<img class="img-sm float-right" src="~/images/items/icon-tainghe.jpg">
-							</div>
-						</a>
-					</li>
-					<li class="col-6 col-lg-3 col-md-4">
-						<a href="#" class="item">
-							<div class="card-body">
-								<h6 class="title">Smart watches  </h6>
-								<img class="img-sm float-right" src="~/images/items/icon-smartwatches.jpg">
-							</div>
-						</a>
-					</li>
-					<li class="col-6 col-lg-3 col-md-4">
-						<a href="#" class="item">
-							<div class="card-body">
-								<h6 class="title">Apple </h6>
-								<img class="img-sm float-right" src="~/images/items/icon-apple.jpg">
-
-							</div>
-						</a>
-					</li>
-					<li class="col-6 col-lg-3 col-md-4">
-						<a href="#" class="item">
-							<div class="card-body">
-								<h6 class="title">Sam sung  </h6>
-								<img class="img-sm float-right" src="~/images/items/icon-samsung.jpg">
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div> <!-- col.// -->
-		</div> <!-- row.// -->
-	</div> <!-- card.// -->
-</section>
-<!-- =============== End phần mặt hàng =============== -->
-
-
 <!-- Start sản phẩm Mới nhất-->
 @await Component.InvokeAsync("NewProduct")
 <!-- End sản phẩm Mới nhất-->
-
-
-
-
 <!-- Start sản phẩm Hot -->
 @await Component.InvokeAsync("HotProduct")
 <!-- End sản phẩm Hot-->

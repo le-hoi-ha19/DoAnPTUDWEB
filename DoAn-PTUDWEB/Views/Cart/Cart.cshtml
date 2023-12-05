@@ -1,0 +1,135 @@
+﻿@model DoAn_PTUDWEB.Models.Cart
+@{
+	ViewBag.Title = "Giỏ hàng";
+}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+	<div class="container">
+
+		<div class="row">
+			<main class="col-md-9">
+				<div class="card">
+
+					<table class="table table-borderless table-shopping-cart">
+						<thead class="text-muted">
+							<tr class="small text-uppercase">
+								<th scope="col">Sản phẩm</th>
+								<th scope="col" width="120">Số lượng</th>
+								<th scope="col" width="120">Đơn giá</th>
+								<th scope="col" class="text-right" width="150"> </th>
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model?.Lines != null)
+							{
+								@foreach (var line in Model.Lines)
+								{
+									<tr>
+										<td>
+											<figure class="itemside">
+												<div class="aside"><img src="@line.Product.Thumbnail" class="img-sm"></div>
+												<figcaption class="info">
+													<a href="#" class="title text-dark">@line.Product.Name</a>
+													<p class="text-muted small"> Color: blue</p>
+												</figcaption>
+											</figure>
+										</td>
+										<td>
+											<div class="form-group col-md flex-grow-0">
+												<div class="input-group mb-3 input-spinner">
+													<div class="input-group-prepend">
+
+														<a href="@Url.Action("AddToCart","Cart",new{productId =@line.Product.ProductId })" class="btn btn-light"> + </a>
+													</div>
+													<input type="text" class="form-control" value="@line.Quantity">
+													<div class="input-group-append">
+
+														<a href="@Url.Action("UpdateCart","Cart",new{productId =@line.Product.ProductId})" class="btn btn-light"> &minus; </a>
+													</div>
+												</div>
+											</div>
+										</td>
+										<td class="w-25 ">
+											<div class="price-wrap">
+												<var class="price">@(line.Product.Price * (1 - line.Product.PriceDiscount))</var>
+												<small class="text-muted">đ</small>
+											</div>
+										</td>
+										<td class="text-right">
+
+											<a href="@Url.Action("RemoveFromCart","Cart",new{productId =@line.Product.ProductId})" class="btn btn-light"> Xóa</a>
+										</td>
+									</tr>
+								}
+							}
+							else
+							{
+								<tr>
+									<td colspan="4" class="text-center">Không có đơn hàng!</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+
+					<div class="card-body border-top">
+						<a href="#" class="btn btn-primary float-md-right"> Mua hàng <i class="fa fa-chevron-right"></i> </a>
+						<a href="/" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Tiếp tục mua sắm </a>
+					</div>
+				</div> <!-- card.// -->
+
+				<div class="alert alert-success mt-3">
+					<p class="icontext"><i class="icon text-success fa fa-truck"></i> Miễn phí vận chuyển</p>
+				</div>
+
+			</main> <!-- col.// -->
+			<aside class="col-md-3">
+				
+				<div class="card">
+					<div class="card-body">
+						<dl class="dlist-align">
+							<dt>Tổng giá:</dt>
+							@if (Model?.Lines != null)
+							{
+								<dd class="text-right">@Model.ComputeTotalValue() đ</dd>
+							}
+							else
+							{
+								<dd class="text-right">0 đ</dd>
+
+							}
+						</dl>
+						
+						<hr>
+						<p class="text-center mb-3">
+							<img src="~/images/misc/payments.png" height="26">
+						</p>
+
+					</div> <!-- card-body.// -->
+				</div>  <!-- card .// -->
+			</aside> <!-- col.// -->
+		</div>
+
+	</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name border-top padding-y">
+	<div class="container">
+		<h6>Chính sách thanh toán và hoàn tiền</h6>
+		<p>
+			Chính sách thanh toán và hoàn tiền của chúng tôi được xây dựng với mục tiêu tạo ra trải nghiệm 
+			mua sắm thuận lợi và minh bạch cho khách hàng. Chúng tôi chấp nhận nhiều phương thức thanh toán để 
+			đảm bảo sự linh hoạt cho người tiêu dùng, bao gồm thanh toán qua thẻ tín dụng, thẻ ghi nợ, 
+			chuyển khoản ngân hàng và các dịch vụ thanh toán trực tuyến phổ biến.
+
+			Khi khách hàng quyết định hoàn trả sản phẩm hoặc yêu cầu hoàn tiền, chính sách 
+			hoàn tiền của chúng tôi được thiết lập để đảm bảo tính công bằng và minh bạch. Chúng tôi cam kết xử lý 
+			các yêu cầu hoàn tiền một cách nhanh chóng và chuyên nghiệp. Trong trường hợp sản phẩm không đáp ứng được mong đợi 
+			của khách hàng hoặc có vấn đề chất lượng, chúng tôi sẽ linh hoạt trong việc cung cấp các giải pháp hoàn tiền hoặc đổi trả sản phẩm.
+		</p>
+	
+
+	</div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->

@@ -17,10 +17,9 @@
 					<figcaption class="info-wrap">
 						<a asp-controller="Product" asp-action="Detail" asp-route-ProductId="@item.ProductId" class="title-product-custom">@item.Name</a>
 						<div class="price-wrap my-2">
-							<span class="price">@item.PriceSale</span>
+							<span class="price">@(item.Price * (1 - item.PriceDiscount))</span>
 							<del class="price-old">@item.Price</del>
 						</div> <!-- price-wrap.// -->
-						<a asp-controller="Product" asp-action="Detail" asp-route-ProductId="@item.ProductId" class="btn btn-block btn-primary">Mua ngay</a>
 					</figcaption>
 				</div>
 			</div>

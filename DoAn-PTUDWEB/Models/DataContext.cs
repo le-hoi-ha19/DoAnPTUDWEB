@@ -39,6 +39,7 @@ namespace DoAn_PTUDWEB.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=LAPTOP-OAUGEEUH\\SQLEXPRESS;Initial Catalog=DoAnPT;Integrated Security=True;TrustServerCertificate=True");
             }
         }
@@ -121,41 +122,37 @@ namespace DoAn_PTUDWEB.Models
 
                 entity.ToTable("tb_Order");
 
-                entity.Property(e => e.Address)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
+                entity.Property(e => e.OrderId).ValueGeneratedNever();
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.FullName).HasMaxLength(150);
-
-                entity.Property(e => e.Note)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
+                entity.Property(e => e.Note).HasMaxLength(500);
 
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Phone).HasMaxLength(15);
+                entity.Property(e => e.ShipAddress).HasMaxLength(200);
+
+                entity.Property(e => e.Status).HasMaxLength(100);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.TbOrders)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_tb_Order_tb_User");
             });
 
             modelBuilder.Entity<TbOrderDetail>(entity =>
             {
-                entity.HasKey(e => e.OrderDetailId)
-                    .HasName("PK_Chi_Tiet_Don_Hang");
+                entity.HasNoKey();
 
                 entity.ToTable("tb_OrderDetail");
 
                 entity.Property(e => e.Price).HasColumnType("money");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany(p => p.TbOrderDetails)
+                    .WithMany()
                     .HasForeignKey(d => d.OrderId)
                     .HasConstraintName("FK__Chi_Tiet___Ma_DH__398D8EEE");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.TbOrderDetails)
+                    .WithMany()
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK__Chi_Tiet___Ma_SP__3A81B327");
             });
@@ -234,6 +231,8 @@ namespace DoAn_PTUDWEB.Models
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(150);
+
+                entity.Property(e => e.PriceDiscount).HasColumnType("decimal(3, 2)");
 
                 entity.Property(e => e.Thumbnail).HasMaxLength(100);
 

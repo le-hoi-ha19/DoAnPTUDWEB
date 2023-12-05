@@ -13,6 +13,9 @@ builder.Services.AddControllersWithViews();
 // Add Razor cho biên dịch lại html trong quá trình chạy
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 
 builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<ProductService>();
@@ -35,6 +38,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 app.UseRouting();
 
