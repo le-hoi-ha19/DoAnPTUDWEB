@@ -1,9 +1,12 @@
 ﻿using DoAn_PTUDWEB.Models;
+using DoAn_PTUDWEB.Models.ViewModels;
 using DoAn_PTUDWEB.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.Linq;
 
 namespace DoAn_PTUDWEB.Controllers
 {
@@ -14,8 +17,10 @@ namespace DoAn_PTUDWEB.Controllers
 
 		private readonly ReviewService _reviewService;
 		private readonly ProductService _productService;
+        public int PageSize = 9;
 
-		public ProductController(ILogger<ProductController> logger, DataContext context, ReviewService reviewService, ProductService productService)
+
+        public ProductController(ILogger<ProductController> logger, DataContext context, ReviewService reviewService, ProductService productService)
         {
             _logger = logger;
             _context = context;
@@ -23,14 +28,48 @@ namespace DoAn_PTUDWEB.Controllers
 			_productService = productService;
 
 		}
-		[Route("/Product")]
 
-		public ActionResult Index() { 
-			return View();
-		}
+        // GET: lấy danh sách sản phẩm có phân trang
+        public async Task<IActionResult> Index(int ProductPage = 1)
+        {
+            return View(new ProductListViewModel
+            {
+                TbProducts = _context.TbProducts
+                .Skip((ProductPage - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    ItemsPerPage = PageSize,
+                    CurrentPage = ProductPage,
+                    TotalItems = _context.TbProducts.Count(),
+                }
+            }
+            );
 
+        }
 
-		[Route("/Product/Detail/{ProductId:int}", Name = "Detail")]
+        //Tìm kiếm sản phẩm 
+        [HttpPost]
+        public async Task<IActionResult> Search(string keywords, int ProductPage = 1)
+        {
+            return View("Index", new ProductListViewModel
+            {
+                TbProducts = _context.TbProducts
+                .Where(p => p.Name.Contains(keywords.ToLower()))
+                .Skip((ProductPage - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    ItemsPerPage = PageSize,
+                    CurrentPage = ProductPage,
+                    TotalItems = _context.TbProducts.Count(),
+                }
+            }
+            );
+
+        }
+
+        [Route("/Product/Detail/{ProductId:int}", Name = "Detail")]
 		public IActionResult Detail(int ProductId , int rating =0)
 		{
 			if (ProductId <= 0)

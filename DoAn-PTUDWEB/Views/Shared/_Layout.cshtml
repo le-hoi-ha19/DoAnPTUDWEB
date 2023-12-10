@@ -39,7 +39,7 @@
 						</a> <!-- brand-wrap.// -->
 					</div>
 					<div class="col-xl-6 col-lg-5 col-md-6">
-						<form action="#" class="search-header">
+						<form asp-action="Search" asp-controller="Product" class="search-header">
 							<div class="input-group w-100">
 								<select class="custom-select border-right" name="category_name">
 									<option value="">Tất cả</option>
@@ -47,7 +47,7 @@
 									<option value="comments">Nổi bật</option>
 									<option value="content">Mới nhất</option>
 								</select>
-								<input type="text" class="form-control" placeholder="Nhập thông tin tìm kiếm">
+								<input type="text" name="keywords" class="form-control" placeholder="Nhập thông tin tìm kiếm">
 
 								<div class="input-group-append">
 									<button class="btn btn-primary" type="submit">
