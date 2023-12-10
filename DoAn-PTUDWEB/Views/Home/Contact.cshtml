@@ -1,5 +1,5 @@
 ﻿@{
-	ViewBag.Title = "Liên hệ";
+    ViewBag.Title = "Liên hệ";
 }
 
 
@@ -51,37 +51,59 @@
                 </div>
             </div>
 
-            <form>
+
+
+            <form method="post" asp-action="Contact1" asp-controller="Home" >
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
                             <label class="text-black" for="fname">First name</label>
-                            <input type="text" class="form-control" id="fname">
+                            <input type="text" class="form-control" id="FirstName" name="FirstName">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label class="text-black" for="lname">Last name</label>
-                            <input type="text" class="form-control" id="lname">
+                            <input type="text" class="form-control" id="LastName" name="LastName">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="text-black" for="email">Email address</label>
-                    <input type="email" class="form-control" id="email">
+                    <label class="text-black" for="Phone">Phone</label>
+                    <input type="text" class="form-control" id="Phone" name="Phone">
                 </div>
                 <div class="form-group">
-                    <label class="text-black" for="title">Title</label>
-                    <input type="text" class="form-control" id="title">
+                    <label class="text-black" for="email">Email address</label>
+                    <input type="email" class="form-control" id="Email" name="Email">
+                </div>
+                <div class="form-group">
+                    <label class="text-black" for="title">Subject</label>
+                    <input type="text" class="form-control" id="SubjectName" name="SubjectName">
                 </div>
 
                 <div class="form-group mb-5">
                     <label class="text-black" for="message">Message</label>
-                    <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
+                    <textarea class="form-control" id="Message" name="Message" cols="30" rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="btn-send-message">Send Message</button>
             </form>
+            <hr />
+            <!-- Hiển thị thông báo thành công -->
+            @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMessage
+                </div>
+            }
+
+            <!-- Hiển thị thông báo lỗi -->
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
 
         </div>
 

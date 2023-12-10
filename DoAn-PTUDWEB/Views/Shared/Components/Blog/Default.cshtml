@@ -8,7 +8,7 @@
     <div class="card single_post">
         <div class="body">
             <div class="img-post">
-                <img class="d-block img-fluid" src="https://www.bootdey.com/image/800x280/FFB6C1/000000" alt="First slide">
+                <img class="d-block img-fluid" src="@item.Image" alt="First slide">
             </div>
             <h3><a asp-controller="Blog" asp-action="Details" asp-route-id="@item.BlogId">@item.Name</a></h3>
             <p>@item.Description</p>
