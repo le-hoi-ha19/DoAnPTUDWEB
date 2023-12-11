@@ -11,7 +11,7 @@ namespace DoAn_PTUDWEB.Models
         }
 
         public int TrademarkId { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
         public string Logo { get; set; } = null!;
 

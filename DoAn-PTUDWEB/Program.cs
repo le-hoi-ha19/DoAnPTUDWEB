@@ -44,9 +44,13 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-
+//thêm phần admin
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "areas",
+	pattern: "{Area:exists}/{controller=Home}/{action=Index}/{id?}"
+		);
+app.MapControllerRoute(
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}/{slug?}");
 
 app.Run();

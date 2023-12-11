@@ -1,4 +1,5 @@
-﻿using DoAn_PTUDWEB.Models;
+﻿using Castle.Core.Internal;
+using DoAn_PTUDWEB.Models;
 using DoAn_PTUDWEB.Models.ViewModels;
 using DoAn_PTUDWEB.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,8 @@ using System.Linq;
 
 namespace DoAn_PTUDWEB.Controllers
 {
-	public class ProductController : Controller
+	[Route("[controller]")]
+    public class ProductController : Controller
 	{
         private readonly ILogger<ProductController> _logger;
         private readonly DataContext _context;
@@ -28,9 +30,57 @@ namespace DoAn_PTUDWEB.Controllers
 			_productService = productService;
 
 		}
+        // lọc sản phẩm theo các tiêu chí 
+        [HttpPost]
+        [Route("Filter")]
+        public async Task<IActionResult> GetFilteredProducts([FromBody] FilterData filter)
+        {
+            
+            var query = _context.TbProducts.AsQueryable();
+            //lọc sản phẩm theo loaị mặt hàng
+            if(filter.Categories.Count() > 0 )
+            {
+				query = query.Where(product => filter.Categories.Contains(product.CategoryProductId));
+			}
+
+            // lọc sản phẩm theo giá
+            if (filter.PriceRange != null)
+            {
+                switch (filter.PriceRange)
+                {
+                    case "0-1000000":
+                        query = query.Where(product => product.Price <= 1000000); break;
+                    case "1000000-5000000":
+                        query = query.Where(product => product.Price > 1000000 && product.Price < 5000000); break;
+                    case "5000000-10000000":
+                        query = query.Where(product => product.Price > 5000000 && product.Price < 10000000); break;
+                    case "10000000-20000000":
+                        query = query.Where(product => product.Price > 10000000 && product.Price < 20000000); break;
+                    case "20000000-30000000":
+                        query = query.Where(product => product.Price > 20000000 && product.Price < 30000000); break;
+                    //  Các range khác tương tự
+                    default:
+                        break;
+                }
+            }
+            // lọc sản phẩm theo màu
+			if (filter?.Colors?.Count() > 0 && !filter.Colors[0].IsNullOrEmpty())
+			{
+				query = query.Where(p => p.TbProductColors.Any(pc => filter.Colors.Contains(pc.Color.ColorName)));
+			}
+            // lọc sản phẩm theo thương hiệu
+            if (filter?.Trademarks?.Count() > 0 && !filter.Trademarks[0].IsNullOrEmpty())
+            {
+                query = query.Where(product => filter.Trademarks.Contains(product.Trademark.Name));
+            }
+            var products = await query.ToListAsync();
+            return PartialView("_ReturnProducts", products);
+
+            //return Ok(products);
+        }
 
         // GET: lấy danh sách sản phẩm có phân trang
-        public async Task<IActionResult> Index(int ProductPage = 1)
+        public IActionResult Index(int ProductPage = 1)
         {
             return View(new ProductListViewModel
             {
@@ -50,7 +100,7 @@ namespace DoAn_PTUDWEB.Controllers
 
         //Tìm kiếm sản phẩm 
         [HttpPost]
-        public async Task<IActionResult> Search(string keywords, int ProductPage = 1)
+        public IActionResult Search(string keywords, int ProductPage = 1)
         {
             return View("Index", new ProductListViewModel
             {
