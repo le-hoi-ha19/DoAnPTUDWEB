@@ -12,130 +12,146 @@
 		<div class="row">
 			<aside class="col-md-2">
 
+				
 				<!--Start lọc theo loại đồ -->
 				<div class="border-bottom mb-4 pb-4">
 					<h5 class="font-weight-semi-bold mb-4">Loại sản phẩm</h5>
-					<form id="price-filter-form">
+					<form id="category-filter-form">
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="all" checked id="price-all">
-							<label class="custom-control-label" for="price-all">Tất cả</label>
+							<input type="checkbox" class="custom-control-input" val="0" checked id="category-all">
+							<label class="custom-control-label" for="category-all">Tất cả</label>
 						</div>
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="dienthoai" id="price-1">
-							<label class="custom-control-label" for="price-1">Điện thoại</label>
+							<input type="checkbox" class="custom-control-input" val="1" id="dienthoai">
+							<label class="custom-control-label" for="dienthoai">Điện thoại</label>
 						</div>
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="maytinh" id="price-2">
-							<label class="custom-control-label" for="price-2">Máy tính</label>
+							<input type="checkbox" class="custom-control-input" val="2" id="maytinh">
+							<label class="custom-control-label" for="maytinh">Máy tính</label>
 						</div>
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="phukiendienthoai" id="price-3">
-							<label class="custom-control-label" for="price-3">Phụ kiện điện thoại</label>
-						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="phukienmaytinh" id="price-3">
-							<label class="custom-control-label" for="price-3">Phụ kiện máy tính</label>
-						</div>
-					</form>
-				</div>
-				<!--End lọc theo loại đồ -->
-
-				<!--Start lọc theo thương hiệu-->
-				<div class="border-bottom mb-4 pb-4">
-					<h5 class="font-weight-semi-bold mb-4">Thương hiệu</h5>
-					<form id="price-filter-form">
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="all" checked id="price-all">
-							<label class="custom-control-label" for="price-all">Tất cả</label>
-						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="samsung" id="price-1">
-							<label class="custom-control-label" for="price-1">Sam sung</label>
-						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="apple" id="price-2">
-							<label class="custom-control-label" for="price-2">Apple</label>
-						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="sony" id="price-3">
-							<label class="custom-control-label" for="price-3">Sony</label>
+							<input type="checkbox" class="custom-control-input" val="3" id="phukien">
+							<label class="custom-control-label" for="phukien">Phụ kiện</label>
 						</div>
 						
 					</form>
 				</div>
-				<!--End lọc theo thương hiệu-->
+				<!--End lọc theo loại đồ -->
 
-				<!--Start lọc theo giá-->
+				<!-- Start Lọc theo Thương hiệu -->
 				<div class="border-bottom mb-4 pb-4">
-					<h5 class="font-weight-semi-bold mb-4">Giá</h5>
+					<h5 class="font-weight-semi-bold mb-4">Tất cả</h5>
+					<form id="trademark-filter-form">
+						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+							<input type="checkbox" class="custom-control-input" checked id="trademark-all">
+							<label class="custom-control-label" for="trademark-all">Tất cả</label>
+							<span class="badge border font-weight-normal">1000</span>
+						</div>
+						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+							<input type="checkbox" class="custom-control-input" val="Apple" id="trademark-1">
+							<label class="custom-control-label" for="trademark-1">Apple</label>
+							<span class="badge border font-weight-normal">150</span>
+						</div>
+						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+							<input type="checkbox" class="custom-control-input" val="Samsung" id="trademark-2">
+							<label class="custom-control-label" for="trademark-2">Sam sung</label>
+							<span class="badge border font-weight-normal">295</span>
+						</div>
+						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+							<input type="checkbox" class="custom-control-input" val="Sony" id="trademark-3">
+							<label class="custom-control-label" for="trademark-3">Sony</label>
+							<span class="badge border font-weight-normal">246</span>
+						</div>
+
+						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+							<input type="checkbox" class="custom-control-input" val="Xiaomi" id="trademark-4">
+							<label class="custom-control-label" for="trademark-4">Xiaomi</label>
+							<span class="badge border font-weight-normal">168</span>
+						</div>
+					</form>
+				</div>
+				<!-- End Lọc theo Thương hiệu  -->
+				<!-- Start lọc theo giá -->
+				<div class="border-bottom mb-4 pb-4">
+					<h5 class="font-weight-semi-bold mb-4">Lọc theo giá</h5>
 					<form id="price-filter-form">
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="all" checked id="price-all">
-							<label class="custom-control-label" for="price-all">Tất cả</label>
+						<div class=" d-flex align-items-center gap-2 mb-3">
+							<input type="radio" name="priceRange" value="all" checked id="price-all">
+							<label class="custom-input-label" for="price-all">Tất cả</label>
+							<span class="badge border font-weight-normal">1000</span>
 						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="0-1000000" id="price-1">
-							<label class="custom-control-label" for="price-1">0 - 1000 000</label>
+						<div class=" d-flex align-items-center gap-2 mb-3">
+							<input type="radio" name="priceRange" value="0-1000000" id="price-1">
+							<label class="custom-input-label" for="price-1">0 - 1000 000</label>
+							<span class="badge border font-weight-normal">150</span>
 						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="1000000-2000000" id="price-2">
-							<label class="custom-control-label" for="price-2">1000 000 - 2000 000</label>
+						<div class=" custom-checkbox d-flex align-items-center gap-2 mb-3">
+							<input type="radio" name="priceRange" value="1000000-5000000" id="price-2">
+							<label class="custom-input-label" for="price-2">1000 000 - 5000 000</label>
+							<span class="badge border font-weight-normal">295</span>
 						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="2000000-3000000" id="price-3">
-							<label class="custom-control-label" for="price-3">2000 000-3000 000</label>
+						<div class=" custom-checkbox d-flex align-items-center gap-2 mb-3">
+							<input type="radio" name="priceRange" value="5000000-10000000" id="price-3">
+							<label class="custom-input-label" for="price-3">5000 000 - 10 000 000</label>
+							<span class="badge border font-weight-normal">246</span>
 						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="3000000-4000000" id="price-4">
-							<label class="custom-control-label" for="price-4">3000 000-4000 000</label>
+						<div class=" custom-checkbox d-flex align-items-center gap-2 mb-3">
+							<input type="radio" name="priceRange" value="10000000-20000000" id="price-4">
+							<label class="custom-input-label" for="price-4">10 000 000 - 20 000 000</label>
+							<span class="badge border font-weight-normal">145</span>
 						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-							<input type="checkbox" class="custom-control-input" val="4000000-5000000" id="price-5">
-							<label class="custom-control-label" for="price-5">4000 000 - 5000 000</label>
+						<div class=" custom-checkbox d-flex align-items-center gap-2">
+							<input type="radio" name="priceRange" value="20000000-30000000" id="price-5">
+							<label class="custom-input-label" for="price-5">20 000 000 - 30 000 000</label>
+							<span class="badge border font-weight-normal">168</span>
 						</div>
 					</form>
 				</div>
-				<!--End lọc theo giá-->
-
-				<!--Start lọc theo màu-->
+				<!-- End lọc theo giá-->
+				<!-- Start Lọc theo màu -->
 				<div class="border-bottom mb-4 pb-4">
-					<h5 class="font-weight-semi-bold mb-4">Màu sắc</h5>
-					<form id="color-filer-form">
+					<h5 class="font-weight-semi-bold mb-4">Lọc theo màu</h5>
+					<form id="color-filter-form">
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="all" checked id="color-all">
-							<label class="custom-control-label" for="price-all">Tất cả</label>
+							<input type="checkbox" class="custom-control-input" checked id="color-all">
+							<label class="custom-control-label" for="color-all">Tất cả màu</label>
+							<span class="badge border font-weight-normal">1000</span>
 						</div>
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="Black" id="color-1">
+							<input type="checkbox" class="custom-control-input" val="Đen" id="color-1">
 							<label class="custom-control-label" for="color-1">Màu đen</label>
+							<span class="badge border font-weight-normal">150</span>
 						</div>
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="White" id="color-2">
+							<input type="checkbox" class="custom-control-input" val="Trắng" id="color-2">
 							<label class="custom-control-label" for="color-2">Màu trắng</label>
+							<span class="badge border font-weight-normal">295</span>
 						</div>
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="Red" id="color-3">
+							<input type="checkbox" class="custom-control-input" val="Đỏ" id="color-3">
 							<label class="custom-control-label" for="color-3">Màu đỏ</label>
+							<span class="badge border font-weight-normal">246</span>
 						</div>
-						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-							<input type="checkbox" class="custom-control-input" val="Blue" id="color-4">
-							<label class="custom-control-label" for="color-4">Màu xanh</label>
-						</div>
+
 						<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-							<input type="checkbox" class="custom-control-input" val="Green" id="color-5">
-							<label class="custom-control-label" for="color-5">Màu xanh lá cây</label>
+							<input type="checkbox" class="custom-control-input" val="Xám" id="color-5">
+							<label class="custom-control-label" for="color-5">Màu xám</label>
+							<span class="badge border font-weight-normal">168</span>
 						</div>
 					</form>
 				</div>
-				<!--End lọc theo màu-->
+				<!-- End Lọc theo màu  -->
+
+			
 
 				<button id="btnFilter" type="submit" class="fa fa-search">Áp dụng</button>
 
 			</aside> 
 			<!--Start sản phẩm-->
-			<main class="col-md-10">
+			<main class="col-md-10 " id="filtered-products">
 				@foreach(var item in Model.TbProducts)
 				{
+					
 				<article class="card card-product-list">
 					<div class="row no-gutters">
 						<aside class="col-md-3">
@@ -228,3 +244,116 @@
 	</div> 
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+<script>
+	// sự kiện khi bấm vào nút lọc
+	var priceRanges = document.getElementsByName('priceRange')
+
+	document.getElementById("btnFilter").addEventListener("click", function () {
+
+		// lấy giá trị của checkbox từ các form
+		var colors = getSelectedCheckboxes("color-filter-form");
+		var trademarks = getSelectedCheckboxes("trademark-filter-form");
+		var categories = getSelectedCheckboxes("category-filter-form");
+		var selectedRange = Array.from(priceRanges).find(
+			(radio) => radio.checked
+		);
+
+		var data = {
+			PriceRange: selectedRange.value,
+			Colors: colors,
+			Trademarks: trademarks,
+			Categories: categories
+		};
+
+		console.log("data: ", data)
+
+
+		fetch("Product/Filter", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
+		}).then(function (response) {
+			if (response.ok) {
+				return response.text();
+			} else {
+				throw new Error("Error sending data to the controller")
+			}
+
+		}).then(function (results) {
+			$("#filtered-products").html(results)
+
+			var ToltalItems = document.querySelectorAll('.card');
+			var PageSize = 9;
+			var TotalPages = Math.ceil(ToltalItems.length / PageSize);
+		
+			const nav = document.createElement("nav");
+			nav.classList.add("mb-4");
+
+
+			const ul = document.createElement("ul");
+			ul.classList.add("pagination");
+
+			for (var i = 1; i <= TotalPages; i++) {
+				var li = document.createElement("li");
+				li.classList.add("page-item");
+
+				var a = document.createElement("a");
+				a.classList.add("page-link");
+				a.innerHTML = i;
+				a.addEventListener("onclick", handlePageLinkClick)
+				a.setAttribute("href", "#");
+				li.appendChild(a);
+				ul.appendChild(li);
+
+			}
+			nav.appendChild(ul);
+			document.getElementById("filtered-products").appendChild(nav);
+			ShowPage(1);
+		})
+		 .catch(function (error) {
+            console.log("An error occured:",error)
+        })
+	})
+
+	//-------------------------các hàm----------------------------
+
+	// khi bấm vào số page nào thì hiển thị sản phẩm số trang đó
+	function handlePageLinkClick(event) {
+		event.prevenDefault();
+		var pageNumber = parseInt(event.target.textContent);
+		ShowPage(pageNumber);
+	}
+
+	// hiển thị các sản phẩm của trang tương ứng
+	function ShowPage(pageNumber) {
+		var productItems = document.querySelectorAll(".card");
+		var itemsPerPage = 9;
+		var startIndex = (pageNumber - 1) * itemsPerPage;
+		var endIndex = startIndex + itemsPerPage;
+
+		for (var i = 0; i < productItems.length; i++) {
+			if (i >= startIndex && i < endIndex) {
+				productItems[i].style.display = 'block';
+			} else {
+				productItems[i].style.display = 'none';
+			}
+		}
+	}
+
+	// hàm lấy giá trị các ô checkbox của form
+	function getSelectedCheckboxes(formId) {
+		var checkboxes = $('#' + formId + ' input[type="checkbox"]:checked');
+		var values = []
+		checkboxes.each(function () {
+			values.push($(this).attr('val'))
+		})
+		return values;
+	}
+
+		
+</script>

@@ -1,5 +1,6 @@
 ﻿using DoAn_PTUDWEB.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoAn_PTUDWEB.Components
 {
@@ -13,11 +14,12 @@ namespace DoAn_PTUDWEB.Components
 		}
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			var listofProduct = (from p in _context.TbProducts
-							  where (p.IsActive == true) && (p.IsBestSeller == true)
-							  orderby p.ProductId ascending
-							  select p).Take(6).ToList();
-			return await Task.FromResult((IViewComponentResult)View("Default", listofProduct));
+			var products =
+			(from p in _context.TbProducts
+			 where (p.IsActive == true) && (p.IsBestSeller == true)
+			 orderby p.ProductId ascending
+			 select p).Take(6).ToList();
+			return await Task.FromResult((IViewComponentResult)View("Default", products));
 		}
 	}
 }
