@@ -12,6 +12,10 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(conne
 builder.Services.AddControllersWithViews();
 // Add Razor cho biên dịch lại html trong quá trình chạy
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+// Add services to access HttpContext from custom service
+//thêm để xử lý phần active sidebar
+builder.Services.AddHttpContextAccessor();
+
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
