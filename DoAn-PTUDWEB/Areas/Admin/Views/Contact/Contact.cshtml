@@ -1,0 +1,82 @@
+﻿<!-- MAIN -->
+@model IList<TbContact>
+@{
+	int rowIndex = 1; // Khởi tạo biến rowIndex để làm ID tăng dần từ 1
+}
+<main>
+	<div class="head-title">
+		<div class="left">
+			<h1>Dashboard</h1>
+			<ul class="breadcrumb">
+				<li>
+					<a href="#">Dashboard</a>
+				</li>
+				<li><i class='bx bx-chevron-right'></i></li>
+				<li>
+					<a class="active" href="#">Contact</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+    <div class="table" id="customers_table">
+        <section class="table__header">
+            <h1>Customer's Orders</h1>
+            <div class="input-group">
+                <input type="search" placeholder="Search Data...">
+                <img src="images/search.png" alt="">
+            </div>
+            <div class="export__file">
+                <label for="export-file" class="export__file-btn" title="Export File"></label>
+                <input type="checkbox" id="export-file">
+                <div class="export__file-options">
+                    <label>Export As &nbsp; &#10140;</label>
+                    <label for="export-file" id="toPDF">PDF <img src="images/pdf.png" alt=""></label>
+                    <label for="export-file" id="toJSON">JSON <img src="images/json.png" alt=""></label>
+                    <label for="export-file" id="toCSV">CSV <img src="images/csv.png" alt=""></label>
+                    <label for="export-file" id="toEXCEL">EXCEL <img src="images/excel.png" alt=""></label>
+                </div>
+            </div>
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th> Id <span class="icon-arrow">&UpArrow;</span></th>             
+                        <th> Name <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Phone <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Email <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> SubjectName <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Message <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> IsRead <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> CreatedDate <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> CreatedBy <span class="icon-arrow">&UpArrow;</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td> @rowIndex </td>
+                            @{
+                                rowIndex++; // Tăng giá trị của rowIndex sau mỗi lần sử dụng
+                            }
+
+                            <td> @item.LastName @item.FirstName</td>
+                            <td> @item.Phone</td>
+                            <td> @item.Email</td>
+                            <td> @item.SubjectName</td>
+                            <td> @item.Message</td>
+                            <td>
+                                <p class="status delivered">@item.IsRead</p>
+                            </td>
+                            <td> @item.CreatedDate</td>
+                            <td> @item.CreatedBy</td>
+                        </tr>
+                    }  
+                </tbody>
+            </table>
+        </section>
+    </div>
+</main>
+<!-- MAIN -->
