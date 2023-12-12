@@ -1,0 +1,34 @@
+﻿@model List<DoAn_PTUDWEB.Models.TbProduct>
+
+<!-- =============== Phần sản phẩm theo loại mặt hàng =============== -->
+<section class="padding-bottom-sm mt-5">
+
+    <div class="row row-sm">
+        @if (Model.Count() > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                    <div class="card card-sm card-product-grid">
+                        <a asp-controller="Product" asp-action="Detail" asp-route-ProductId="@item.ProductId" class="img-wrap"> <img src="@item.Thumbnail"> </a>
+                        <figcaption class="info-wrap">
+                            <a asp-controller="Product" asp-action="Detail" asp-route-ProductId="@item.ProductId" class="title-product-custom">@item.Name</a>
+                            <div class="price-wrap my-2">
+                                <span class="price">@(item.Price * (1 - item.PriceDiscount))</span>
+                                <del class="price-old">@item.Price </del>
+                            </div>
+                        </figcaption>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+
+            <p class="text-center">Không có mặt hàng nào cả! </p>
+
+
+        }
+
+    </div>
+</section>

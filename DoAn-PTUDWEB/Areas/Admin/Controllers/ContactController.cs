@@ -11,7 +11,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public IActionResult Contact()
+        public IActionResult Index()
         {
             var contactlist = _context.TbContacts.OrderBy(m => m.ContactId).ToList();
             return View(contactlist);

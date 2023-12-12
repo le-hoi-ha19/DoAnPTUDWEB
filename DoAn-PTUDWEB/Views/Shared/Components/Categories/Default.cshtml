@@ -5,11 +5,11 @@
 	<h6>Mặt hàng</h6>
 	<nav class="nav-home-aside">
 		<ul class="menu-category">
-			@foreach(var item in Model)
+			@foreach (var item in Model)
 			{
-			<li><a href="#">@item.Name</a></li>
+				<li><a asp-controller="Product" asp-action="ProductsByCat" asp-route-CategoryId="@item.CategoryProductId">@item.Name</a></li>
 			}
-			
+
 
 		</ul>
 	</nav>

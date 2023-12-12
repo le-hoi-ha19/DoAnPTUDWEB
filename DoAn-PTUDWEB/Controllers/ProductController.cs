@@ -79,6 +79,14 @@ namespace DoAn_PTUDWEB.Controllers
             //return Ok(products);
         }
 
+        // GET: Products by category
+        [Route("LoaiMatHang/{CategoryId}")]
+        public async Task<IActionResult> ProductsByCat(int CategoryId)
+        {
+            var productCategories = await _context.TbProducts.Where(product => product.CategoryProductId == CategoryId).ToListAsync();
+            return View("ProductByCategories", productCategories);
+        }
+
         // GET: lấy danh sách sản phẩm có phân trang
         public IActionResult Index(int ProductPage = 1)
         {
