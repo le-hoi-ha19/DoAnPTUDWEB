@@ -1,20 +1,16 @@
-﻿@model DoAn_PTUDWEB.Models.TbProduct
+﻿@model DoAn_PTUDWEB.Models.TbPost
 
 @{
     ViewData["Title"] = "Delete";
 }
 
+<h1>Delete</h1>
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>TbProduct</h4>
+    <h4>TbPost</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryProduct)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryProduct.CategoryProductId)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -22,46 +18,40 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsBestSeller)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsBestSeller)
+            @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsHot)
+            @Html.DisplayNameFor(model => model.Detail)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsHot)
+            @Html.DisplayFor(model => model.Detail)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsNew)
+            @Html.DisplayNameFor(model => model.Image)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsNew)
+            @Html.DisplayFor(model => model.Image)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.SeoTitle)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.SeoTitle)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PriceDiscount)
+            @Html.DisplayNameFor(model => model.SeoDescription)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PriceDiscount)
+            @Html.DisplayFor(model => model.SeoDescription)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.SeoKeywords)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Thumbnail)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Thumbnail)
+            @Html.DisplayFor(model => model.SeoKeywords)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedDate)
@@ -88,35 +78,22 @@
             @Html.DisplayFor(model => model.ModifiedBy)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Trademark)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Trademark.TrademarkId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IsActive)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User.UserId)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" asp-for="BlogId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-area="Admin" asp-controller="Product" asp-action="Index">Quay lại</a>
-
+        <a asp-action="Index">Back to List</a>
     </form>
 </div>

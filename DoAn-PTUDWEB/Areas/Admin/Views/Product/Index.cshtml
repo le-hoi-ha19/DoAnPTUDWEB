@@ -4,7 +4,7 @@
     ViewData["Title"] = "Danh sách sản phẩm";
 }
 
-<h1>Quản lý sản phẩm</h1>
+
 
 <p>
     <a asp-controller="Product" asp-action="Create" class="btn btn-primary">Thêm mới</a>
@@ -35,7 +35,7 @@
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Name)</td>
                     <td>
-                        <img src="@Html.DisplayFor(modelItem => item.Thumbnail)" width="80" height="80" />
+                        <img src="@Html.DisplayFor(modelItem => item.Thumbnail)"  />
                     </td>
 
                     <td>@Html.DisplayFor(modelItem => item.IsBestSeller)</td>
@@ -66,7 +66,7 @@
     </table>
 </div>
 
-<!-- Hiển thị thanh phân trang -->
+
 <!-- Hiển thị thanh phân trang -->
 <div class="pagination-container">
     <nav aria-label="Page navigation">
