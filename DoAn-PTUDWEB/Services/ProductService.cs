@@ -50,7 +50,7 @@ namespace DoAn_PTUDWEB.Services
 					.Where(p => p.ProductId == productId)
 					.Select(p => p.CategoryProductId)
 					.Contains(m.CategoryProductId))
-				.OrderByDescending(m => m.CreatedDate)
+				.OrderByDescending(m => m.ProductId)
 				.Take(6)
 				.ToList();
 

@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
 using X.PagedList;
 
-
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -59,8 +58,8 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "CategoryProductId");
-            ViewData["TrademarkId"] = new SelectList(_context.TbTrademarks, "TrademarkId", "TrademarkId");
+            ViewData["CategoryName"] = new SelectList(_context.TbProductCategories, "Name", "Name");
+            ViewData["TrademarkName"] = new SelectList(_context.TbTrademarks, "Name", "Name");
             return View();
         }
 
@@ -164,8 +163,16 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         {
             if (_context.TbProducts == null)
             {
-                return Problem("Entity set 'DataContext.TbProducts'  is null.");
+                return Problem("Không tìm thấy sản phẩm");
             }
+            var Colors= _context.TbProductColors.Where(pc => pc.ProductId == id);
+            _context.TbProductColors.RemoveRange(Colors);
+            _context.SaveChanges();
+
+            var Images = _context.TbImageProducts.Where(pc => pc.ProductId == id);
+            _context.TbImageProducts.RemoveRange(Images);
+            _context.SaveChanges();
+
             var tbProduct = await _context.TbProducts.FindAsync(id);
             if (tbProduct != null)
             {
@@ -173,7 +180,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Product", new { area = "Admin" });
         }
 
         private bool TbProductExists(int id)

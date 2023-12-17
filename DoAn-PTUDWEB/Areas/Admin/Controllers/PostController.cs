@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
-using X.PagedList;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
