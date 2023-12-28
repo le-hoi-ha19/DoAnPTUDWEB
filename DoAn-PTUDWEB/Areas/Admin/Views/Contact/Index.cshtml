@@ -21,36 +21,30 @@
 
     <div class="table" id="customers_table">
         <section class="table__header">
-            <h1>Customer's Orders</h1>
-            <div class="input-group">
+            <h3>Contact</h3>
+            
+            <div class="input-groupp">
                 <input type="search" placeholder="Search Data...">
-                <img src="images/search.png" alt="">
+                <img src="~/admin/assets/img/search.png" alt="">
             </div>
-            <div class="export__file">
-                <label for="export-file" class="export__file-btn" title="Export File"></label>
-                <input type="checkbox" id="export-file">
-                <div class="export__file-options">
-                    <label>Export As &nbsp; &#10140;</label>
-                    <label for="export-file" id="toPDF">PDF <img src="images/pdf.png" alt=""></label>
-                    <label for="export-file" id="toJSON">JSON <img src="images/json.png" alt=""></label>
-                    <label for="export-file" id="toCSV">CSV <img src="images/csv.png" alt=""></label>
-                    <label for="export-file" id="toEXCEL">EXCEL <img src="images/excel.png" alt=""></label>
-                </div>
-            </div>
+            <!--
+            <button type="button" class="btn btn-primary">Thêm mới</button>
+            -->
         </section>
         <section class="table__body">
             <table>
                 <thead>
                     <tr>
                         <th> Id <span class="icon-arrow">&UpArrow;</span></th>             
-                        <th> Name <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Phone <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Họ tên <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Số điện thoại <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Email <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> SubjectName <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Message <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> IsRead <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> CreatedDate <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> CreatedBy <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Tên chủ đề <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Tin nhắn <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Được Đọc <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Ngày tạo <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Được tạo <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Chức năng <span class="icon-arrow">&UpArrow;</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,10 +62,19 @@
                             <td> @item.SubjectName</td>
                             <td> @item.Message</td>
                             <td>
-                                <p class="status delivered">@item.IsRead</p>
+                                <p class="status @(item.IsRead.HasValue && item.IsRead.Value ? "delivered" : "cancelled")">
+                                    @item.IsRead
+                                </p>
                             </td>
                             <td> @item.CreatedDate</td>
                             <td> @item.CreatedBy</td>
+                            
+                            <td class="text-center">
+                                <a asp-area="Admin" asp-controller="Contact" asp-action="Delete" asp-route-id="@item.ContactId" class="btn btn-danger btn-sm" title="Xóa thông tin bài viết">
+                                    <i class="fas fa-trash fa-lg"></i>
+                                </a>
+                            </td>
+                            
                         </tr>
                     }  
                 </tbody>

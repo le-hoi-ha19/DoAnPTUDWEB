@@ -16,5 +16,34 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             var contactlist = _context.TbContacts.OrderBy(m => m.ContactId).ToList();
             return View(contactlist);
         }
+
+        public IActionResult Delete(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var mn = _context.TbContacts.Find(id);
+
+            if(mn == null)
+            {
+                return NotFound();
+            }
+
+            return View(mn);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var deleContact = _context.TbContacts.Find(id);
+            if(deleContact == null)
+            {
+                return NotFound();
+            }
+            _context.TbContacts.Remove(deleContact);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

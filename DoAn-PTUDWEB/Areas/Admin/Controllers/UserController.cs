@@ -48,7 +48,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         // GET: Admin/User/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.TbRoles, "RoleId", "RoleId");
+            ViewData["RoleId"] = new SelectList(_context.TbRoles, "RoleId", "RoleName");
             return View();
         }
 
@@ -82,7 +82,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.TbRoles, "RoleId", "RoleId", tbUser.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.TbRoles, "RoleId", "RoleName", tbUser.RoleId);
             return View(tbUser);
         }
 
@@ -118,7 +118,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.TbRoles, "RoleId", "RoleId", tbUser.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.TbRoles, "RoleId", "RoleName", tbUser.RoleId);
             return View(tbUser);
         }
 

@@ -3,91 +3,126 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="head-title">
+    <div class="left">
+        <h1>Dashboard</h1>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+                <a class="active" href="#">User</a>
+            </li>
+        </ul>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Thêm mới</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Tên Người dùng
-            </th>
-            <th>
-                Họ và tên
-            </th>
-            <th>
-                Mật khẩu mã hóa
-            </th>
-            <th>
-                Số điện thoại
-            </th>
-            <th>
-                Địa chỉ
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                Trạng thái
-            </th>
-            <th>
-                Ngày tạo
-            </th>
-            <th>
-                Ngày sửa
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Deleted)
-            </th>
-            <th>
-                Vai trò
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PasswordHash)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role.RoleId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-primary">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-info btn-sm my-3">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-danger btn-sm"> Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="head-title">
+    <div class="left">
+        <h1>Dashboard</h1>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+                <a class="active" href="#">User</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="table" id="users_table" style="overflow: auto; max-height: 500px;">
+    <section class="table__header">
+        <h3>User</h3>
+
+        <div class="input-groupp">
+            <input type="search" placeholder="Search Data...">
+            <img src="~/admin/assets/img/search.png" alt="">
+        </div>
+
+        <a asp-area="Admin" asp-controller="User" asp-action="Create" class="btn btn-primary btn-sm" title="Thêm mới người dùng">
+            <i class="fas fa-plus fa-lg"></i>Thêm mới
+        </a>
+    </section>
+    <section class="table__body">
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th>
+                        Full Name <span class="icon-arrow">&UpArrow;</span>
+                    </th>                  
+                    <th>
+                        Phone <span class="icon-arrow">&UpArrow;</span>
+                    </th>
+                    <th>
+                        Địa chỉ <span class="icon-arrow">&UpArrow;</span>
+                    </th>
+                    <th>
+                        Email <span class="icon-arrow">&UpArrow;</span>
+                    </th>
+                    <th>
+                        Trạng thái <span class="icon-arrow">&UpArrow;</span>
+                    </th>
+                    
+                    <th>
+                        Vai trò <span class="icon-arrow">&UpArrow;</span>
+                    </th>
+
+                    <th>
+                        Chức năng <span class="icon-arrow">&UpArrow;</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @if (item.Status.HasValue && item.Status.Value == 1)
+                            {
+                                <p class="status delivered">True</p>
+                            }
+                            else
+                            {
+                                <p class="status cancelled">False</p>
+                            }
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.RoleName)
+                        </td>
+                        <td>
+                            <a asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-primary btn-sm" title="Chỉnh sửa thông tin bài viết">
+                                <i class="fas fa-pencil-alt fa-lg"></i>
+                            </a>
+                            <a asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-id="@item.UserId" class="btn btn-info btn-sm" title="Xem thông tin bài viết">
+                                <i class="fas fa-eye fa-lg"></i>
+                            </a>
+                            <a asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-danger btn-sm" title="Xóa thông tin bài viết">
+                                <i class="fas fa-trash fa-lg"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>

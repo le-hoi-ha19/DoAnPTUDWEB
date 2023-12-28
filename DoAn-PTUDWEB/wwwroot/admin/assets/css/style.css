@@ -309,7 +309,7 @@ body {
 /* MAIN */
 #content main {
 	width: 100%;
-	padding: 0px 20px;
+	padding: 36px 24px;
 	font-family: var(--poppins);
 	max-height: calc(100vh - 56px);
 	overflow-y: auto;
@@ -537,11 +537,12 @@ body {
     padding: .8rem 1rem;
 
     display: flex;
+	flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.table__header .input-group {
+.table__header .input-groupp {
     width: 35%;
     height: 100%;
     background-color: #fff5;
@@ -549,24 +550,22 @@ body {
     border-radius: 2rem;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
-
+    justify-content: center; 
     transition: .2s;
 }
 
-.table__header .input-group:hover {
+.table__header .input-groupp:hover {
     width: 45%;
     background-color: #fff8;
     box-shadow: 0 .1rem .4rem #0002;
 }
 
-.table__header .input-group img {
+.table__header .input-groupp img {
     width: 1.2rem;
     height: 1.2rem;
 }
 
-.table__header .input-group input {
+.table__header .input-groupp input {
     width: 100%;
     padding: 0 .5rem 0 .3rem;
     background-color: transparent;
@@ -622,13 +621,16 @@ table, th, td {
     text-align: left;
 }
 
+
 thead th {
-    position: sticky;
-    top: 0;
-    left: 0;
-    background-color: #d5d1defe;
-    cursor: pointer;
-    text-transform: capitalize;
+
+	white-space: nowrap;
+	position: sticky;
+	top: 0;
+	left: 0;
+	background-color: #d5d1defe;
+	cursor: pointer;
+	text-transform: capitalize;
 }
 
 tbody tr:nth-child(even) {
@@ -732,14 +734,14 @@ thead th.active,tbody td.active {
     position: relative;
 }
 
-.export__file .export__file-btn {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
-    background: #fff6 url(images/export.png) center / 80% no-repeat;
-    border-radius: 50%;
-    transition: .2s ease-in-out;
-}
+	.export__file .export__file-btn {
+		display: inline-block;
+		width: 2rem;
+		height: 2rem;
+		background: #fff6 url(~/admin/assets/img/export.png) center / 80% no-repeat;
+		border-radius: 50%;
+		transition: .2s ease-in-out;
+	}
 
 .export__file .export__file-btn:hover { 
     background-color: #fff;

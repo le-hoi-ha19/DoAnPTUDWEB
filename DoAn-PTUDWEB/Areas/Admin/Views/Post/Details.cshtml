@@ -3,94 +3,100 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>TbPost</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Detail)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Detail)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SeoTitle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SeoTitle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SeoDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SeoDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SeoKeywords)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SeoKeywords)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.UserId)
-        </dd>
-    </dl>
+<div class="head-title">
+    <div class="left">
+        <h1>Dashboard</h1>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+                <a class="active" href="#">Chi tiết bài viết</a>
+            </li>
+        </ul>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.BlogId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="container mt-5">
+    <div class="card">
+        <h5 class="card-header">Details</h5>
+        <div class="card-body" style="max-height: 350px; overflow-y: auto;">
+            
+
+            <table class="details-table">
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Image):</td>
+                    <td class="details-value text-center">
+                        <img src="~/@Model.Image" alt="Image" class="img-fluid rounded-0 d-block " style="width: 200px; height: 200px;">
+                    </td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Name):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Name)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Description):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Description)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Detail):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Detail)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.SeoTitle):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.SeoTitle)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.SeoDescription):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.SeoDescription)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.SeoKeywords):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.SeoKeywords)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.CreatedDate):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.CreatedDate)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.CreatedBy):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.CreatedBy)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.ModifiedDate):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.ModifiedDate)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.ModifiedBy):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.ModifiedBy)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.IsActive):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.IsActive)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.User):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.User.FullName)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.BlogId" class="btn btn-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
 </div>

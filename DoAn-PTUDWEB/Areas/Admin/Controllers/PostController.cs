@@ -49,7 +49,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         // GET: Admin/Post/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "UserId");
+            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "FullName");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "UserId", tbPost.UserId);
+            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "FullName", tbPost.UserId);
             return View(tbPost);
         }
 
@@ -83,7 +83,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "UserId", tbPost.UserId);
+            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "FullName", tbPost.UserId);
             return View(tbPost);
         }
 

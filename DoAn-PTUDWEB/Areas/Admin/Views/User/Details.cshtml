@@ -4,81 +4,86 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>TbUser</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PasswordHash)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Role.RoleId)
-        </dd>
-    </dl>
+<div class="head-title">
+    <div class="left">
+        <h1>Dashboard</h1>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+                <a class="active" href="#">Details User</a>
+            </li>
+        </ul>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.UserId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="container mt-5">
+    <div class="card">
+        <h5 class="card-header">Details</h5>
+        <div class="card-body" style="max-height: 350px; overflow-y: auto;">
+            <table class="details-table">
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.UserName):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.UserName)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.FullName):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.FullName)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.PasswordHash):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.PasswordHash)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Phone):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Phone)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Address):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Address)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Email):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Status):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Status)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.CreatedDate):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.CreatedDate)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.ModifiedDate):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.ModifiedDate)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Deleted):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Deleted)</td>
+                </tr>
+
+                <tr class="details-row">
+                    <td class="details-label">@Html.DisplayNameFor(model => model.Role):</td>
+                    <td class="details-value">@Html.DisplayFor(model => model.Role.RoleName)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.UserId" class="btn btn-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
 </div>
