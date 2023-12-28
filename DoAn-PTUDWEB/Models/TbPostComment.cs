@@ -11,9 +11,9 @@ namespace DoAn_PTUDWEB.Models
         public string? Email { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? Detail { get; set; }
-        public int? BlogId { get; set; }
+        public int BlogId { get; set; }
         public bool? IsActive { get; set; }
 
-        public virtual TbPost? Blog { get; set; }
+        public virtual TbPost Blog { get; set; } = null!;
     }
 }

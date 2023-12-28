@@ -22,9 +22,6 @@
                 <th>Giá</th>
                 <th>Giảm giá</th>
                 <th>Số lượng</th>
-                <th>Ngày tạo</th>
-                <th>Tạo bởi</th>
-                <th>Mô tả</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
@@ -44,16 +41,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Price)</td>
                     <td>@Html.DisplayFor(modelItem => item.PriceDiscount)</td>
                     <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CreatedBy)</td>
-                    <td class="text-truncate">
-                        @{
-                            var description = item.Description?.ToString();
-                            var truncatedDescription = description?.Length > 80 ? description.Substring(0, 50) + "..." : description;
-                        }
-                        @Html.Raw(truncatedDescription)
-                    </td>
-
+                    
                     <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
                     <td class="p-4">
                         <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm">Sửa</a>

@@ -22,10 +22,14 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Logo" class="control-label">Logo</label>
-                <input asp-for="Logo" class="form-control" />
-                <span asp-validation-for="Logo" class="text-danger"></span>
+            <div class="form-group col-md-12">
+                <label class="control-label">Logo</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-success" type="button" onclick="openDialog()">Chọn Logo</button>
+                    </div>
+                    <input type="text" class="form-control" asp-for="Logo" id="file_input" aria-describedby="button-addon2" />
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Lưu" class="btn btn-primary" />
@@ -40,4 +44,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@{
+    var summerNote = new DoAn_PTUDWEB.Areas.Admin.Models.SummerNote("#Contents");
+    <partial name="_SummerNote" model="summerNote" />
 }

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
-using X.PagedList;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
@@ -53,9 +52,6 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Post/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BlogId,Name,Description,Detail,Image,SeoTitle,SeoDescription,SeoKeywords,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,UserId,IsActive")] TbPost tbPost)

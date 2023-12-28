@@ -11,12 +11,14 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CategoryProductId" class="control-label">Loại mặt hàng</label>
-                <select asp-for="CategoryProductId" class ="form-control" asp-items="ViewBag.CategoryProductId"></select>
+                <label asp-for="CategoryProductId" class="control-label">Mặt hàng</label>
+                <select asp-for="CategoryProductId" class="form-control" asp-items='(SelectList)ViewData["CategoryItems"]' required>
+                    <option value="">--Chọn loại mặt hàng--</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name" class="control-label">Tên sản phẩm</label>
+                <input asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -37,7 +39,7 @@
             <div class="form-group">
                 <label asp-for="Price" class="control-label">Giá</label>
                 <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PriceDiscount" class="control-label">Giảm giá</label>
@@ -49,50 +51,39 @@
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Thumbnail" class="control-label">Ảnh</label>
-                <input asp-for="Thumbnail" class="form-control" />
-                <span asp-validation-for="Thumbnail" class="text-danger"></span>
+           
+
+            <div class="form-group col-md-12">
+                <label class="control-label">Ảnh</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-success" type="button" onclick="openDialog()">Chọn ảnh</button>
+                    </div>
+                    <input type="text" class="form-control" asp-for="Thumbnail" id="file_input" aria-describedby="button-addon2" />
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label">Ngày tạo</label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label">Tạo bởi</label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedDate" class="control-label">Ngày sửa</label>
-                <input asp-for="ModifiedDate" class="form-control" />
-                <span asp-validation-for="ModifiedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedBy" class="control-label">Sửa bởi</label>
-                <input asp-for="ModifiedBy" class="form-control" />
-                <span asp-validation-for="ModifiedBy" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="TrademarkId" class="control-label">Thương hiệu</label>
-                <select asp-for="TrademarkId" class ="form-control" asp-items="ViewBag.TrademarkId"></select>
+                <select asp-for="TrademarkId" class="form-control" asp-items='(SelectList)ViewData["TrademarkItems"]' required>
+                    <option value="">--Chọn thương hiệu--</option>
+                </select>
             </div>
-            <div class="form-group">
-                <label asp-for="Deleted" class="control-label"></label>
-                <input asp-for="Deleted" class="form-control" />
-                <span asp-validation-for="Deleted" class="text-danger"></span>
-            </div>
+
+
+           
             <div class="form-group">
                 <label asp-for="Description" class="control-label">Mô tả</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IsActive" class="control-label">Trạng thái</label>
-                <input asp-for="IsActive" class="form-control" />
-                <span asp-validation-for="IsActive" class="text-danger"></span>
+            <div class="form-group mt-5 mb-5">
+                <label>
+                    @Html.CheckBox("IsActive",false)
+                    Hiển thị
+                </label>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
@@ -107,4 +98,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@{
+    var summerNote = new DoAn_PTUDWEB.Areas.Admin.Models.SummerNote("#Contents");
+    <partial name="_SummerNote" model="summerNote" />
 }

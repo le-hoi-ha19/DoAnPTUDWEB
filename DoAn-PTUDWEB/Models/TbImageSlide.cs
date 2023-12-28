@@ -7,8 +7,8 @@ namespace DoAn_PTUDWEB.Models
     {
         public int ImageSlideId { get; set; }
         public string? File { get; set; }
-        public int? SlideId { get; set; }
+        public int SlideId { get; set; }
 
-        public virtual TbSlide? Slide { get; set; }
+        public virtual TbSlide Slide { get; set; } = null!;
     }
 }

@@ -31,8 +31,6 @@ namespace DoAn_PTUDWEB.Models
         public virtual DbSet<TbRole> TbRoles { get; set; } = null!;
         public virtual DbSet<TbSlide> TbSlides { get; set; } = null!;
         public virtual DbSet<TbTrademark> TbTrademarks { get; set; } = null!;
-        public virtual DbSet<TbTuKhoa> TbTuKhoas { get; set; } = null!;
-        public virtual DbSet<TbTuKhoaSanPham> TbTuKhoaSanPhams { get; set; } = null!;
         public virtual DbSet<TbUser> TbUsers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -40,7 +38,6 @@ namespace DoAn_PTUDWEB.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseLazyLoadingProxies();
-
                 optionsBuilder.UseSqlServer("Data Source=LAPTOP-OAUGEEUH\\SQLEXPRESS;Initial Catalog=DoAnPT;Integrated Security=True;TrustServerCertificate=True");
             }
         }
@@ -113,6 +110,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Slide)
                     .WithMany(p => p.TbImageSlides)
                     .HasForeignKey(d => d.SlideId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Anh_Slide__Ma_Sl__38996AB5");
             });
 
@@ -136,6 +134,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TbOrders)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Order_tb_User");
             });
 
@@ -150,11 +149,13 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Order)
                     .WithMany()
                     .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Chi_Tiet___Ma_DH__398D8EEE");
 
                 entity.HasOne(d => d.Product)
                     .WithMany()
                     .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Chi_Tiet___Ma_SP__3A81B327");
             });
 
@@ -188,7 +189,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TbPosts)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_tb_Blog_tb_Account");
+                    .HasConstraintName("FK_tb_Post_tb_User");
             });
 
             modelBuilder.Entity<TbPostComment>(entity =>
@@ -211,6 +212,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Blog)
                     .WithMany(p => p.TbPostComments)
                     .HasForeignKey(d => d.BlogId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_BlogComment_tb_Blog");
             });
 
@@ -221,15 +223,7 @@ namespace DoAn_PTUDWEB.Models
 
                 entity.ToTable("tb_Product");
 
-                entity.Property(e => e.CreatedBy).HasMaxLength(100);
-
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-
                 entity.Property(e => e.Description).HasMaxLength(500);
-
-                entity.Property(e => e.ModifiedBy).HasMaxLength(100);
-
-                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(150);
 
@@ -246,6 +240,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Trademark)
                     .WithMany(p => p.TbProducts)
                     .HasForeignKey(d => d.TrademarkId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__San_Pham__Ma_TH__3D5E1FD2");
             });
 
@@ -346,46 +341,6 @@ namespace DoAn_PTUDWEB.Models
                     .HasDefaultValueSql("('no-image.jpg')");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<TbTuKhoa>(entity =>
-            {
-                entity.HasKey(e => e.MaTk)
-                    .HasName("PK_tukhoa");
-
-                entity.ToTable("tb_TuKhoa");
-
-                entity.Property(e => e.MaTk).HasColumnName("Ma_TK");
-
-                entity.Property(e => e.Mota)
-                    .HasMaxLength(45)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Name)
-                    .HasMaxLength(45)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<TbTuKhoaSanPham>(entity =>
-            {
-                entity.HasKey(e => e.MaTksp)
-                    .HasName("PK_Tu_Khoa_San_Pham");
-
-                entity.ToTable("tb_TuKhoaSanPham");
-
-                entity.Property(e => e.MaTksp).HasColumnName("Ma_TKSP");
-
-                entity.Property(e => e.MaTk).HasColumnName("Ma_TK");
-
-                entity.HasOne(d => d.MaTkNavigation)
-                    .WithMany(p => p.TbTuKhoaSanPhams)
-                    .HasForeignKey(d => d.MaTk)
-                    .HasConstraintName("FK__Tu_Khoa_S__Ma_TK__403A8C7D");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.TbTuKhoaSanPhams)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__Tu_Khoa_S__Ma_SP__3F466844");
             });
 
             modelBuilder.Entity<TbUser>(entity =>

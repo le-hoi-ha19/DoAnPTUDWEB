@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
 using X.PagedList;
 
-
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -59,50 +58,42 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "CategoryProductId");
-            ViewData["TrademarkId"] = new SelectList(_context.TbTrademarks, "TrademarkId", "TrademarkId");
+            //selectList(tên-bảng-loại,id-Mặt-hàng,Tên-mặt-hàng)
+            ViewData["CategoryItems"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "Name");
+            ViewData["TrademarkItems"] = new SelectList(_context.TbTrademarks, "TrademarkId", "Name");
             return View();
         }
 
-        // POST: Admin/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,CategoryProductId,Name,IsBestSeller,IsHot,IsNew,Price,PriceDiscount,Quantity,Thumbnail,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,TrademarkId,Deleted,Description,IsActive")] TbProduct tbProduct)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(tbProduct);
+                _context.TbProducts.Add(tbProduct);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Product", new { area = "Admin" });
             }
-            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "CategoryProductId", tbProduct.CategoryProductId);
-            ViewData["TrademarkId"] = new SelectList(_context.TbTrademarks, "TrademarkId", "TrademarkId", tbProduct.TrademarkId);
+            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "Name", tbProduct.CategoryProductId);
+            ViewData["TrademarkId"] = new SelectList(_context.TbTrademarks, "TrademarkId", "Name", tbProduct.TrademarkId);
             return View(tbProduct);
         }
 
         // GET: Admin/Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.TbProducts == null)
-            {
-                return NotFound();
-            }
-
             var tbProduct = await _context.TbProducts.FindAsync(id);
             if (tbProduct == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "CategoryProductId", tbProduct.CategoryProductId);
-            ViewData["TrademarkId"] = new SelectList(_context.TbTrademarks, "TrademarkId", "TrademarkId", tbProduct.TrademarkId);
+
+            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "Name", tbProduct.CategoryProductId);
+            ViewData["TrademarkId"] = new SelectList(_context.TbTrademarks, "TrademarkId", "Name", tbProduct.TrademarkId);
             return View(tbProduct);
         }
 
-        // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,CategoryProductId,Name,IsBestSeller,IsHot,IsNew,Price,PriceDiscount,Quantity,Thumbnail,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,TrademarkId,Deleted,Description,IsActive")] TbProduct tbProduct)
@@ -112,11 +103,11 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(tbProduct);
+                    _context.TbProducts.Update(tbProduct);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -130,10 +121,9 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Product", new { area = "Admin" });
+
             }
-            ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "CategoryProductId", tbProduct.CategoryProductId);
-            ViewData["TrademarkId"] = new SelectList(_context.TbTrademarks, "TrademarkId", "TrademarkId", tbProduct.TrademarkId);
             return View(tbProduct);
         }
 
@@ -164,8 +154,16 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         {
             if (_context.TbProducts == null)
             {
-                return Problem("Entity set 'DataContext.TbProducts'  is null.");
+                return Problem("Không tìm thấy sản phẩm");
             }
+            var Colors= _context.TbProductColors.Where(pc => pc.ProductId == id);
+            _context.TbProductColors.RemoveRange(Colors);
+            _context.SaveChanges();
+
+            var Images = _context.TbImageProducts.Where(pc => pc.ProductId == id);
+            _context.TbImageProducts.RemoveRange(Images);
+            _context.SaveChanges();
+
             var tbProduct = await _context.TbProducts.FindAsync(id);
             if (tbProduct != null)
             {
@@ -173,7 +171,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Product", new { area = "Admin" });
         }
 
         private bool TbProductExists(int id)
