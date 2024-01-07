@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using DoAn_PTUDWEB.Utilities;
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -80,9 +81,9 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="logout">
+				<a href="/Admin/Home/Logout" class="logout">
 					<i class='bx bxs-log-out-circle'></i>
-					<span class="text">Logout</span>
+					<span class="text">Đăng xuất</span>
 				</a>
 			</li>
 		</ul>
@@ -108,6 +109,7 @@
 			</a>
 			<a href="#" class="profile">
 				<img src="~/admin/assets/img/people.png">
+                <span class="title">@Functions._FullName</span>
 			</a>
 		</nav>
 		<!-- NAVBAR -->

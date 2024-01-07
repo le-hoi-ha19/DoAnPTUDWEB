@@ -1,0 +1,126 @@
+﻿@using DoAn_PTUDWEB.Utilities;
+@model DoAn_PTUDWEB.Models.TbUser;
+@{
+	Layout = "";
+}
+<html lang="vi">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="cache-control" content="max-age=604800" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Đăng ký</title>
+
+	<link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<!-- jQuery -->
+	<script src="js/jquery-2.0.0.min.js" type="text/javascript"></script>
+
+	<!-- Bootstrap4 files-->
+	<script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+
+	<!-- Font awesome 5 -->
+	<link href="fonts/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
+
+	<!-- custom style -->
+	<link href="css/ui.css" rel="stylesheet" type="text/css" />
+	<link href="css/responsive.css" rel="stylesheet" type="text/css" />
+
+	<!-- custom javascript -->
+	<script src="js/script.js" type="text/javascript"></script>
+
+</head>
+<body>
+	
+	<section class="section-content padding-y">
+
+	
+		<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+			<article class="card-body">
+				<header class="mb-4"><h4 class="card-title">Đăng ký</h4></header>
+				<form class="needs-validation" asp-controller="Register" asp-action="Index">
+					<div class="form-row">
+						<div class="col form-group">
+							<label for="YourUserName">Tên tài khoản</label>
+							<input type="text" asp-for="UserName" class="form-control" placeholder="" id="YourUserName" required>
+						</div> 
+						<div class="col form-group">
+							<label for="YourFullName">Họ và tên</label>
+							<input type="text" asp-for="FullName" class="form-control" placeholder="" id="YourFullName" required>
+						</div> 
+					</div> 
+					<div class="form-group">
+						<label for="YourEmail">Email</label>
+						<input type="email" asp-for="Email" class="form-control" placeholder="" id="YourEmail" required>
+						<small class="form-text text-muted">Chúng tôi sẽ không bao giờ chia sẻ email của bạn với bất kỳ ai khác.</small>
+					</div> 
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Địa chỉ</label>
+							<input type="text" asp-for="Address" class="form-control" id="YourAdresss" required>
+
+						</div> 
+						<div class="form-group col-md-6">
+							<label>Số điện thoại</label>
+							<input type="text" asp-for="Phone" class="form-control" id="YourPhone" required>
+						</div> 
+					</div> 
+					
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="YourPassWord">Mật khẩu</label>
+							<input class="form-control" asp-for="PasswordHash" type="password" id="YourPassWord" required>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="YourPassWordAgain">Nhập lại mật khẩu</label>
+							<input class="form-control" type="password" id="YourPassWordAgain" required>
+							<div class="invalid-feedback">Vui lòng Nhập lại mật khẩu!</div>
+							<div class="invalid-feedback" id="passwordMismatch">Mật khẩu không khớp!</div>
+						</div>
+
+					</div>
+					<input class="form-control" asp-for="RoleId" type="hidden" value="2">
+					<input class="form-control" asp-for="Deleted" type="hidden" value="False">
+					<div class="col-12 text-center text-danger ">
+						<h6>
+							@Functions._MessageUserName
+						</h6>
+					</div>
+
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-block"> Đăng ký  </button>
+					</div> 
+					<div class="form-group">
+						<label class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Tôi đồng ý với <a href="#">điều khoản và điều kiện</a>  </div> </label>
+					</div> 
+				</form>
+			</article>
+		</div> 
+		<p class="text-center mt-4">Đã có tài khoản? <a href="/Login">Đăng nhập</a></p>
+		<br><br>
+		
+
+
+	</section>
+	
+</body>
+</html>
+<script>
+	// kiểm tra khớp mật khẩu:
+
+	document.getElementById('YourPassWordAgain').addEventListener('input', function () {
+		var password = document.getElementById('YourPassWord').value;
+		var confirmPassword = document.getElementById('YourPassWordAgain').value;
+
+		if (password === confirmPassword) {
+			document.getElementById('passwordMismatch').style.display = 'none';
+		} else {
+			document.getElementById('passwordMismatch').style.display = 'block';
+		}
+	});
+
+</script>
