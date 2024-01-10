@@ -1,93 +1,115 @@
 ﻿@model DoAn_PTUDWEB.Models.TbProduct
 
-@{
-    ViewData["Title"] = "Delete";
-}
+<main>
+    <div class="head-title">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li><i class='bx bx-chevron-right'></i></li>
+                <li>
+                    <a class="active" href="#">Xóa sản phẩm</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Xác nhận xóa sản phẩm</h2>
+                    </div>
+                    <div class="card-body overflow-auto" style="max-height: 400px;">
+                        <form asp-action="Delete" method="post">
+                            <fieldset>
+                                <legend>Thông tin sản phẩm</legend>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>TbProduct</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            Loại mặt hàng
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryProduct.CategoryProductId)
-        </dd>
-        <dt class = "col-sm-2">
-            Tên sản phẩm
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            Bán chạy
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsBestSeller)
-        </dd>
-        <dt class = "col-sm-2">
-            Hot
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsHot)
-        </dd>
-        <dt class = "col-sm-2">
-            Mới về
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsNew)
-        </dd>
-        <dt class = "col-sm-2">
-            Giá
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            Giảm giá
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PriceDiscount)
-        </dd>
-        <dt class = "col-sm-2">
-            Số lượng
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            Ảnh:
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Html.DisplayFor(model => model.Thumbnail)" alt="ảnh " />
-        </dd>
-        
-        <dt class = "col-sm-2">
-            Thương hiệu
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Trademark.TrademarkId)
-        </dd>
-        <dt class = "col-sm-2">
-            Mô tả
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            Trạng thái
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="ProductId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-area="Admin" asp-controller="Product" asp-action="Index">Quay lại</a>
+                                <div class="form-group">
+                                    <label asp-for="ProductId" class="control-label">ID Sản phẩm</label>
+                                    <input type="text" class="form-control mb-3" asp-for="ProductId" readonly />
+                                </div>
 
-    </form>
-</div>
+                                <div class="form-group">
+                                    <label asp-for="CategoryProductId" class="control-label">Loại mặt hàng</label>
+                                    <input type="text" class="form-control mb-3" asp-for="CategoryProductId" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Name" class="control-label">Tên sản phẩm</label>
+                                    <input type="text" class="form-control mb-3" asp-for="Name" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="IsBestSeller" class="control-label">Bán chạy</label>
+                                    <input type="text" class="form-control mb-3" asp-for="IsBestSeller" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="IsHot" class="control-label">Hot</label>
+                                    <input type="text" class="form-control mb-3" asp-for="IsHot" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="IsNew" class="control-label">Mới về</label>
+                                    <input type="text" class="form-control mb-3" asp-for="IsNew" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Price" class="control-label">Giá</label>
+                                    <input type="text" class="form-control mb-3" asp-for="Price" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="PriceDiscount" class="control-label">Giảm giá</label>
+                                    <input type="text" class="form-control mb-3" asp-for="PriceDiscount" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Quantity" class="control-label">Số lượng</label>
+                                    <input type="text" class="form-control mb-3" asp-for="Quantity" readonly />
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label asp-for="Thumbnail" class="control-label">Ảnh</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-success" type="button" onclick="openDialog()">Chọn ảnh</button>
+                                        </div>
+                                        <input type="text" class="form-control" asp-for="Thumbnail" id="file_input" aria-describedby="button-addon2" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="TrademarkId" class="control-label">Thương hiệu</label>
+                                    <input type="text" class="form-control mb-3" asp-for="TrademarkId" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Description" class="control-label">Mô tả</label>
+                                    <input type="text" class="form-control mb-3" asp-for="Description" readonly />
+                                </div>
+
+                                <div class="form-group mt-5 mb-5">
+                                    <label asp-for="IsActive" class="control-label" >Hiển thị</label>
+                                    <input type="text" class="form-control mb-3" asp-for="IsActive" readonly />
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group">
+                                <a class="btn btn-warning" href="javascript:history.back()">
+                                    <i class="bi bi-arrow-left-circle"></i> Quay lại
+                                </a>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash-fill"></i> Xóa sản phẩm
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

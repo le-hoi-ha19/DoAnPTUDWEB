@@ -4,88 +4,153 @@
     ViewData["Title"] = "Danh sách sản phẩm";
 }
 
+<div class="container mt-4">
+    <div class="head-title">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li><a href="#">Dashboard</a></li>
+                <li><i class='bx bx-chevron-right'></i></li>
+                <li><a class="active" href="#">Product</a></li>
+            </ul>
+        </div>
+    </div>
 
+    <div class="table" id="products_table">
+        <section class="table__header">
+            <h3>Product</h3>
 
-<p>
-    <a asp-controller="Product" asp-action="Create" class="btn btn-primary"> <i class="fas fa-plus"></i> Thêm mới</a>
-</p>
+            <div class="input-groupp">
+                <input type="search" placeholder="Search Data...">
+                <img src="~/admin/assets/img/search.png" alt="">
+            </div>
 
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Tên sản phẩm</th>
-                <th>Ảnh</th>
-                <th>Bán chạy</th>
-                <th>Hot</th>
-                <th>Mới về</th>
-                <th>Giá</th>
-                <th>Giảm giá</th>
-                <th>Số lượng</th>
-                <th>Trạng thái</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                    <td>
-                        <img src="@Html.DisplayFor(modelItem => item.Thumbnail)"  />
-                    </td>
+            <a asp-controller="Product" asp-action="Create" class="btn btn-primary btn-sm" title="Thêm mới sản phẩm">
+                <i class="fas fa-plus fa-lg"></i> Thêm mới
+            </a>
+        </section>
+        <section class="table__body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Tên sản phẩm <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Ảnh <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Bán chạy <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Hot <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Mới về <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Giá <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Giảm giá <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Số lượng <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Trạng thái <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                        <th>
+                            Hành động <span class="icon-arrow">&UpArrow;</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <img src="@item.Thumbnail" alt="Image" />
+                            </td>
+                            <td>
+                                <p class="status @(item.IsBestSeller ? "delivered" : "cancelled")">
+                                    @item.IsBestSeller
+                                </p>
+                            </td>
+                            <td>
+                                <p class="status @(item.IsHot ? "delivered" : "cancelled")">
+                                    @item.IsHot
+                                </p>
+                            </td>
+                            <td>
+                                <p class="status @(item.IsNew ? "delivered" : "cancelled")">
+                                    @item.IsNew
+                                </p>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PriceDiscount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                <p class="status @(item.IsActive.HasValue && item.IsActive.Value ? "delivered" : "cancelled")">
+                                    @item.IsActive
+                                </p>
+                            </td>
+                            <td>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm" title="Chỉnh sửa thông tin bài viết">
+                                    <i class="fas fa-pencil-alt fa-lg"></i>
+                                </a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info btn-sm" title="Xem thông tin bài viết">
+                                    <i class="fas fa-eye fa-lg"></i>
+                                </a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm" title="Xóa thông tin bài viết">
+                                    <i class="fas fa-trash fa-lg"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
 
-                    <td>@Html.DisplayFor(modelItem => item.IsBestSeller)</td>
-                    <td>@Html.DisplayFor(modelItem => item.IsHot)</td>
-                    <td>@Html.DisplayFor(modelItem => item.IsNew)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                    <td>@Html.DisplayFor(modelItem => item.PriceDiscount)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
-                    
-                    <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
-                    <td class="p-4">
-                        <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Sửa</a>
-                        <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info btn-sm my-3"><i class="fas fa-info-circle"></i> Chi tiết</a>
-                        <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Xóa</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        <!-- Hiển thị thanh phân trang -->
+        <section class="pagination-section">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    @if (Model.HasPreviousPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { area = "Admin", controller = "Product", page = Model.PageNumber - 1 })" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { area = "Admin", controller = "Product", page = i })">@i</a>
+                        </li>
+                    }
+
+                    @if (Model.HasNextPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { area = "Admin", controller = "Product", page = Model.PageNumber + 1 })" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </section>
+    </div>
 </div>
-
-
-<!-- Hiển thị thanh phân trang -->
-<div class="pagination-container">
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-
-            @if (Model.HasPreviousPage)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { area = "Admin", controller = "Product", page = Model.PageNumber - 1 })" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-            }
-
-            @for (int i = 1; i <= Model.PageCount; i++)
-            {
-                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { area = "Admin", controller = "Product", page = i })">@i</a>
-                </li>
-            }
-
-            @if (Model.HasNextPage)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { area = "Admin", controller = "Product", page = Model.PageNumber + 1 })" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            }
-
-        </ul>
-    </nav>
-</div>
-

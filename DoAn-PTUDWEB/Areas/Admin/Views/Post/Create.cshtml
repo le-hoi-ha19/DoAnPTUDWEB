@@ -36,8 +36,12 @@
 
                         <div class="form-group">
                             <label asp-for="Image" class="control-label">Ảnh:</label>
-                            <input asp-for="Image" class="form-control" />
-                            <span asp-validation-for="Image" class="text-danger"></span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-success" type="button" onclick="openDialog()">Chọn ảnh</button>
+                                </div>
+                                <input type="text" class="form-control" asp-for="Image" id="file_input" aria-describedby="button-addon2" />
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -86,7 +90,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Hiện thị:</label>
+                            <label class="control-label">Hiển thị:</label>
                             <label>
                                 @Html.CheckBox("IsActive",false)
                             </label>
@@ -107,4 +111,9 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+}
+
+@{
+    var summerNote = new DoAn_PTUDWEB.Areas.Admin.Models.SummerNote("#Contents");
+    <partial name="_SummerNote" model="summerNote" />
 }

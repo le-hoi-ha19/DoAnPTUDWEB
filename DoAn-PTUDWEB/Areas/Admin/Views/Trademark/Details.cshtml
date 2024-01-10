@@ -4,30 +4,44 @@
     ViewData["Title"] = "Details";
 }
 
-    <h4>Thông tin chi tiết thương hiệu</h4>
-
-<div>
-    <dl class="row">
-        <dd class="col-sm-12">
-            <img src="@Html.DisplayFor(model => model.Logo)" alt="Thương hiệu" width="200" height="200" />
-        </dd>
-        <dt class = "col-sm-2">
-          Tên thương hiệu
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-           Mô tả
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-       
-      
-    </dl>
+<div class="head-title">
+    <div class="left">
+        <h1>Dashboard</h1>
+        <ul class="breadcrumb">
+            <li><a href="#">Dashboard</a></li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li><a class="active" href="#">Chi tiết thương hiệu</a></li>
+        </ul>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.TrademarkId" class="btn btn-primary btn-sm">Chỉnh sửa</a> |
-    <a asp-area="Admin" asp-controller="Trademark" asp-action="Index">Quay lại</a>
+
+<div class="container mt-5">
+    <div class="card">
+        <h5 class="card-header">Thông tin chi tiết thương hiệu</h5>
+        <div class="card-body">
+
+            <dl class="row">
+                <dd class="col-sm-12">
+                    <img src="@Html.DisplayFor(model => model.Logo)" alt="Thương hiệu" width="200" height="200" />
+                </dd>
+                <dt class="col-sm-2">
+                    Tên thương hiệu
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    Mô tả
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.TrademarkId" class="btn btn-primary btn-sm">Chỉnh sửa</a> |
+        <a asp-area="Admin" asp-controller="Trademark" asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
 </div>
