@@ -6,7 +6,6 @@
 
 <div class="head-title">
     <div class="left">
-        <h1>Dashboard</h1>
         <ul class="breadcrumb">
             <li>
                 <a href="#">Dashboard</a>
@@ -19,79 +18,80 @@
     </div>
 </div>
 
-<div class="container mt-5">
+<div class="container ">
     <div class="card">
-        <h5 class="card-header">Details</h5>
-        <div class="card-body" style="max-height: 350px; overflow-y: auto;">
+        <h5 class="card-header">Thông tin chi tiết</h5>
+        <div class="card-body" >
 
             <table class="details-table">
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.Thumbnail):</td>
+                    <td class="details-label">Ảnh sản phẩm:</td>
                     <td class="details-value text-center">
                         <img src="@Html.DisplayFor(model => model.Thumbnail)" alt="Thumbnail" class="img-fluid rounded-0 d-block" style="width: 200px; height: 200px;">
                     </td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.Name):</td>
+                    <td class="details-label">Tên sản phẩm:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.Name)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.CategoryProductId):</td>
+                    <td class="details-label">Loại sản phẩm:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.CategoryProductId)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.IsBestSeller):</td>
+                    <td class="details-label">Bán chạy:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.IsBestSeller)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.IsHot):</td>
+                    <td class="details-label">Hot:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.IsHot)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.IsNew):</td>
+                    <td class="details-label">Mới về:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.IsNew)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.Price):</td>
+                    <td class="details-label">Giá:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.Price)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.PriceDiscount):</td>
+                    <td class="details-label">Giảm giá:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.PriceDiscount)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.Quantity):</td>
+                    <td class="details-label">Số lượng:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.Quantity)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.Trademark.TrademarkId):</td>
+                    <td class="details-label">Thương hiệu:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.Trademark.TrademarkId)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.Description):</td>
+                    <td class="details-label">Mô tả:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.Description)</td>
                 </tr>
 
                 <tr class="details-row">
-                    <td class="details-label">@Html.DisplayNameFor(model => model.IsActive):</td>
-                    <td class="details-value">@Html.DisplayFor(model => model.IsActive)</td>
+                    <td class="details-label">Trạng thái:</td>
+                    <td>@(Model.IsActive == true ? "Hiển thị" : "Ẩn")</td>
                 </tr>
             </table>
+            <div class="mt-3">
+                <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-primary">Sửa</a>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+            </div>
         </div>
     </div>
+   
 
-    <div class="mt-3">
-        <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-primary">Edit</a>
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-    </div>
 </div>

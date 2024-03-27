@@ -18,10 +18,9 @@ namespace DoAn_PTUDWEB.Models
         public string? Phone { get; set; }
         public string? Address { get; set; }
         public string? Email { get; set; }
-        public int? Status { get; set; }
+        public bool? Status { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public bool? Deleted { get; set; }
         public int? RoleId { get; set; }
 
         public virtual TbRole? Role { get; set; }

@@ -9,10 +9,6 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         
         public IActionResult Index()
         {
-            if (!Functions.IsLogin())
-            {
-                return RedirectToAction("Index", "Login");
-            }
             return View();
         }
 

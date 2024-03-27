@@ -6,14 +6,13 @@
 
 <div class="head-title">
     <div class="left">
-        <h1>Dashboard</h1>
         <ul class="breadcrumb">
             <li>
                 <a href="#">Dashboard</a>
             </li>
             <li><i class='bx bx-chevron-right'></i></li>
             <li>
-                <a class="active" href="#">User</a>
+                <a class="active" href="#">Người dùng</a>
             </li>
         </ul>
     </div>
@@ -22,10 +21,9 @@
 
 <div class="table" id="users_table" style="overflow: auto; max-height: 500px;">
     <section class="table__header">
-        <h3>User</h3>
 
         <div class="input-groupp">
-            <input type="search" placeholder="Search Data...">
+            <input type="search" placeholder="Tìm kiếm người dùng...">
             <img src="~/admin/assets/img/search.png" alt="">
         </div>
 
@@ -39,10 +37,10 @@
                 <tr>
                     
                     <th>
-                        Full Name <span class="icon-arrow">&UpArrow;</span>
+                        Họ và tên <span class="icon-arrow">&UpArrow;</span>
                     </th>                  
                     <th>
-                        Phone <span class="icon-arrow">&UpArrow;</span>
+                        Số điện thoại <span class="icon-arrow">&UpArrow;</span>
                     </th>
                     <th>
                         Địa chỉ <span class="icon-arrow">&UpArrow;</span>
@@ -82,29 +80,25 @@
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
-                            @if (item.Status.HasValue && item.Status.Value == 1)
-                            {
-                                <p class="status delivered">True</p>
-                            }
-                            else
-                            {
-                                <p class="status cancelled">False</p>
-                            }
+                            <p class="status @(item.Status.HasValue && item.Status.Value == true ? "delivered" : "cancelled")">
+                                @(item.Status == true ? "Mở" : "Khóa")
+                            </p>
                         </td>
                         
                         <td>
                             @Html.DisplayFor(modelItem => item.Role.RoleName)
                         </td>
                         <td>
-                            <a asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-primary btn-sm" title="Chỉnh sửa thông tin bài viết">
-                                <i class="fas fa-pencil-alt fa-lg"></i>
-                            </a>
-                            <a asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-id="@item.UserId" class="btn btn-info btn-sm" title="Xem thông tin bài viết">
-                                <i class="fas fa-eye fa-lg"></i>
-                            </a>
-                            <a asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-danger btn-sm" title="Xóa thông tin bài viết">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-danger btn-sm" title="Xóa thông tin người dùng">
                                 <i class="fas fa-trash fa-lg"></i>
                             </a>
+                            <a asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-primary btn-sm" title="Chỉnh sửa thông tin người dùng">
+                                <i class="fas fa-pencil-alt fa-lg"></i>
+                            </a>
+                            <a asp-area="Admin" asp-controller="User" asp-action="Details" asp-route-id="@item.UserId" class="btn btn-info btn-sm" title="Xem thông tin người dùng">
+                                <i class="fas fa-eye fa-lg"></i>
+                            </a>
+                            
                         </td>
                     </tr>
                 }

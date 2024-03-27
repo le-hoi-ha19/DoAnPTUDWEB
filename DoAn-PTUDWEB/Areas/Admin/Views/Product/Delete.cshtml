@@ -1,9 +1,7 @@
 ﻿@model DoAn_PTUDWEB.Models.TbProduct
 
-<main>
     <div class="head-title">
         <div class="left">
-            <h1>Dashboard</h1>
             <ul class="breadcrumb">
                 <li>
                     <a href="#">Dashboard</a>
@@ -15,17 +13,16 @@
             </ul>
         </div>
     </div>
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
             <div class="col-md-12 mx-auto">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="mb-0">Xác nhận xóa sản phẩm</h2>
+                        <h5 class="mb-0">Xác nhận xóa sản phẩm</h5>
                     </div>
-                    <div class="card-body overflow-auto" style="max-height: 400px;">
+                    <div class="card-body overflow-auto" >
                         <form asp-action="Delete" method="post">
                             <fieldset>
-                                <legend>Thông tin sản phẩm</legend>
 
                                 <div class="form-group">
                                     <label asp-for="ProductId" class="control-label">ID Sản phẩm</label>
@@ -112,4 +109,3 @@
             </div>
         </div>
     </div>
-</main>

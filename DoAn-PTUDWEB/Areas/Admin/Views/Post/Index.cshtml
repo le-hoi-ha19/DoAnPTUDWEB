@@ -10,14 +10,13 @@
 }
 	<div class="head-title">
 		<div class="left">
-			<h1>Dashboard</h1>
 			<ul class="breadcrumb">
 				<li>
 					<a href="#">Dashboard</a>
 				</li>
 				<li><i class='bx bx-chevron-right'></i></li>
 				<li>
-					<a class="active" href="#">Post</a>
+					<a class="active" href="#">Bài viết</a>
 				</li>
 			</ul>
 		</div>
@@ -25,10 +24,9 @@
 
     <div class="table" id="customers_table" style="overflow: auto; max-height: 500px;">
         <section class="table__header">
-            <h3>Post</h3>
             
             <div class="input-groupp">
-                <input type="search" placeholder="Search Data...">
+                <input type="search" placeholder="Tìm kiếm bài viết...">
                 <img src="~/admin/assets/img/search.png" alt="">
             </div>
             
@@ -42,11 +40,11 @@
                 <thead>
                     <tr>
                         <th> Id <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Họ tên <span class="icon-arrow">&UpArrow;</span></th>                      
+                        <th> Tên bài viết <span class="icon-arrow">&UpArrow;</span></th>                      
                         <th> Ảnh <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Hoạt động <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Được tạo <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Được sửa <span class="icon-arrow">&UpArrow;</span></th>                   
+                        <th> Trạng thái <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Tạo bởi <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Sửa bởi <span class="icon-arrow">&UpArrow;</span></th>                   
                         <th> Chức năng <span class="icon-arrow">&UpArrow;</span></th>
                     </tr>
                 </thead>
@@ -63,7 +61,7 @@
                             <td> <img src="~/@item.Image" alt="Image"  /></td>
                             <td>
                                 <p class="status @(item.IsActive.HasValue && item.IsActive.Value ? "delivered" : "cancelled")">
-                                    @item.IsActive
+                                    @(item.IsActive == true? "Hiển thị":"Ẩn")
                                 </p>
                             </td>
                             <td> @item.CreatedBy</td>

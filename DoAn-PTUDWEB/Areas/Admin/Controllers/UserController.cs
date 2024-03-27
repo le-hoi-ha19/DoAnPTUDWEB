@@ -57,7 +57,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,UserName,FullName,PasswordHash,Phone,Address,Email,Status,CreatedDate,ModifiedDate,Deleted,RoleId")] TbUser tbUser)
+        public async Task<IActionResult> Create([Bind("UserId,UserName,FullName,PasswordHash,Phone,Address,Email,Status,CreatedDate,ModifiedDate,RoleId")] TbUser tbUser)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,FullName,PasswordHash,Phone,Address,Email,Status,CreatedDate,ModifiedDate,Deleted,RoleId")] TbUser tbUser)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,FullName,PasswordHash,Phone,Address,Email,Status,CreatedDate,ModifiedDate,RoleId")] TbUser tbUser)
         {
             if (id != tbUser.UserId)
             {

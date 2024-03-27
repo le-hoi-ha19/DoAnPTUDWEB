@@ -3,17 +3,15 @@
 @{
 	int rowIndex = 1; // Khởi tạo biến rowIndex để làm ID tăng dần từ 1
 }
-<main>
 	<div class="head-title">
 		<div class="left">
-			<h1>Dashboard</h1>
 			<ul class="breadcrumb">
 				<li>
 					<a href="#">Dashboard</a>
 				</li>
 				<li><i class='bx bx-chevron-right'></i></li>
 				<li>
-					<a class="active" href="#">Contact</a>
+					<a class="active" href="#">Liên hệ</a>
 				</li>
 			</ul>
 		</div>
@@ -21,10 +19,9 @@
 
     <div class="table" id="customers_table">
         <section class="table__header">
-            <h3>Contact</h3>
             
             <div class="input-groupp">
-                <input type="search" placeholder="Search Data...">
+                <input type="search" placeholder="Tìm kiếm thông tin...">
                 <img src="~/admin/assets/img/search.png" alt="">
             </div>
             <!--
@@ -41,7 +38,7 @@
                         <th> Email <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Tên chủ đề <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Tin nhắn <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Được Đọc <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Trạng thái <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Ngày tạo <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Được tạo <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Chức năng <span class="icon-arrow">&UpArrow;</span></th>
@@ -63,14 +60,14 @@
                             <td> @item.Message</td>
                             <td>
                                 <p class="status @(item.IsRead.HasValue && item.IsRead.Value ? "delivered" : "cancelled")">
-                                    @item.IsRead
+                                    @(item.IsRead == true ?"Đã đọc":"Chưa đọc")
                                 </p>
                             </td>
                             <td> @item.CreatedDate</td>
                             <td> @item.CreatedBy</td>
                             
                             <td class="text-center">
-                                <a asp-area="Admin" asp-controller="Contact" asp-action="Delete" asp-route-id="@item.ContactId" class="btn btn-danger btn-sm" title="Xóa thông tin bài viết">
+                                <a asp-area="Admin" asp-controller="Contact" asp-action="Delete" asp-route-id="@item.ContactId" class="btn btn-danger btn-sm" title="Xóa liên hệ">
                                     <i class="fas fa-trash fa-lg"></i>
                                 </a>
                             </td>
@@ -81,5 +78,4 @@
             </table>
         </section>
     </div>
-</main>
 <!-- MAIN -->

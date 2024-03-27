@@ -8,10 +8,7 @@ namespace DoAn_PTUDWEB.Controllers
 		[Route("/Account")]
 		public IActionResult Index()
 		{
-			if (!Functions.IsLogin())
-			{
-				return RedirectToAction("Index", "Login");
-			}
+			
 			return View();
 		}
 	}

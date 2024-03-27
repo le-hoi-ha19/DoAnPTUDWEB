@@ -8,20 +8,20 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
-			// thêm để check đăng nhập và phân quyền
-			if (!Functions.IsLogin())
-			{
-				return RedirectToAction("Index", "Login");
-			}
-			else if(Functions.CheckAdminPermission())
-			{
+			//// thêm để check đăng nhập và phân quyền
+			//if (!Functions.IsLogin())
+			//{
+			//	return RedirectToAction("Index", "Login");
+			//}
+			//else if(Functions.CheckAdminPermission())
+			//{
 
+			//}
+			//else
+			//{
+			//	return NotFound();
+			//}
 				return View();
-			}
-			else
-			{
-				return NotFound();
-			}
 
         }
 		public IActionResult Logout()

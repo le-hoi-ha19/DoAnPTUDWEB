@@ -4,24 +4,22 @@
     ViewData["Title"] = "Danh sách sản phẩm";
 }
 
-<div class="container mt-4">
+<div class="container ">
     <div class="head-title">
         <div class="left">
-            <h1>Dashboard</h1>
             <ul class="breadcrumb">
                 <li><a href="#">Dashboard</a></li>
                 <li><i class='bx bx-chevron-right'></i></li>
-                <li><a class="active" href="#">Product</a></li>
+                <li><a class="active" href="#">Sản phẩm</a></li>
             </ul>
         </div>
     </div>
 
     <div class="table" id="products_table">
         <section class="table__header">
-            <h3>Product</h3>
 
             <div class="input-groupp">
-                <input type="search" placeholder="Search Data...">
+                <input type="search" placeholder="Tìm kiếm sản phẩm...">
                 <img src="~/admin/assets/img/search.png" alt="">
             </div>
 
@@ -42,12 +40,7 @@
                         <th>
                             Bán chạy <span class="icon-arrow">&UpArrow;</span>
                         </th>
-                        <th>
-                            Hot <span class="icon-arrow">&UpArrow;</span>
-                        </th>
-                        <th>
-                            Mới về <span class="icon-arrow">&UpArrow;</span>
-                        </th>
+                        
                         <th>
                             Giá <span class="icon-arrow">&UpArrow;</span>
                         </th>
@@ -75,19 +68,10 @@
                             <td>
                                 <img src="@item.Thumbnail" alt="Image" />
                             </td>
-                            <td>
-                                <p class="status @(item.IsBestSeller ? "delivered" : "cancelled")">
-                                    @item.IsBestSeller
-                                </p>
-                            </td>
-                            <td>
-                                <p class="status @(item.IsHot ? "delivered" : "cancelled")">
-                                    @item.IsHot
-                                </p>
-                            </td>
+                            
                             <td>
                                 <p class="status @(item.IsNew ? "delivered" : "cancelled")">
-                                    @item.IsNew
+                                    @(item.IsNew == true ? "Có" : "Không")
                                 </p>
                             </td>
                             <td>
@@ -101,17 +85,17 @@
                             </td>
                             <td>
                                 <p class="status @(item.IsActive.HasValue && item.IsActive.Value ? "delivered" : "cancelled")">
-                                    @item.IsActive
+                                    @(item.IsActive == true ? "Hiển thị":"Ẩn")
                                 </p>
                             </td>
                             <td>
-                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm" title="Chỉnh sửa thông tin bài viết">
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm" title="Chỉnh sửa thông tin sản phẩm">
                                     <i class="fas fa-pencil-alt fa-lg"></i>
                                 </a>
-                                <a asp-area="Admin" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info btn-sm" title="Xem thông tin bài viết">
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info btn-sm" title="Xem thông tin sản phẩm">
                                     <i class="fas fa-eye fa-lg"></i>
                                 </a>
-                                <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm" title="Xóa thông tin bài viết">
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm" title="Xóa thông tin sản phẩm">
                                     <i class="fas fa-trash fa-lg"></i>
                                 </a>
                             </td>
