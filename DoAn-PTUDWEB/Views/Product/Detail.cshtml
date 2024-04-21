@@ -1,8 +1,6 @@
 ﻿<!--Nhận dữ liệu từ Action Detail của ProductController truyền qua-->
 @model DoAn_PTUDWEB.Models.ProductDetail
 
-
-
 @{
     ViewBag.Title = "Sản phẩm";
 }
@@ -63,18 +61,31 @@
 							<small class="text-muted">đ</small>
 						</div>
 						<!-- End Giá sản phẩm-->
-						<!--Start chọn màu-->
-						<div class="d-flex justify-content-start align-items-center my-3">
-							<label>Màu:</label>
-							<select class="input-select form-control w-25 ml-2">
-							@foreach (var color in @Model.Colors)
-							{
-								<option value="0">@color.ColorName</option>
+					<div id="IsCheckForm" style="height:80px">
+						<div class="d-flex flex-direction-column justify-content-center align-items-center">
+							<!--Start chọn màu-->
+							<div class="d-flex justify-content-start align-items-center my-2">
+								<select class="input-select form-control ml-2" style="width:150px" id="color-product">
+									<option value="" class="text-center" selected>Chọn màu sắc</option>
+									@foreach (var color in @Model.Colors)
+									{
+										<option value="@color.ColorId">@color.ColorName</option>
+									}
+								</select>
+							</div>
 
-							}
-						</select>
+							<!--End chọn màu-->
+							<!--start chọn loại Gb của điện thoại-->
+							<div class="btn-group " id="ProductType" role="group" aria-label="Product Types">
+								@foreach (var type in @Model.Types)
+								{
+									<button type="button" id="type-product" class="btn btn-outline-success m-2 rounded" data-type="@type.TypeId">@type.TypeName</button>
+								}
+							</div>
 						</div>
-						<!--End chọn màu-->
+						<p class="text-center mt-1 text-danger text-warning" id="text-warning"> vui lòng chọn phân loại hàng</p>
+						<!--start chọn loại Gb của điện thoại-->
+					</div>
 
 
 						<div class="form-row  mt-4">
@@ -84,7 +95,7 @@
 									<div class="input-group-prepend">
 										<button class="btn btn-light" type="button" id="button-plus"> + </button>
 									</div>
-									<input type="text" class="form-control" value="1">
+									<input type="text" class="form-control" value="1" id="quantity-product">
 									<div class="input-group-append">
 										<button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
 									</div>
@@ -92,8 +103,8 @@
 							</div>
 							<!--2 nút -->
 							<div class="form-group col-md">
-							<a href="@Url.Action("AddToCart","Cart",new{productId = @Model.Product.ProductId})" class="btn btn-primary btn-add-cart" data-id="@Model.Product.ProductId">
-									<i class="fas fa-shopping-cart"></i> <span class="text">Thêm vào giỏ hàng</span>
+							<a id="btn-add-cart" class="btn btn-primary btn-add-cart" data-id="@Model.Product.ProductId">
+								<i style="color:white" class="fas fa-shopping-cart"></i> <span style="color:white" class="text">Thêm vào giỏ hàng</span>
 							</a>
 							<a href="/Cart" class="btn btn-light">
 									<i class="fa fa-heart"></i> <span class="text">Xem giỏ hàng</span>
@@ -251,7 +262,7 @@
 														@{
 															for (int i = 1; i <= @review.Rating; i++)
 															{
-																<li>&#9733;</li>
+																	<li>&#9733;</li>
 															}
 														}
 
@@ -323,6 +334,67 @@
 <!-- end phần sản phẩm liên quan-->
 
 <script>
+	// thêm sản phẩm có số lượng vào đơn hàng
+
+	document.getElementById('btn-add-cart').addEventListener('click', function (event) {
+		event.preventDefault(); 
+
+
+		var productId = this.getAttribute('data-id'); 
+		var quantity = document.getElementById('quantity-product').value;
+		var colorId = document.getElementById("color-product").value;
+		var typeElement = document.querySelector("#ProductType button.active");
+		var typeId
+		var checkFormElement = document.getElementById("IsCheckForm");
+		var textWarningElement = document.getElementById("text-warning");
+
+		if (colorId !== "" && typeElement !== null) {
+			// Nếu cả hai trường đã được chọn
+			typeId = typeElement.getAttribute('data-type');
+			checkFormElement.style.backgroundColor = '#fff';
+			textWarningElement.classList.add('text-warning');
+
+			axios.post('/Cart/AddToCart/', {
+				productId: productId,
+				quantity: quantity,
+				ColorId: colorId,
+				TypeId: typeId,
+			})
+				.then(function (response) {
+					if (response.status == 200) {
+						console.log('response:', response)
+						Swal.fire({
+							position: "center",
+							icon: "success",
+							title: "Sản phẩm đã được thêm vào giỏ hàng",
+							showConfirmButton: false,
+							timer: 1500
+						});
+						setTimeout(function () {
+							location.reload();
+						}, 2000);
+
+					}
+				})
+
+				.catch(function (error) {
+					console.error('Có lỗi xảy ra khi gửi yêu cầu:', error);
+				});
+		} else {
+			// Nếu cả hai trường chưa được chọn
+			checkFormElement.style.backgroundColor = '#fff5f5';
+			textWarningElement.classList.remove('text-warning');
+		}
+
+
+	});
+
+
+
+
+
+
+
 	// Thay đổi ảnh to khi hover chuột vào ảnh nhỏ
 	var bigImage = document.querySelector(".bigImage");
 	var smallImages = document.querySelectorAll('.smallImage');
@@ -457,5 +529,37 @@
 			});
 	}
 
+
+
+
+
+	// tăng và giảm số tượng sản phẩm
+	var itemDisplayQuantity = document.getElementById('quantity-product');
+	var btnIncreaseProduct = document.getElementById('button-plus');
+	var btnDecreaseProduct = document.getElementById('button-minus');
+
+	btnIncreaseProduct.addEventListener("click", function () {
+		itemDisplayQuantity.value = parseInt(itemDisplayQuantity.value) + 1;
+	});
+
+	btnDecreaseProduct.addEventListener("click", function () {
+		if (parseInt(itemDisplayQuantity.value) > 1) {
+			itemDisplayQuantity.value = parseInt(itemDisplayQuantity.value) - 1;
+		}
+	});
+
+
+	// active chọn số Gb điện thoại
+	const buttons = document.querySelectorAll("#ProductType button");
+
+	// Add click event listener to each button
+	buttons.forEach(button => {
+		button.addEventListener("click", function () {
+			// Remove 'active' class from all buttons
+			buttons.forEach(btn => btn.classList.remove("active"));
+			// Add 'active' class to the clicked button
+			this.classList.add("active");
+		});
+	});
 
 </script>

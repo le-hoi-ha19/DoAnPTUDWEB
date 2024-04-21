@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Nhập thông tin đơn hàng";
+}
+
+
+<div class="container">
+    <form action="/Cart/handlecart" method="post" id="formDemo">
+                <h5 class="text-center mt-4">Thông tin khách hàng</h5>
+        <div class="d-flex flex-column justify-content-center align-items-center ">
+            <div class="p-lg-5 border w-50 mb-3 rounded" style="background-color:#ffffff">
+                <div class="mb-3">
+                    <select class="form-control " name="UserId">
+                        <option value="">--Chọn tên khách hàng--</option>
+                        @foreach (var item in ViewBag.Users)
+                        {
+                            <option value="@item.UserId">@item.FullName</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" class="form-control" name="orderDate" value="@DateTime.Now">
+                </div>
+
+
+                <div class="mb-3">
+                    <input type="text" class="form-control " name="shipAddress" placeholder="Nhập địa chỉ giao hàng">
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" class="form-control" name="status" value="1">
+                </div>
+                <div class="mb-3">
+                    <label for="note" class="form-label ">Ghi chú</label>
+                    <textarea  class="form-control " name="note" > </textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-25 ">Đặt hàng</button>
+            </div>
+         </div>
+             
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#formDemo").validate({
+            rules: {
+                UserId: "required",
+                shipAddress: "required",
+            },
+            messages: {
+                UserId: "<span class='text-danger'>Vui lòng chọn khách hàng</span>",
+                shipAddress: {
+                    required: "<span class='text-danger '>Vui lòng nhập địa chỉ giao hàng</span>",
+                }
+            }
+        });
+    });
+
+</script>
+
+

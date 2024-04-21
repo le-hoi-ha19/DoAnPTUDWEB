@@ -9,7 +9,8 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
     [Area("Admin")]
     [Route("/Admin/el-finder-file-system")]
 
-    public class FileSystemController : Controller
+    public class 
+        FileSystemController : Controller
     {
         readonly IWebHostEnvironment _env;
 
@@ -22,13 +23,14 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             if (result is JsonResult)
             {
                 var json = result as JsonResult;
-                return Content(JsonSerializer.Serialize(json.Value), json.ContentType);
+                return Content(JsonSerializer.Serialize(json?.Value), json.ContentType);
 
             }
             else
             {
                 return Json(result);
             }
+
         }
 
         // Địa chỉ để truy vấn thumbnail

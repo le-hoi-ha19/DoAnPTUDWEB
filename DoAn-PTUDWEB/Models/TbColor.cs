@@ -7,6 +7,7 @@ namespace DoAn_PTUDWEB.Models
     {
         public TbColor()
         {
+            TbOrderDetails = new HashSet<TbOrderDetail>();
             TbProductColors = new HashSet<TbProductColor>();
         }
 
@@ -14,6 +15,7 @@ namespace DoAn_PTUDWEB.Models
         public string? ColorName { get; set; }
         public string? Description { get; set; }
 
+        public virtual ICollection<TbOrderDetail> TbOrderDetails { get; set; }
         public virtual ICollection<TbProductColor> TbProductColors { get; set; }
     }
 }

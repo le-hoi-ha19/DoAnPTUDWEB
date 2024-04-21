@@ -47,8 +47,8 @@
 					<span class="text">Thương hiệu</span>
 				</a>
 			</li>
-			<li>
-				<a href="#">
+			<li asp-area="Admin" asp-nav-link asp-controller="Order" asp-action="Index">
+				<a href="/Admin/Order/Index">
 					
 					<span class="pl-2 pr-4"><i class="fa-solid fa-bag-shopping"></i></span>
 					<span class="text">Đơn hàng</span>
@@ -64,6 +64,12 @@
 				<a href="/Admin/Post/Index">
 					<span class="pl-2 pr-4"><i class="fa-solid fa-blog"></i></span>
 					<span class="text">Bài viết</span>
+				</a>
+			</li>
+			<li asp-area="Admin" asp-nav-link asp-controller="Slide" asp-action="Index">
+				<a href="/Admin/Slide/Index">
+					<span class="pl-2 pr-4"><i class="fa-solid fa-image"></i></span>
+					<span class="text">Banner</span>
 				</a>
 			</li>
 			<li asp-area="Admin" asp-nav-link asp-controller="Contact" asp-action="Index">

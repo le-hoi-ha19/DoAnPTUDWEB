@@ -25,7 +25,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             var dataContext = _context.TbPosts.Include(t => t.User);
             return View(await dataContext.ToListAsync());
         }
-
+        
         // GET: Admin/Post/Details/5
         public async Task<IActionResult> Details(int? id)
         {

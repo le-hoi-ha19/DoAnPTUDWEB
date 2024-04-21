@@ -17,5 +17,11 @@ namespace DoAn_PTUDWEB.Infrastructure
 			return sessionData == null
 			? default(T) : JsonSerializer.Deserialize<T>(sessionData);
 		}
-	}
+		// xóa thông tin liên quan đến cart trong session
+        public static void RemoveSession(this ISession session, string key)
+        {
+            session.Remove(key);
+        }
+
+    }
 }

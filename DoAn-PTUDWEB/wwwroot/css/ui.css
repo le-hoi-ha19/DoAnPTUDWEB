@@ -11,6 +11,15 @@ html {
 INCLUDE STYLES AND COMPONENTS
 ===================== */
 /* ================== HELPERS  =================== */
+
+
+.text-warning{
+    display:none;
+}
+.btn-light:hover i {
+    color: #f3c32d;
+}
+
 a:hover {
   text-decoration: none; }
 

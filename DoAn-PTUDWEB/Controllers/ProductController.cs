@@ -145,8 +145,16 @@ namespace DoAn_PTUDWEB.Controllers
 			var imagesProduct = _productService.GetImagesForProduct(ProductId);
 
 			// truy vấn các màu của 1 sản phẩm
-			var colorProduct = _productService.GetColorsForProduct(ProductId);
+			var colorProduct = _context.TbColors
+				.Include(c => c.TbProductColors)
+				.Where(c => c.TbProductColors.Any(pc => pc.ProductId == ProductId))
+				.ToList();
 
+			// truy vấn lấy các loại GB của sản phẩm
+			var typeProduct = _context.TbTypes
+                .Include(t => t.TbTypeProducts)
+				.Where(t => t.TbTypeProducts.Any(tp => tp.ProductId == ProductId))
+				.ToList();
 			// truy vấn sản phẩm liên quan và k cho sản phẩm liên quan hiển thị sản phẩm đang xem
 			var relatedProduct = _productService.GetRelatedProducts(ProductId);
 
@@ -165,6 +173,7 @@ namespace DoAn_PTUDWEB.Controllers
 				Product = product,
 				Images = imagesProduct,
 				Colors = colorProduct,
+                Types = typeProduct,
 				relatedProducts = relatedProduct,
 			};
 

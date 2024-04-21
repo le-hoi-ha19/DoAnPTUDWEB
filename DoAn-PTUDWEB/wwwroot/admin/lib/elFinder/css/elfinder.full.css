@@ -3392,14 +3392,39 @@ button.elfinder-info-button {
 }
 
 .dialogelfinder-drag-close {
+/*    position: relative;*/
     position: absolute;
     top: 50%;
     margin-top: -8px;
+    display: block;
+    width: 20px;
+    height: 20px;
+/*    background-color: hotpink;*/
 }
+    .dialogelfinder-drag-close::before{
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 14px;
+        background-color: black;
+        top: 3px;
+        left: 9px;
+        transform: rotate(45deg);
+    }
+    .dialogelfinder-drag-close::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 14px;
+        background-color: black;
+        top: 3px;
+        left: 9px;
+        transform: rotate(-45deg);
+    }
 
-.elfinder-ltr .dialogelfinder-drag-close {
-    right: 12px;
-}
+    .elfinder-ltr .dialogelfinder-drag-close {
+        right: 12px;
+    }
 
 .elfinder-rtl .dialogelfinder-drag-close {
     left: 12px;

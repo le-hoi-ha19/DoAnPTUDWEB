@@ -1,5 +1,6 @@
 ﻿using DoAn_PTUDWEB.Models;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoAn_PTUDWEB.Services
 {
@@ -25,21 +26,6 @@ namespace DoAn_PTUDWEB.Services
 			var imagesProduct = _context.TbImageProducts.Where(m => m.ProductId == productId).Take(4).ToList();
 
 			return imagesProduct;
-		}
-
-		// Truy vấn các màu của 1 sản phẩm
-		public List<TbColor> GetColorsForProduct(int productId)
-		{
-			var colorProduct = (from productColor in _context.TbProductColors
-								join product in _context.TbProducts on productColor.ProductId equals product.ProductId
-								join color in _context.TbColors on productColor.ColorId equals color.ColorId
-								where product.ProductId == productId
-								select new TbColor
-								{
-									ColorName = color.ColorName
-								}).ToList();
-
-			return colorProduct;
 		}
 
 		// Truy vấn sản phẩm liên quan và không hiển thị sản phẩm đang xem

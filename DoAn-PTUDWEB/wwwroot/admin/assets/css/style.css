@@ -84,6 +84,7 @@ body {
 	z-index: 500;
 	padding-bottom: 20px;
 	box-sizing: content-box;
+	text-decoration:none;
 }
 #sidebar .brand .bx {
 	min-width: 60px;
@@ -138,10 +139,11 @@ body {
 	color: var(--dark);
 	white-space: nowrap;
 	overflow-x: hidden;
+	text-decoration: none;
 }
-#sidebar .side-menu.top li.active a {
-	color: var(--blue);
-}
+	#sidebar .side-menu.top li.active a {
+		color: var(--blue);
+	}
 #sidebar.hide .side-menu li a {
 	width: calc(48px - (4px * 2));
 	transition: width .3s ease;
@@ -338,6 +340,7 @@ body {
 #content main .head-title .left .breadcrumb li a {
 	color: var(--dark-grey);
 	pointer-events: none;
+	text-decoration:none;
 }
 #content main .head-title .left .breadcrumb li a.active {
 	color: var(--blue);
