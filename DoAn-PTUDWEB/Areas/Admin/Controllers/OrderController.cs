@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
+using DoAn_PTUDWEB.Models.ViewModels;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[controller]")]
     public class OrderController : Controller
     {
         private readonly DataContext _context;
@@ -20,10 +24,24 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         }
 
         // GET: Admin/Order
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.TbOrders.Include(t => t.User);
-            return View(await dataContext.ToListAsync());
+			var query = _context.TbOrders.AsQueryable();
+			var orders = query.Select(order => new OrderViewModel
+			{
+				OrderId = order.OrderId,
+				OrderDate = order.OrderDate,
+				CustomerName = order.User.FullName,
+				Phone = order.User.Phone,
+				Email = order.User.Email,
+				Note = order.Note,
+				ShipAddress = order.ShipAddress,
+				Status = order.Status,
+			}).ToList();
+
+			ViewBag.orders = orders;
+			return View();
         }
 
         // GET: Admin/Order/Details/5
@@ -34,42 +52,46 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var tbOrder = await _context.TbOrders
-                .Include(t => t.User)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (tbOrder == null)
+			
+			var query = _context.TbOrders.AsQueryable();
+            query = query.Where(o => o.OrderId == id );
+            var orders = query.Select(order => new OrderViewModel
             {
-                return NotFound();
-            }
+                OrderId = order.OrderId,
+                OrderDate = order.OrderDate,
+                CustomerName = order.User.FullName,
+                Phone = order.User.Phone,
+                Email = order.User.Email,
+                Note = order.Note,
+                ShipAddress = order.ShipAddress,
+                Status = order.Status,
+                Details = order.TbOrderDetails.Select(od => new OrderDetailViewModel
+                {
+                    ProductId = od.ProductId,
+                    Name = od.Product.Name,
+                    ProductImage = od.Product.TbImageProducts.FirstOrDefault().Thumbnail ?? null,
+                    Price = od.Price,
+                    ProductColorId = od.ColorId,
+                    ProductColor = od.Color != null ? od.Color.ColorName : null,
+                    ProductTypeId = od.TypeId,
+                    ProductType = od.Type != null ? od.Type.TypeName : null,
+                    Quantity = od.Quantity,
+                    TotalMoney = od.Price * od.Quantity,
+                }).ToList(),
+            }).ToList();
 
-            return View(tbOrder);
-        }
-
-        // GET: Admin/Order/Create
-        public IActionResult Create()
-        {
-            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "UserId");
+            ViewBag.orders = orders;
             return View();
+            //return Ok(orders);
         }
 
-        // POST: Admin/Order/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,OrderId,OrderDate,ShipAddress,Note,Status")] TbOrder tbOrder)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(tbOrder);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "UserId", tbOrder.UserId);
-            return View(tbOrder);
-        }
+
+
+      
+    
 
         // GET: Admin/Order/Edit/5
+        [Route("Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.TbOrders == null)
@@ -82,21 +104,20 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "UserId", tbOrder.UserId);
+            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "FullName", tbOrder.UserId);
             return View(tbOrder);
         }
 
         [HttpPost]
+        [Route("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,OrderId,OrderDate,ShipAddress,Note,Status")] TbOrder tbOrder)
+        public async Task<IActionResult> Edit([Bind("UserId,OrderId,OrderDate,ShipAddress,Note,Status")] TbOrder tbOrder)
         {
-            if (id != tbOrder.OrderId)
+            if (tbOrder == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(tbOrder);
@@ -114,47 +135,56 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.TbUsers, "UserId", "UserId", tbOrder.UserId);
-            return View(tbOrder);
+          
         }
 
-        // GET: Admin/Order/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public class OrderStatus
         {
-            if (id == null || _context.TbOrders == null)
+            public int status { get; set; }
+            public int OrderId { get; set; }
+
+        }
+
+        [HttpPatch]
+        [Route("Change/Status")]
+        public async Task<IActionResult> Change([FromBody] OrderStatus obj)
+        {
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            var newOrder = await _context.TbOrders.FindAsync(obj.OrderId);
+            if (newOrder == null)
             {
                 return NotFound();
             }
 
-            var tbOrder = await _context.TbOrders
-                .Include(t => t.User)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (tbOrder == null)
-            {
-                return NotFound();
-            }
+            newOrder.Status = obj.status;
+            _context.SaveChanges();
 
-            return View(tbOrder);
+            return Ok();
         }
 
-        // POST: Admin/Order/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+
+            // POST: Admin/Order/Delete/5
+            [HttpDelete]
+        [Route("Delete/{id:int}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (_context.TbOrders == null)
-            {
-                return Problem("Entity set 'DataContext.TbOrders'  is null.");
-            }
-            var tbOrder = await _context.TbOrders.FindAsync(id);
+
+            var tbOrder = _context.TbOrders
+                     .Where(b => b.OrderId == id)
+                     .Include("TbOrderDetails")
+                     .FirstOrDefault();
+
             if (tbOrder != null)
             {
-                _context.TbOrders.Remove(tbOrder);
+                _context.Remove(tbOrder);
+                 _context.SaveChanges();
+
             }
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
 
         private bool TbOrderExists(int id)

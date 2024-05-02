@@ -1,53 +1,70 @@
 ﻿@model DoAn_PTUDWEB.Models.TbOrder
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa đơn hàng";
 }
 
-<h1>Edit</h1>
 
-<h4>TbOrder</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="OrderId" />
-            <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipAddress" class="control-label"></label>
-                <input asp-for="ShipAddress" class="form-control" />
-                <span asp-validation-for="ShipAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container">
+    <div class="head-title">
+        <div class="left">
+            <ul class="breadcrumb">
+                <li><a href="#">Dashboard</a></li>
+                <li><i class='bx bx-chevron-right'></i></li>
+                <li><a class="active" href="#">Chỉnh sửa Đơn hàng</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <span>Tên khách hàng</span>
+                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="OrderId" />
+                <div class="form-group">
+                    <span>Ngày đặt hàng</span>
+                    <input asp-for="OrderDate" class="form-control" readonly />
+                    <span asp-validation-for="OrderDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <span>Địa chỉ giao hàng</span>
+                    <input asp-for="ShipAddress" class="form-control" />
+                    <span asp-validation-for="ShipAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="noteTextarea">Ghi chú</label>
+                    <textarea asp-for="Note" class="form-control" id="noteTextarea"></textarea>
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="statusSelect">Trạng thái đơn hàng</label>
+                    <select asp-for="Status" class="form-control" id="statusSelect">
+                        <option value="1">Đã đặt hàng</option>
+                        <option value="2">Đang giao hàng</option>
+                        <option value="3">Hoàn thành</option>
+                        <option value="4">Đã hủy</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Quay lại</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

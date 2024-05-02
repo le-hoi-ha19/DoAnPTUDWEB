@@ -9,8 +9,9 @@
         <div class="d-flex flex-column justify-content-center align-items-center ">
             <div class="p-lg-5 border w-50 mb-3 rounded" style="background-color:#ffffff">
                 <div class="mb-3">
+                     <label>Khách hàng:</label>
                     <select class="form-control " name="UserId">
-                        <option value="">--Chọn tên khách hàng--</option>
+                        <option value="">Chọn tên khách hàng</option>
                         @foreach (var item in ViewBag.Users)
                         {
                             <option value="@item.UserId">@item.FullName</option>
@@ -32,6 +33,7 @@
                     <label for="note" class="form-label ">Ghi chú</label>
                     <textarea  class="form-control " name="note" > </textarea>
                 </div>
+                <p> Chú ý: Thanh toán khi nhận hàng</p>
 
                 <button type="submit" class="btn btn-primary w-25 ">Đặt hàng</button>
             </div>
@@ -55,6 +57,7 @@
             }
         });
     });
+
 
 </script>
 

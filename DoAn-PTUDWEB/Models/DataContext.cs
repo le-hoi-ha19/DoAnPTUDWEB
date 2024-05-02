@@ -104,7 +104,7 @@ namespace DoAn_PTUDWEB.Models
 
                 entity.ToTable("tb_ImageSlide");
 
-                entity.Property(e => e.path)
+                entity.Property(e => e.Path)
                     .HasMaxLength(500)
                     .IsUnicode(false)
                     .HasColumnName("path");
@@ -141,23 +141,23 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Color)
                     .WithMany(p => p.TbOrderDetails)
                     .HasForeignKey(d => d.ColorId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_tb_OrderDetail_tb_Color");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.TbOrderDetails)
                     .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_OrderDetail_tb_Order");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.TbOrderDetails)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_OrderDetail_tb_Product");
 
                 entity.HasOne(d => d.Type)
                     .WithMany(p => p.TbOrderDetails)
                     .HasForeignKey(d => d.TypeId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_tb_OrderDetail_tb_Types");
             });
 
@@ -361,6 +361,8 @@ namespace DoAn_PTUDWEB.Models
                 entity.ToTable("tb_User");
 
                 entity.Property(e => e.Address).HasMaxLength(200);
+
+                entity.Property(e => e.Avatar).HasMaxLength(255);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
