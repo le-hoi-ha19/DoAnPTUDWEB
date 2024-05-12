@@ -167,6 +167,8 @@ namespace DoAn_PTUDWEB.Models
 
                 entity.ToTable("tb_Post");
 
+                entity.Property(e => e.CreatedBy).HasMaxLength(500);
+
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Description).HasMaxLength(4000);
