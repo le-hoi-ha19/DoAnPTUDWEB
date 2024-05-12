@@ -1,38 +1,58 @@
-﻿using DoAn_PTUDWEB.Utilities;
+﻿using DoAn_PTUDWEB.Constains;
+using DoAn_PTUDWEB.Infrastructure;
+using DoAn_PTUDWEB.Models;
+using DoAn_PTUDWEB.Models.ViewModels;
+using DoAn_PTUDWEB.Utilities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using DoAn_PTUDWEB.Filters;
+//using System.Web.Security;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class HomeController : Controller
+	[Authorize]
+	[AdminRequired]
+	public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-			//// thêm để check đăng nhập và phân quyền
-			//if (!Functions.IsLogin())
-			//{
-			//	return RedirectToAction("Index", "Login");
-			//}
-			//else if(Functions.CheckAdminPermission())
-			//{
+		private readonly DataContext _context;
 
-			//}
-			//else
-			//{
-			//	return NotFound();
-			//}
-				return View();
-
-        }
-		public IActionResult Logout()
+		public HomeController(DataContext context)
 		{
-			Functions._UserID = 0;
-			Functions._UserName = string.Empty;
-			Functions._Message = string.Empty;
-			Functions._MessageUserName = string.Empty;
-			Functions._FullName = string.Empty;
-
-			return RedirectToAction("Index", "Home");
+			_context = context;
 		}
-	}
+
+		//public bool checkPermission()
+		//{
+
+		//	var currentUser = HttpContext.Session.GetJson<UserViewModel>("taiKhoan");
+		//	// có thể thay RoleId để nó thay quyền
+		//	var count = _context.TbUsers.Count(m => m.UserId == currentUser.UserId && m.RoleId == 1);
+		//	if (count == 0)
+		//	{
+		//		return false;
+
+		//	}
+		//	else
+		//	{
+		//		return true;
+		//	}
+		//}
+		public IActionResult Index()
+        {
+			//if (HttpContext.Session.GetJson<UserViewModel>("taiKhoan") == null)
+			//{
+			//	return Redirect("/Login");
+			//}
+
+			//if(checkPermission() == false)
+			//{
+			//	return Redirect("/NotPermission/Index");
+			//}
+			return View();
+        }
+    }
 }

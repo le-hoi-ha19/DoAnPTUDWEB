@@ -2,6 +2,7 @@
 using DoAn_PTUDWEB.Models;
 using DoAn_PTUDWEB.Models.ViewModels;
 using DoAn_PTUDWEB.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -126,6 +127,7 @@ namespace DoAn_PTUDWEB.Controllers
             );
 
         }
+
 
         [Route("/Product/Detail/{ProductId:int}", Name = "Detail")]
 		public IActionResult Detail(int ProductId , int rating =0)

@@ -1,10 +1,15 @@
-﻿using DoAn_PTUDWEB.Models;
+﻿using DoAn_PTUDWEB.Constains;
+using DoAn_PTUDWEB.Filters;
+using DoAn_PTUDWEB.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ContactController : Controller
+	[Authorize]
+	[AdminRequired]
+	public class ContactController : Controller
     {
         private readonly DataContext _context;
         public ContactController(DataContext context)

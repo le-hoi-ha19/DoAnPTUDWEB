@@ -2,14 +2,19 @@
 using DoAn_PTUDWEB.Models.ViewModels;
 using DoAn_PTUDWEB.Services;
 using DoAn_PTUDWEB.Utilities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 using System.Text.Json;
+using System.Security.Claims;
 
 namespace DoAn_PTUDWEB.Controllers
 {
+    [Authorize]
 	public class AccountController : Controller
 	{
         private readonly DataContext _context;
@@ -20,15 +25,14 @@ namespace DoAn_PTUDWEB.Controllers
         [Route("/Account")]
 		public IActionResult Index()
 		{
-			int id = 2; // id người dùng khi đăng nhập
+            var idString = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+            var id = !string.IsNullOrEmpty(idString) ? int.Parse(idString) : (int?)null;
+
             var user = _context.TbUsers.FirstOrDefault(u =>u.UserId == id);
             var quantityOrderConfirm = _context.TbOrders.Where(o => o.Status == 1 && o.UserId == id).Count();
             var quantityOrderDeliver = _context.TbOrders.Where(o => o.Status == 2 && o.UserId == id).Count();
             var quantityOrderComplete = _context.TbOrders.Where(o => o.Status == 3 && o.UserId == id).Count();
             var quantityOrderCancel = _context.TbOrders.Where(o => o.Status == 4 && o.UserId == id).Count();
-
-          
-
 
             if (user != null)
             {
@@ -48,8 +52,10 @@ namespace DoAn_PTUDWEB.Controllers
 		[Route("/Account/Order")]
 		public IActionResult Order(int status)
         {
-            int id = 2;
             // id người dùng khi đăng nhập
+            var idString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var id = !string.IsNullOrEmpty(idString) ? int.Parse(idString) : (int?)null;
+
             var query = _context.TbOrders.AsQueryable();
             query = query.Where(o => o.UserId == id && o.Status == status);
 
@@ -119,16 +125,23 @@ namespace DoAn_PTUDWEB.Controllers
         [Route("/Account/Setting")]
         public IActionResult Setting()
         {
-			int id = 4; // id người dùng khi đăng nhập
-			var user = _context.TbUsers.FirstOrDefault(u => u.UserId == id);
+            // id người dùng khi đăng nhập
+            var idString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var id = !string.IsNullOrEmpty(idString) ? int.Parse(idString) : (int?)null;
+
+            var user = _context.TbUsers.FirstOrDefault(u => u.UserId == id);
 
 			return View(user);
         }
 		[Route("/Account/Logout")]
-		public IActionResult Logout()
+		public async Task<IActionResult> LogoutAsync()
 		{
+			// Clear the existing external cookie
+			await HttpContext.SignOutAsync(
+				CookieAuthenticationDefaults.AuthenticationScheme);
 
-			return View();
+			return Redirect("/Login");
+
 		}
 	}
 }

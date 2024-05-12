@@ -44,9 +44,9 @@ namespace DoAn_PTUDWEB.Models
 			Lines.RemoveAll(l => l.Product.ProductId == product.ProductId && l.ColorId == colorId && l.TypeId == typeId);
 		}
 
-		public decimal ComputeTotalValue()
+		public double ComputeTotalValue()
 			{
-				return (decimal)Lines.Sum(e => e.Product?.Price * (1 - e.Product?.PriceDiscount) * e.Quantity);
+				return (double)Lines.Sum(e => e.Product?.Price * (1 - e.Product?.PriceDiscount) * e.Quantity);
 			}
 
 		}

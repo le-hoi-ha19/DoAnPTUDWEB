@@ -15,7 +15,7 @@ namespace DoAn_PTUDWEB.Services
 		// Truy vấn sản phẩm theo id
 		public TbProduct GetProductById(int productId)
 		{
-			var product = _context.TbProducts.FirstOrDefault(m => m.ProductId == productId && m.IsActive == true);
+			var product = _context.TbProducts.FirstOrDefault(m => m.ProductId == productId && m.IsActive == true );
 
 			return product;
 		}

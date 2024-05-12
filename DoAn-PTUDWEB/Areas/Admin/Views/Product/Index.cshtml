@@ -14,10 +14,8 @@
             </ul>
         </div>
     </div>
-
     <div class="table" id="products_table">
         <section class="table__header">
-
             <div class="input-groupp">
                 <input type="search" placeholder="Tìm kiếm sản phẩm...">
                 <img src="~/admin/assets/img/search.png" alt="">
@@ -38,17 +36,13 @@
                             Ảnh <span class="icon-arrow">&UpArrow;</span>
                         </th>
                         <th>
-                            Bán chạy <span class="icon-arrow">&UpArrow;</span>
-                        </th>
-                        
-                        <th>
                             Giá <span class="icon-arrow">&UpArrow;</span>
                         </th>
                         <th>
                             Giảm giá <span class="icon-arrow">&UpArrow;</span>
                         </th>
                         <th>
-                            Số lượng <span class="icon-arrow">&UpArrow;</span>
+                            Số lượng trong kho <span class="icon-arrow">&UpArrow;</span>
                         </th>
                         <th>
                             Trạng thái <span class="icon-arrow">&UpArrow;</span>
@@ -67,22 +61,17 @@
                             </td>
                             <td>
                                 <img src="@item.Thumbnail" alt="Image" />
-                            </td>
-                            
-                            <td>
-                                <p class="status @(item.IsNew ? "delivered" : "cancelled")">
-                                    @(item.IsNew == true ? "Có" : "Không")
-                                </p>
-                            </td>
+                            </td>s
                             <td>
                                 @item.Price ₫
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.PriceDiscount)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Quantity)
+                            <td class="text-center">
+                                @(item.Quantity >= 1 ? item.Quantity : "hết hàng")
                             </td>
+
                             <td>
                                 <p class="status @(item.IsActive.HasValue && item.IsActive.Value ? "delivered" : "cancelled")">
                                     @(item.IsActive == true ? "Hiển thị":"Ẩn")

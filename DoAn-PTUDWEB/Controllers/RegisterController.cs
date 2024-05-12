@@ -33,13 +33,14 @@ namespace DoAn_PTUDWEB.Controllers
 			if (CheckUserName != null)
 			{
 				// Hiển thị thông báo user đã được đăng ký
-				Functions._MessageUserName = "Tên tài khoản đã được đăng ký!";
+				TempData["error"] = "Tên tài khoản đã được đăng ký!";
 				return RedirectToAction("Index", "Register");
 			}
-			Functions._MessageUserName = string.Empty;
+			TempData["error"] = string.Empty;
 
 			// nếu k trùng Tên tài khoản thì thêm người dùng vào CSDL
 			user.PasswordHash = Functions.MD5Password(user.PasswordHash);
+			user.CreatedDate = DateTime.UtcNow;
 			_context.TbUsers.Add(user);
 			_context.SaveChanges();
             return RedirectToAction("Index", "Login");

@@ -14,7 +14,7 @@ namespace DoAn_PTUDWEB.Components
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
 			var listofProduct = (from p in _context.TbProducts
-								 where (p.IsActive == true) && (p.IsHot == true)
+								 where (p.IsActive == true && p.IsHot == true && p.Quantity >=1)
 								 orderby p.ProductId ascending
 								 select p).Take(6).ToList();
 			return await Task.FromResult((IViewComponentResult)View("Default", listofProduct));

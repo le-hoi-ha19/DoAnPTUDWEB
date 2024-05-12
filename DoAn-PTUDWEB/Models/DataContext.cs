@@ -126,7 +126,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TbOrders)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Order_tb_User");
             });
 
@@ -189,6 +188,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TbPosts)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_tb_Post_tb_User");
             });
 
@@ -212,7 +212,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Blog)
                     .WithMany(p => p.TbPostComments)
                     .HasForeignKey(d => d.BlogId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_BlogComment_tb_Blog");
             });
 
@@ -271,7 +270,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.TbProductColors)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_ProductColor_tb_Product");
             });
 
@@ -294,7 +292,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Review_tb_User");
             });
 
@@ -345,6 +342,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.TbTypeProducts)
                     .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_tb_TypeProduct_tb_Product");
 
                 entity.HasOne(d => d.Type)
@@ -388,6 +386,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.TbUsers)
                     .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Account_tb_Role");
             });
 

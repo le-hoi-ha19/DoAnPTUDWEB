@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
 using DoAn_PTUDWEB.Models.ViewModels;
-using System.Text.Json.Serialization;
-using System.Text.Json;
+using DoAn_PTUDWEB.Constains;
+using Microsoft.AspNetCore.Authorization;
+using DoAn_PTUDWEB.Filters;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/[controller]")]
-    public class OrderController : Controller
+	[Authorize]
+	[AdminRequired]
+	public class OrderController : Controller
     {
         private readonly DataContext _context;
 
@@ -145,29 +144,45 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 
         }
 
-        [HttpPatch]
-        [Route("Change/Status")]
-        public async Task<IActionResult> Change([FromBody] OrderStatus obj)
-        {
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            var newOrder = await _context.TbOrders.FindAsync(obj.OrderId);
-            if (newOrder == null)
-            {
-                return NotFound();
-            }
+		[HttpPatch]
+		[Route("Change/Status")]
+		public async Task<IActionResult> Change([FromBody] OrderStatus obj)
+		{
+			if (obj == null)
+			{
+				return BadRequest(); // Thay vì NotFound()
+			}
 
-            newOrder.Status = obj.status;
-            _context.SaveChanges();
+			var newOrder = await _context.TbOrders.FindAsync(obj.OrderId);
+			if (newOrder == null)
+			{
+				return NotFound();
+			}
 
-            return Ok();
-        }
+			newOrder.Status = obj.status;
+
+			if (obj.status == 4)
+			{
+				var orderDetailsList = _context.TbOrderDetails.Where(o => o.OrderId == obj.OrderId).ToList();
+				foreach (var orderDetail in orderDetailsList)
+				{
+					var product = _context.TbProducts.FirstOrDefault(p => p.ProductId == orderDetail.ProductId);
+					if (product != null)
+					{
+						product.Quantity += orderDetail.Quantity;
+					}
+				}
+			}
 
 
-            // POST: Admin/Order/Delete/5
-            [HttpDelete]
+			_context.SaveChanges();
+
+			return Ok();
+		}
+
+
+		// POST: Admin/Order/Delete/5
+		[HttpDelete]
         [Route("Delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
