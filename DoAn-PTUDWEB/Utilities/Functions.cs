@@ -5,23 +5,6 @@ namespace DoAn_PTUDWEB.Utilities
 {
 	public class Functions
 	{
-		//_UserID: có tác dụng lấy ID của người dùng đang đăng nhập và check đăng nhập
-		public static int _UserID = 0;
-		//_UserName: có tác dụng là hiển thị tên người dùng đăng nhập hiện tại trong Trang admin và check đăng nhập
-		public static string _UserName = string.Empty;
-		//_Message: có tác dụng là hiển thị thông báo lỗi khi người dùng nhập tài khoản hoặc mk
-		public static string _Message = string.Empty;
-		//_MessageEmail: có tác dụng là hiển thị thông báo lỗi khi Tên tài khoản đã được đăng ký(bị trùng)
-		public static string _MessageUserName = string.Empty;
-		public static string _Email = string.Empty;
-		public static string _Address = string.Empty;
-		public static string _FullName = string .Empty;
-		public static int _RoleId = 0;
-
-
-
-
-
 		//Ví dụ, nếu bạn gọi hàm TitleSlugGeneration("article", "Tiêu đề bài viết", 123)
 		//thì kết quả trả về có thể là "article-tieu-de-bai-viet-123.html".
 		public static string TitleSlugGeneration(string type, string title, int id)
@@ -63,30 +46,7 @@ namespace DoAn_PTUDWEB.Utilities
 		}
 
 
-		// nếu 2 biến là: _UserName là rỗng và biến _UserID <= 0 thì là chưa đăng nhập=> trả về false
-		// ngược lại thì đã đăng nhập=> trả về true
-		public static bool IsLogin()
-		{
-			if (string.IsNullOrEmpty(Functions._UserName) ||  (Functions._UserID <= 0))
-				return false;
-			return true;
-		}
-		public static bool CheckAdminPermission()
-		{
-			if (Functions._RoleId == 1)
-				return true;
-			return false;
-		}
-		public static bool CheckCustomerPermission()
-		{
-			if (Functions._RoleId == 2)
-				return true;
-			return false;
-		}
-		
-		
-		
 
-
+		
 	}
 }

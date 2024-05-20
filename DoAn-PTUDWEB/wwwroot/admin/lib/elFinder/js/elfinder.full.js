@@ -13596,8 +13596,9 @@ $.fn.dialogelfinder = function(opts, opts2) {
 			var node    = $(this),
 				doc     = $(document),
 				toolbar = $('<div class="ui-widget-header dialogelfinder-drag ui-corner-top">'+(opts.title || 'Files')+'</div>'),
-				button  = $('<a href="#" class="dialogelfinder-drag-close ui-corner-all"><span class="ui-icon ui-icon-closethick"> </span></a>')
+				button = $('<a href="#" class="dialogelfinder-drag-close ui-corner-all"><span class="ui-icon ui-icon-close">&times; </span></a>')
 					.appendTo(toolbar)
+
 					.on('click', function(e) {
 						e.preventDefault();
 						node.dialogelfinder('close');
@@ -18270,7 +18271,7 @@ $.fn.elfinderdialog = function(opts, fm) {
 			},
 			headerBtns = {
 				close: function() {
-					titlebar.prepend($('<span class="ui-widget-header ui-dialog-titlebar-close ui-corner-all elfinder-titlebar-button"><span class="ui-icon ui-icon-closethick"></span></span>')
+					titlebar.prepend($('<span class="ui-widget-header ui-dialog-titlebar-close ui-corner-all elfinder-titlebar-button"><span class="ui-icon ui-icon-close"></span></span>')
 						.on('mousedown touchstart', function(e) {
 							e.preventDefault();
 							e.stopPropagation();
@@ -29183,7 +29184,7 @@ elFinder.prototype.commands.preference = function() {
 			.append('<div class="elfinder-quicklook-navbar-separator"></div>')
 			.append($('<div class="'+navicon+' '+navicon+'-close"></div>').on('click touchstart', function(e) { ! navmove && self.window.trigger('close'); return false; }))
 		,
-		titleClose = $('<span class="ui-front ui-icon elfinder-icon-close ui-icon-closethick"></span>').on('mousedown', function(e) {
+		titleClose = $('<span class="ui-front ui-icon elfinder-icon-close ui-icon-close"></span>').on('mousedown', function(e) {
 			e.stopPropagation();
 			self.window.trigger('close');
 		}),

@@ -1,0 +1,233 @@
+﻿@{
+    ViewData["Title"] = "Danh sách các đơn hàng";
+}
+
+<div class="container">
+    <div class="head-title">
+        <div class="left">
+            <ul class="breadcrumb">
+                <li><a href="#">Dashboard</a></li>
+                <li><i class='bx bx-chevron-right'></i></li>
+                <li><a class="active" href="#">Đơn hàng</a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Mã đơn hàng
+                </th>
+                <th>
+                    Tên khách hàng
+                </th>
+                <th>
+                   Ngày đặt hàng
+                </th>
+                <th>
+                    Điạ chỉ giao hàng
+                </th>
+                <th>
+                   Số điện thoại
+                </th>
+                <th>
+                  Trạng thái đơn hàng
+                </th>
+               
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(ViewBag.orders.Count > 0)
+            {
+                @foreach (var item in @ViewBag.orders)
+                {
+                    <tr>
+                        <td>
+                            @item.OrderId
+                        </td>
+                        <td>
+                            @item.CustomerName
+
+                        </td>
+                        <td>
+                            @item.OrderDate
+
+                        </td>
+                        <td>
+                            @item.ShipAddress
+                        </td>
+                        <td>
+                            @item.Phone
+                        </td>
+                        <td>
+                            @switch (item.Status)
+                            {
+                                case 1:
+                                    <span data-status="@item.Status" data-idorder="@item.OrderId" id="confirmOrder" class="m-4 " style="font-size: 25px;color:rgba(41,167,70,1)" title="Chuyển trạng thái đang giao hàng"><i class="fa-solid fa-check"></i></span>
+                                    <span data-status="@item.Status" data-idorder="@item.OrderId" id="cancelOrder" class="m-4 " style="font-size: 25px;color:rgba(220,53,69,1)" title="hủy đơn hàng"><i class="fa-solid fa-xmark"></i></span>
+                                    break;
+                                case 2:
+                                    <span>đang giao hàng</span>
+                                    break;
+                                case 3:
+                                    <p class=" status delivered">hoàn thành</p>
+                                    break;
+                                case 4:
+                                    <p class=" status cancelled">Đã hủy</p>
+                                    break;
+                                default:
+                                    <span>Trạng thái không xác định</span>
+                                    break;
+                            }
+                        </td>
+
+
+                        <td>
+
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-primary btn-sm" title="Chỉnh sửa thông tin đơn hàng">
+                                <i class="fas fa-pencil-alt fa-lg"></i>
+                            </a>
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-info btn-sm" title="Xem thông tin đơn hàng">
+                                <i class="fas fa-eye fa-lg"></i>
+                            </a>
+                            <a data-idorder="@item.OrderId" id="btnDeleteOrder" class="btn btn-danger btn-sm text-white" title="Xóa thông tin đơn hàng">
+                                <i class="fas fa-trash fa-lg"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <!-- colspan="7" để hợp nhất cả hàng -->
+                        <img src="/images/empty-order.png" alt="Chưa có đơn hàng nào!" class="img-fluid mx-auto d-block mt-5" style="width: 400px; height:400px" />
+                    </td>
+                </tr>
+            }
+           
+        </tbody>
+    </table>
+
+
+</div>
+<script>
+
+    // xác nhận đơn hàng
+    var confirmlOrderElements = document.querySelectorAll('#confirmOrder');
+    confirmlOrderElements.forEach((item,index) => {
+        item.addEventListener('click', () => {
+            var newStatus = parseInt(item.getAttribute('data-status')) + 1;
+            var OrderId = item.getAttribute('data-idorder');
+            
+
+            axios.patch('/Admin/Order/Change/Status/', {
+                OrderId: OrderId,
+                status: newStatus
+            })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Xác nhận đơn hàng thành công",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Có lỗi xảy ra khi gửi yêu cầu:', error);
+                });
+        });
+    });
+
+
+
+    // hủy đơn hàng
+    var cancelOrderElements = document.querySelectorAll('#cancelOrder');
+    cancelOrderElements.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            var newStatus = parseInt(item.getAttribute('data-status')) + 3;
+            var OrderId = item.getAttribute('data-idorder');
+
+
+            axios.patch('/Admin/Order/Change/Status/', {
+                OrderId: OrderId,
+                status: newStatus
+            })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "hủy đơn hàng thành công",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Có lỗi xảy ra khi gửi yêu cầu:', error);
+                });
+        });
+    });
+
+
+
+    // xóa đơn hàng
+    var btnDelete = document.querySelectorAll('#btnDeleteOrder');
+    btnDelete.forEach((item) => {
+        item.addEventListener('click', () => {
+
+            Swal.fire({
+                title: "Bạn chắc chắc muốn xóa đơn hàng này?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                cancelButtonText: "Thoát",
+                confirmButtonText: "Có",
+                position: "center",
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(`/Admin/Order/Delete/${item.getAttribute('data-idorder')}`)
+                            .then(function (response) {
+                                if (response.status == 200) {
+                                    console.log('response:', response)
+                                    Swal.fire({
+                                        title: "Thành công!",
+                                        text: "Đơn hàng xóa thành công",
+                                        icon: "success"
+                                    });
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 2000);
+
+                                }
+                            })
+
+                            .catch(function (error) {
+                                console.error('Có lỗi xảy ra khi gửi yêu cầu:', error);
+                            });
+                    }
+                });
+        })
+    })
+
+
+
+
+
+
+
+</script>

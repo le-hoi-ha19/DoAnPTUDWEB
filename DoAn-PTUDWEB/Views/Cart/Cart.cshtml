@@ -15,13 +15,14 @@
 						<thead class="text-muted">
 							<tr class="small text-uppercase">
 								<th scope="col">Sản phẩm</th>
-								<th scope="col" width="120">Số lượng</th>
-								<th scope="col" width="120">Đơn giá</th>
+								<th scope="col" >Phân loại hàng</th>
+								<th scope="col">Số lượng</th>
+								<th scope="col">Giá tiền</th>
 								<th scope="col" class="text-right" width="150"> </th>
 							</tr>
 						</thead>
 						<tbody>
-							@if (Model?.Lines != null)
+							@if (Model?.Lines.Count > 0)
 							{
 								@foreach (var line in Model.Lines)
 								{
@@ -30,22 +31,25 @@
 											<figure class="itemside">
 												<div class="aside"><img src="@line.Product.Thumbnail" class="img-sm"></div>
 												<figcaption class="info">
-													<a href="#" class="title text-dark">@line.Product.Name</a>
-													<p class="text-muted small"> Color: blue</p>
+													<a href="#" class="title text-dark" >@line.Product.Name</a>
+													<p class="text-muted small"  > Màu sắc: @line.ColorName</p>
 												</figcaption>
 											</figure>
+										</td>
+										<td id="ListType" data-id3="@line.TypeId">
+											@line.TypeName
 										</td>
 										<td>
 											<div class="form-group col-md flex-grow-0">
 												<div class="input-group mb-3 input-spinner">
 													<div class="input-group-prepend">
 
-														<a href="@Url.Action("AddToCart","Cart",new{productId =@line.Product.ProductId })" class="btn btn-light"> + </a>
+														<a id="btnAddOne" class="btn btn-light"  data-id1="@line.Product.ProductId" > + </a>
 													</div>
 													<input type="text" class="form-control" value="@line.Quantity">
 													<div class="input-group-append">
 
-														<a href="@Url.Action("UpdateCart","Cart",new{productId =@line.Product.ProductId})" class="btn btn-light"> &minus; </a>
+														<a id="btnMinusOne" class="btn btn-light" data-id2="@line.ColorId"> &minus; </a>
 													</div>
 												</div>
 											</div>
@@ -57,8 +61,7 @@
 											</div>
 										</td>
 										<td class="text-right">
-
-											<a href="@Url.Action("RemoveFromCart","Cart",new{productId =@line.Product.ProductId})" class="btn btn-light"> Xóa</a>
+											<a  id="btnRemoveCartLine" class="btn btn-danger" style="color:white"><i class="fa-solid fa-trash"></i> Xóa</a>
 										</td>
 									</tr>
 								}
@@ -66,17 +69,21 @@
 							else
 							{
 								<tr>
-									<td colspan="4" class="text-center">Không có đơn hàng!</td>
+									<td colspan="5" class="text-center">
+										<img src="./images/empty-cart.png" style="width: 250px;">
+									</td>
 								</tr>
 							}
 						</tbody>
 					</table>
 
 					<div class="card-body border-top">
-						<a href="#" class="btn btn-primary float-md-right"> Mua hàng <i class="fa fa-chevron-right"></i> </a>
+
+						<a style="color:white" class="btn btn-primary float-md-right" id="test" > Mua hàng <i class="fa fa-chevron-right"></i> </a>
 						<a href="/" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Tiếp tục mua sắm </a>
 					</div>
 				</div> <!-- card.// -->
+
 
 				<div class="alert alert-success mt-3">
 					<p class="icontext"><i class="icon text-success fa fa-truck"></i> Miễn phí vận chuyển</p>
@@ -88,7 +95,7 @@
 				<div class="card">
 					<div class="card-body">
 						<dl class="dlist-align">
-							<dt>Tổng giá:</dt>
+							<dt>Tổng tiền:</dt>
 							@if (Model?.Lines != null)
 							{
 								<dd class="text-right">@Model.ComputeTotalValue() đ</dd>
@@ -133,3 +140,100 @@
 	</div><!-- container // -->
 </section>
 <!-- ========================= SECTION  END// ========================= -->
+<script>
+	// check xem giỏ hàng có đơn hàng không
+	var btnBuy = document.getElementById('test');
+	btnBuy.addEventListener('click',function(){
+		checkOrder = @((Model?.Lines.Count > 0 ).ToString().ToLower());
+		console.log('checkOrder:',checkOrder);
+		if (!checkOrder) {
+			swal.fire({
+				text: "Giỏ hàng trống",
+				icon: "warning",
+				width: 300,
+			});
+		}else{
+			window.location.href ='/Cart/fillform';
+		}
+	})
+	
+	// lấy danh sách các nút thêm, bớt, xóa mặt hàng và đơn hàng
+	var btnAdd = document.querySelectorAll('#btnAddOne');
+	var btnMinus = document.querySelectorAll('#btnMinusOne');
+	var btnRemoveCartLine = document.querySelectorAll('#btnRemoveCartLine');
+	var ListType = document.querySelectorAll('#ListType');
+
+
+	// thêm 1 mặt hàng vào 1 đơn hàng
+	btnAdd.forEach((addItem, index) => {
+		addItem.addEventListener('click', () => {
+			var productId = addItem.getAttribute('data-id1');
+			var colorId = btnMinus[index].getAttribute('data-id2');
+			var typeId = ListType[index].getAttribute('data-id3');
+			axios.post('/Cart/AddToCart/', {
+				productId: productId,
+				quantity: 1,
+				ColorId: colorId,
+				TypeId: typeId,
+			})
+				.then(function (response) {
+					if (response.status == 200) {
+						window.location.reload();
+					}
+				})
+
+				.catch(function (error) {
+					console.error('Có lỗi xảy ra khi gửi yêu cầu:', error);
+				});
+		});
+	});
+
+
+	// giảm 1 mặt hàng trong 1 đơn hàng
+	btnMinus.forEach((item,index) => {
+		item.addEventListener('click',()=>{
+			var colorId = item.getAttribute('data-id2');
+			var productId = btnAdd[index].getAttribute('data-id1');
+			var typeId = ListType[index].getAttribute('data-id3');
+			axios.post('/Cart/UpdateCart/', {
+				productId: productId,
+				ColorId: colorId,
+				TypeId: typeId,
+			})
+				.then(function (response) {
+					if (response.status == 200) {
+						window.location.reload();
+					}
+				})
+
+				.catch(function (error) {
+					console.error('Có lỗi xảy ra khi gửi yêu cầu:', error);
+				});
+		});
+	});
+
+	// xóa 1 đơn hàng
+	btnRemoveCartLine.forEach((item,index) => {
+		item.addEventListener('click', () => {
+			var productId = btnAdd[index].getAttribute('data-id1');
+			var colorId = btnMinus[index].getAttribute('data-id2');
+			var typeId = ListType[index].getAttribute('data-id3');
+			axios.post('/Cart/RemoveFromCart/', {
+				productId: productId,
+				ColorId: colorId,
+				TypeId: typeId,
+			})
+				.then(function (response) {
+					if (response.status == 200) {
+						window.location.reload();
+					}
+				})
+
+				.catch(function (error) {
+					console.error('Có lỗi xảy ra khi gửi yêu cầu:', error);
+				});
+		});
+	});
+
+
+</script>

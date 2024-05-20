@@ -6,7 +6,6 @@
 		public List<TbImageProduct> Images { get; set; }
 		public List<TbColor> Colors { get; set; }
 		public List<TbProduct> relatedProducts { get; set; }
-
-
+		public List<TbType> Types { get; set; }
 	}
 }

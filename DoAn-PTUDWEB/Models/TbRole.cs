@@ -11,7 +11,7 @@ namespace DoAn_PTUDWEB.Models
         }
 
         public int RoleId { get; set; }
-        public string? RoleName { get; set; }
+        public string RoleName { get; set; } = null!;
         public string? Description { get; set; }
 
         public virtual ICollection<TbUser> TbUsers { get; set; }

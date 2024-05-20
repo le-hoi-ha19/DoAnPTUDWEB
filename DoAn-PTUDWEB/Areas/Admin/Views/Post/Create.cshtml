@@ -30,7 +30,7 @@
 
                         <div class="form-group">
                             <label asp-for="Detail" class="control-label">Chi tiết:</label>
-                            <input asp-for="Detail" class="form-control" />
+                            <textarea asp-for="Detail" class="form-control"></textarea>
                             <span asp-validation-for="Detail" class="text-danger"></span>
                         </div>
 
@@ -67,11 +67,6 @@
                             <input asp-for="CreatedDate" class="form-control" value="@Functions.getCurrentDate()" />
                         </div>
 
-                        <div class="form-group">
-                            <label asp-for="CreatedBy" class="control-label">Được tạo bởi:</label>
-                            <input asp-for="CreatedBy" class="form-control" />
-                            <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                        </div>
 
                         <div class="form-group">
                             <label asp-for="ModifiedDate" class="control-label">Ngày sửa:</label>
@@ -85,6 +80,13 @@
                         </div>
 
                         <div class="form-group">
+
+                            <label asp-for="UserId" class="control-label">Người tạo:</label>
+                            <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                        </div>
+
+                        <div class="form-group">
+
                             <label class="control-label">Hiển thị:</label>
                             <label>
                                 @Html.CheckBox("IsActive",false)
@@ -109,6 +111,9 @@
 }
 
 @{
-    var summerNote = new DoAn_PTUDWEB.Areas.Admin.Models.SummerNote("#Contents");
+    var summerNote = new DoAn_PTUDWEB.Areas.Admin.Models.SummerNote("#Detail");
     <partial name="_SummerNote" model="summerNote" />
+
+    //thêm cái chỗ summernote này kết hợp với thẻ <area></area> để nhập thông tin vào ô input
+    //  có cả ảnh, chữ đen, các kiểu(chú ý thay phần #id)
 }

@@ -7,11 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
 using X.PagedList;
+using DoAn_PTUDWEB.Constains;
+using Microsoft.AspNetCore.Authorization;
+using DoAn_PTUDWEB.Filters;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class TrademarkController : Controller
+	[Authorize]
+	[AdminRequired]
+	public class TrademarkController : Controller
     {
         private readonly DataContext _context;
 

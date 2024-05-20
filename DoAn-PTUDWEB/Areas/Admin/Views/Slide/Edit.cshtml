@@ -1,0 +1,52 @@
+﻿@model DoAn_PTUDWEB.Models.TbImageSlide
+
+@{
+    ViewData["Title"] = "Chỉnh sửa banner";
+}
+
+
+<h4>Chỉnh sửa banner</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SlideId" />
+            <div class="form-group row">
+                <label class="col-md-12 col-form-label">Ảnh</label>
+                <div class="col-md-12">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-success" type="button" onclick="openDialog()">Chọn ảnh</button>
+                        </div>
+                        <input type="text" class="form-control" asp-for="Path" id="file_input" aria-describedby="button-addon2" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <p>Trạng thái</p>
+                <select asp-for="IsActive" class="form-control">
+                    <option value="true">Hiện</option>
+                    <option value="false">Ẩn</option>
+                </select>
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@{
+    var summerNote = new DoAn_PTUDWEB.Areas.Admin.Models.SummerNote("#Contents");
+    <partial name="_SummerNote" model="summerNote" />
+}

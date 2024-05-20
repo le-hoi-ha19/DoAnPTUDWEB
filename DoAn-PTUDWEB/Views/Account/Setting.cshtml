@@ -1,0 +1,134 @@
+﻿@model DoAn_PTUDWEB.Models.TbUser
+
+@{
+    ViewBag.Title = " Cài đặt tài khoản";
+}
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">
+            <aside class="col-md-3">
+                <nav class="list-group">
+                    <a class="list-group-item " href="/Account"> Tổng quan về tôi  </a>
+                    <a class="list-group-item" asp-controller="Account" asp-action="Order" asp-route-status="1"> Đơn mua </a>
+                    <a class="list-group-item active" href="/Account/Setting"> Cài đặt </a>
+                    <a class="list-group-item " href="/Account/Logout"> Đăng xuất </a>
+                </nav>
+            </aside> <!-- col.// -->
+            <main class="col-md-9">
+
+                <div class="card">
+                    <div class="card-body">
+                        <form class="row"  id="FormEditData">
+                            <div class="col-md-9">
+                                <div class="form-row">
+                                    <div class="col form-group">
+                                        <label>Họ và tên</label>
+                                        <input type="hidden" value="@Model.UserId" id="IdUser" />
+                                        <input type="text" class="form-control" name="FullName" value="@Model.FullName">
+                                    </div> <!-- form-group end.// -->
+                                    <div class="col form-group">
+                                        <label>Tài khoản</label>
+                                        <input type="text" readonly class="form-control" name="UserName" value="@Model.UserName">
+                                    </div> <!-- form-group end.// -->
+                                    <div class="col form-group">
+                                        <label>Mật khẩu</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="PasswordHash" value="@Model.PasswordHash" id="togglePassword">
+                                            <div class="input-group-append" onclick="myFunction()">
+                                                <span class="input-group-text">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- form-group end.// -->
+                                    <div class="col form-group">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="Email" value="@Model.Email">
+                                    </div> <!-- form-group end.// -->
+                                </div> <!-- form-row.// -->
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>địa chỉ</label>
+                                        <input type="text" class="form-control" name="Address" value="@Model.Address">
+                                    </div> <!-- form-group end.// -->
+                                    <div class="form-group col-md-6">
+                                        <label>Số điện thoại</label>
+                                        <input type="text" class="form-control" name="Phone" value="@Model.Phone">
+                                    </div> <!-- form-group end.// -->
+                                </div> <!-- form-row.// -->
+
+                                <button class="btn btn-primary">Lưu</button>
+                                <button class="btn btn-light">Change password</button>
+
+                                <br><br><br><br><br><br>
+
+                            </div> <!-- col.// -->
+                            <div class="col-md">
+                                <img src="@Model.Avatar" class="img-md rounded-circle border" >
+                            </div> <!-- col.// -->
+                        </form> <!-- form end.// -->
+                    </div>
+                </div>
+
+            </main> <!-- col.// -->
+        </div> <!-- row end.// -->
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("togglePassword");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+    var FormEditDataElement = document.getElementById('FormEditData').addEventListener('submit',(e)=>{
+        e.preventDefault();
+        var IdUser = document.getElementById('IdUser').value;
+        var fullNameInput = document.querySelector('input[name="FullName"]').value;
+        var PasswordHashInput = document.querySelector('input[name="PasswordHash"]').value;
+        var EmailInput = document.querySelector('input[name="Email"]').value;
+        var AddressInput = document.querySelector('input[name="Address"]').value;
+        var PhoneInput = document.querySelector('input[name="Phone"]').value;
+
+        axios.patch('/Account/Edit', {
+            IdUser: IdUser,
+            FullName: fullNameInput,
+            PasswordHash: PasswordHashInput,
+            Email: EmailInput,
+            Address: AddressInput,
+            Phone: PhoneInput
+        })
+            .then(function (response) {
+                if (response.status == 200) {
+                    Swal.fire({
+                        width: "300px",
+                        position: "center",
+                        icon: "success",
+                        title: "Cập nhật hồ sơ thành công",
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.error('Có lỗi xảy ra khi gửi yêu cầu:', error);
+            });
+    })
+   
+
+
+
+</script>

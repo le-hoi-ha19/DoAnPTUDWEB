@@ -6,11 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
+using DoAn_PTUDWEB.Constains;
+using Microsoft.AspNetCore.Authorization;
+using DoAn_PTUDWEB.Filters;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class UserController : Controller
+	[Authorize]
+	[AdminRequired]
+	public class UserController : Controller
     {
         private readonly DataContext _context;
 
@@ -86,9 +91,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             return View(tbUser);
         }
 
-        // POST: Admin/User/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,FullName,PasswordHash,Phone,Address,Email,Status,CreatedDate,ModifiedDate,RoleId")] TbUser tbUser)

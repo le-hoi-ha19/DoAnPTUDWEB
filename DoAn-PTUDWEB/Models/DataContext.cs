@@ -29,15 +29,16 @@ namespace DoAn_PTUDWEB.Models
         public virtual DbSet<TbProductColor> TbProductColors { get; set; } = null!;
         public virtual DbSet<TbReview> TbReviews { get; set; } = null!;
         public virtual DbSet<TbRole> TbRoles { get; set; } = null!;
-        public virtual DbSet<TbSlide> TbSlides { get; set; } = null!;
         public virtual DbSet<TbTrademark> TbTrademarks { get; set; } = null!;
+        public virtual DbSet<TbType> TbTypes { get; set; } = null!;
+        public virtual DbSet<TbTypeProduct> TbTypeProducts { get; set; } = null!;
         public virtual DbSet<TbUser> TbUsers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies();
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=LAPTOP-OAUGEEUH\\SQLEXPRESS;Initial Catalog=DoAnPT;Integrated Security=True;TrustServerCertificate=True");
             }
         }
@@ -98,20 +99,15 @@ namespace DoAn_PTUDWEB.Models
 
             modelBuilder.Entity<TbImageSlide>(entity =>
             {
-                entity.HasKey(e => e.ImageSlideId)
+                entity.HasKey(e => e.SlideId)
                     .HasName("PK_tb_AnhSlide");
 
                 entity.ToTable("tb_ImageSlide");
 
-                entity.Property(e => e.File)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Slide)
-                    .WithMany(p => p.TbImageSlides)
-                    .HasForeignKey(d => d.SlideId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Anh_Slide__Ma_Sl__38996AB5");
+                entity.Property(e => e.Path)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("path");
             });
 
             modelBuilder.Entity<TbOrder>(entity =>
@@ -121,42 +117,47 @@ namespace DoAn_PTUDWEB.Models
 
                 entity.ToTable("tb_Order");
 
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
-
                 entity.Property(e => e.Note).HasMaxLength(500);
 
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ShipAddress).HasMaxLength(200);
 
-                entity.Property(e => e.Status).HasMaxLength(100);
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TbOrders)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Order_tb_User");
             });
 
             modelBuilder.Entity<TbOrderDetail>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("tb_OrderDetail");
 
                 entity.Property(e => e.Price).HasColumnType("money");
 
+                entity.Property(e => e.TotalMoney).HasColumnType("money");
+
+                entity.HasOne(d => d.Color)
+                    .WithMany(p => p.TbOrderDetails)
+                    .HasForeignKey(d => d.ColorId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_tb_OrderDetail_tb_Color");
+
                 entity.HasOne(d => d.Order)
-                    .WithMany()
+                    .WithMany(p => p.TbOrderDetails)
                     .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Chi_Tiet___Ma_DH__398D8EEE");
+                    .HasConstraintName("FK_tb_OrderDetail_tb_Order");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.TbOrderDetails)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Chi_Tiet___Ma_SP__3A81B327");
+                    .HasConstraintName("FK_tb_OrderDetail_tb_Product");
+
+                entity.HasOne(d => d.Type)
+                    .WithMany(p => p.TbOrderDetails)
+                    .HasForeignKey(d => d.TypeId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_tb_OrderDetail_tb_Types");
             });
 
             modelBuilder.Entity<TbPost>(entity =>
@@ -166,7 +167,7 @@ namespace DoAn_PTUDWEB.Models
 
                 entity.ToTable("tb_Post");
 
-                entity.Property(e => e.CreatedBy).HasMaxLength(150);
+                entity.Property(e => e.CreatedBy).HasMaxLength(500);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -189,6 +190,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TbPosts)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_tb_Post_tb_User");
             });
 
@@ -212,7 +214,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Blog)
                     .WithMany(p => p.TbPostComments)
                     .HasForeignKey(d => d.BlogId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_BlogComment_tb_Blog");
             });
 
@@ -271,7 +272,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.TbProductColors)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_ProductColor_tb_Product");
             });
 
@@ -294,7 +294,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Review_tb_User");
             });
 
@@ -308,22 +307,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.Property(e => e.Description).HasMaxLength(50);
 
                 entity.Property(e => e.RoleName).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<TbSlide>(entity =>
-            {
-                entity.HasKey(e => e.SlideId)
-                    .HasName("PK_Slide");
-
-                entity.ToTable("tb_Slide");
-
-                entity.Property(e => e.Caption).HasMaxLength(100);
-
-                entity.Property(e => e.Link)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Summary).HasMaxLength(300);
             });
 
             modelBuilder.Entity<TbTrademark>(entity =>
@@ -343,6 +326,33 @@ namespace DoAn_PTUDWEB.Models
                 entity.Property(e => e.Name).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<TbType>(entity =>
+            {
+                entity.HasKey(e => e.TypeId);
+
+                entity.ToTable("tb_Types");
+
+                entity.Property(e => e.TypeName).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<TbTypeProduct>(entity =>
+            {
+                entity.HasKey(e => e.TypeProductId);
+
+                entity.ToTable("tb_TypeProduct");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.TbTypeProducts)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_tb_TypeProduct_tb_Product");
+
+                entity.HasOne(d => d.Type)
+                    .WithMany(p => p.TbTypeProducts)
+                    .HasForeignKey(d => d.TypeId)
+                    .HasConstraintName("FK_tb_TypeProduct_tb_Types");
+            });
+
             modelBuilder.Entity<TbUser>(entity =>
             {
                 entity.HasKey(e => e.UserId)
@@ -351,6 +361,8 @@ namespace DoAn_PTUDWEB.Models
                 entity.ToTable("tb_User");
 
                 entity.Property(e => e.Address).HasMaxLength(200);
+
+                entity.Property(e => e.Avatar).HasMaxLength(255);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -376,6 +388,7 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.TbUsers)
                     .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Account_tb_Role");
             });
 

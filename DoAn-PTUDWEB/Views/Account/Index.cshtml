@@ -1,15 +1,7 @@
-﻿@using DoAn_PTUDWEB.Utilities;
-@{
+﻿@{
     ViewBag.Title = "Tài khoản";
 }
 
-<!-- ========================= SECTION PAGETOP ========================= -->
-<section class="section-pagetop bg-gray">
-	<div class="container">
-		<h2 class="title-page">Tài khoản của tôi</h2>
-	</div> <!-- container //  -->
-</section>
-<!-- ========================= SECTION PAGETOP END// ========================= -->
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 	<div class="container">
@@ -17,11 +9,10 @@
 		<div class="row">
 			<aside class="col-md-3">
 				<nav class="list-group">
-					<a class="list-group-item active" href="page-profile-main.html"> Tổng quan về tôi  </a>
-					<a class="list-group-item" href="page-profile-address.html"> Địa chỉ </a>
-					<a class="list-group-item" href="page-profile-orders.html"> Đơn đặt hàng của tôi </a>
-					<a class="list-group-item" href="page-profile-setting.html"> Cài đặt </a>
-					<a class="list-group-item" href="/Admin/Home/Logout"> Đăng xuất </a>
+					<a class="list-group-item active" href="/Account"> Tổng quan về tôi  </a>
+					<a class="list-group-item" asp-controller="Account" asp-action="Order" asp-route-status="1"> Đơn mua </a>
+					<a class="list-group-item" href="/Account/Setting"> Cài đặt </a>
+					<a class="list-group-item" href="/Account/Logout"> Đăng xuất </a>
 				</nav>
 			</aside> <!-- col.// -->
 			<main class="col-md-9">
@@ -34,8 +25,8 @@
 								<img class="rounded-circle img-sm border" src="images/avatars/avatar3.jpg">
 							</div>
 							<div class="text">
-								<strong>@Functions._FullName </strong> <br>
-								<p class="mb-2">@Functions._Email  </p>
+								<strong>@ViewBag.User.FullName </strong> <br>
+								<p class="mb-2">@ViewBag.User.Email </p>
 								<a href="#" class="btn btn-light btn-sm">Sửa</a>
 							</div>
 						</figure>
@@ -43,7 +34,7 @@
 						<p>
 							<i class="fa fa-map-marker text-muted"></i> &nbsp; Địa chỉ:
 							<br>
-							@Functions._Address
+							@ViewBag.User.Address
 							<a href="#" class="btn-link"> Sửa</a>
 						</p>
 
@@ -52,26 +43,31 @@
 						<article class="card-group card-stat">
 							<figure class="card bg">
 								<div class="p-3">
-									<h4 class="title">38</h4>
-									<span>Đơn hàng</span>
+									<h4 class="title">@ViewBag.orderConfirm</h4>
+									<span>Đã đặt hàng</span>
 								</div>
 							</figure>
 							<figure class="card bg">
 								<div class="p-3">
-									<h4 class="title">5</h4>
-									<span>Giỏ hàng</span>
+
+									<h4 class="title">@ViewBag.orderDeliver</h4>
+									<span>Đang giao</span>
+
 								</div>
 							</figure>
 							<figure class="card bg">
 								<div class="p-3">
-									<h4 class="title">12</h4>
-									<span>Chờ giao hàng</span>
+
+									<h4 class="title">@ViewBag.orderComplete</h4>
+									<span>Hoàn thành</span>
 								</div>
 							</figure>
 							<figure class="card bg">
 								<div class="p-3">
-									<h4 class="title">50</h4>
-									<span>Đơn hàng đã giao</span>
+
+									<h4 class="title">@ViewBag.orderCancel</h4>
+									<span>Đã hủy</span>
+
 								</div>
 							</figure>
 						</article>
@@ -79,6 +75,7 @@
 
 					</div> <!-- card-body .// -->
 				</article> <!-- card.// -->
+
 
 				<article class="card  mb-3">
 					<div class="card-body">
@@ -122,8 +119,12 @@
 				</article> <!-- card.// -->
 
 			</main> <!-- col.// -->
+
+
+			</main> 
+
 		</div>
 
-	</div> <!-- container .//  -->
+	</div> 
 </section>
-<!-- ========================= SECTION CONTENT END// ========================= -->
+

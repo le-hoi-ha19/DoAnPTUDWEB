@@ -1,0 +1,30 @@
+﻿@model DoAn_PTUDWEB.Models.TbImageSlide
+
+@{
+    ViewData["Title"] = "Xóa banner";
+}
+
+<h4>Xóa banner</h4>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            <span>Ảnh</span>
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@Model.Path" alt="" />
+        </dd>
+        <dt class = "col-sm-2">
+            <span>Trạng thái</span>
+        </dt>
+        <dd class = "col-sm-10">
+            <span class="status @(Model.IsActive.HasValue && Model.IsActive.Value == true ? "delivered" : "cancelled")">@(Model.IsActive == true ? "Ẩn" : "Hiện")</span>
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="SlideId" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

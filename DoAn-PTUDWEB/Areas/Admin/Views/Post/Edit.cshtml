@@ -102,6 +102,16 @@
 
                 <div class="row mb-3">
                     <div class="col-md-3">
+                        <label for="UserId" class="form-label">Người tạo</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                        <span asp-validation-for="UserId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3">
                         <label for="CreatedDate" class="form-label">Ngày tạo</label>
                     </div>
                     <div class="col-md-9">
@@ -110,15 +120,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <label for="CreatedBy" class="form-label">Người tạo</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input asp-for="CreatedBy" class="form-control" />
-                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                    </div>
-                </div>
+                
 
                 <div class="row mb-3">
                     <div class="col-md-3">
@@ -130,15 +132,6 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <label for="ModifiedBy" class="form-label">Người chỉnh sửa</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input asp-for="ModifiedBy" class="form-control" />
-                        <span asp-validation-for="ModifiedBy" class="text-danger"></span>
-                    </div>
-                </div>
 
                 <div class="row mb-3">
                     <div class="col-md-3">

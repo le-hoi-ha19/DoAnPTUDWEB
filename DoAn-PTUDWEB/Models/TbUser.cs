@@ -12,18 +12,19 @@ namespace DoAn_PTUDWEB.Models
         }
 
         public int UserId { get; set; }
-        public string? UserName { get; set; }
-        public string? FullName { get; set; }
-        public string? PasswordHash { get; set; }
+        public string UserName { get; set; } = null!;
+        public string FullName { get; set; } = null!;
+        public string? Avatar { get; set; }
+        public string PasswordHash { get; set; } = null!;
         public string? Phone { get; set; }
         public string? Address { get; set; }
-        public string? Email { get; set; }
+        public string Email { get; set; } = null!;
         public bool? Status { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public int? RoleId { get; set; }
+        public int RoleId { get; set; }
 
-        public virtual TbRole? Role { get; set; }
+        public virtual TbRole Role { get; set; } = null!;
         public virtual ICollection<TbOrder> TbOrders { get; set; }
         public virtual ICollection<TbPost> TbPosts { get; set; }
     }

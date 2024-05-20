@@ -7,10 +7,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
 using X.PagedList;
+using DoAn_PTUDWEB.Infrastructure;
+using DoAn_PTUDWEB.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using DoAn_PTUDWEB.Constains;
+using DoAn_PTUDWEB.Filters;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
+    [AdminRequired]
     public class ProductController : Controller
     {
         private readonly DataContext _context;
@@ -23,7 +30,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index(int? page)
         {
-            const int pageSize = 4; // Số lượng sản phẩm trên mỗi trang
+			const int pageSize = 4; // Số lượng sản phẩm trên mỗi trang
 
             var dataContext = _context.TbProducts.Include(t => t.CategoryProduct).Include(t => t.Trademark);
 

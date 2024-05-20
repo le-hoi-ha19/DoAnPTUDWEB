@@ -6,11 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
+using DoAn_PTUDWEB.Constains;
+using Microsoft.AspNetCore.Authorization;
+using DoAn_PTUDWEB.Filters;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PostController : Controller
+	[Authorize]
+	[AdminRequired]
+	public class PostController : Controller
     {
         private readonly DataContext _context;
 
@@ -25,7 +30,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             var dataContext = _context.TbPosts.Include(t => t.User);
             return View(await dataContext.ToListAsync());
         }
-
+        
         // GET: Admin/Post/Details/5
         public async Task<IActionResult> Details(int? id)
         {
