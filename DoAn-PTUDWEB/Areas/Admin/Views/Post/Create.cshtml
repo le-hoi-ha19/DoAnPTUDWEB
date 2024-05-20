@@ -80,11 +80,13 @@
                         </div>
 
                         <div class="form-group">
+
                             <label asp-for="UserId" class="control-label">Người tạo:</label>
                             <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
                         </div>
 
                         <div class="form-group">
+
                             <label class="control-label">Hiển thị:</label>
                             <label>
                                 @Html.CheckBox("IsActive",false)

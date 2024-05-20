@@ -27,7 +27,7 @@
 							<div class="text">
 								<strong>@ViewBag.User.FullName </strong> <br>
 								<p class="mb-2">@ViewBag.User.Email </p>
-								<a href="#" class="btn btn-light btn-sm">Edit</a>
+								<a href="#" class="btn btn-light btn-sm">Sửa</a>
 							</div>
 						</figure>
 						<hr>
@@ -49,20 +49,25 @@
 							</figure>
 							<figure class="card bg">
 								<div class="p-3">
+
 									<h4 class="title">@ViewBag.orderDeliver</h4>
 									<span>Đang giao</span>
+
 								</div>
 							</figure>
 							<figure class="card bg">
 								<div class="p-3">
+
 									<h4 class="title">@ViewBag.orderComplete</h4>
 									<span>Hoàn thành</span>
 								</div>
 							</figure>
 							<figure class="card bg">
 								<div class="p-3">
+
 									<h4 class="title">@ViewBag.orderCancel</h4>
 									<span>Đã hủy</span>
+
 								</div>
 							</figure>
 						</article>
@@ -71,9 +76,53 @@
 					</div> <!-- card-body .// -->
 				</article> <!-- card.// -->
 
-			
+
+				<article class="card  mb-3">
+					<div class="card-body">
+						<h5 class="card-title mb-4">Đơn hàng gần đây</h5>
+
+						<div class="row">
+							<div class="col-md-6">
+								<figure class="itemside  mb-3">
+									<div class="aside"><img src="images/items/1.jpg" class="border img-sm"></div>
+									<figcaption class="info">
+										<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
+										<p>Great book name goes here </p>
+										<span class="text-success">Xác nhận đặt hàng</span>
+									</figcaption>
+								</figure>
+							</div> <!-- col.// -->
+							<div class="col-md-6">
+								<figure class="itemside  mb-3">
+									<div class="aside"><img src="images/items/2.jpg" class="border img-sm"></div>
+									<figcaption class="info">
+										<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
+										<p>How to be rich</p>
+										<span class="text-success">Trên đường giao</span>
+									</figcaption>
+								</figure>
+							</div> <!-- col.// -->
+							<div class="col-md-6">
+								<figure class="itemside mb-3">
+									<div class="aside"><img src="images/items/3.jpg" class="border img-sm"></div>
+									<figcaption class="info">
+										<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
+										<p>Harry Potter book </p>
+										<span class="text-success">Đã giao hàng</span>
+									</figcaption>
+								</figure>
+							</div> <!-- col.// -->
+						</div> <!-- row.// -->
+
+						<a href="#" class="btn btn-outline-primary btn-block"> Xem tất cả đơn hàng <i class="fa fa-chevron-down"></i>  </a>
+					</div> <!-- card-body .// -->
+				</article> <!-- card.// -->
+
+			</main> <!-- col.// -->
+
 
 			</main> 
+
 		</div>
 
 	</div> 

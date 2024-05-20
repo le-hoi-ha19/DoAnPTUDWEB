@@ -83,10 +83,12 @@
                     <td class="details-value">@Html.DisplayFor(model => model.IsActive)</td>
                 </tr>
 
+
                 <tr class="details-row">
                     <td class="details-label">Người tạo:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.User.FullName)</td>
                 </tr>
+
             </table>
             <div class="mt-3">
                 <a asp-action="Edit" asp-route-id="@Model?.BlogId" class="btn btn-primary">Sửa</a>

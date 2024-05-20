@@ -7,16 +7,18 @@
 <div class="row mt-4">
     <div class="col-md-9 mb40">
         <article>
-            <img src="~/@Model.Image" alt="" class="img-fluid mb30" style="display:block; margin-left:auto; margin-right:auto">
+       
             <div class="post-content">
-                <h3>@Model.Name</h3>
+                <h2>@Model.Name</h2>
                 <ul class="post-meta list-inline">
                     
                     <li class="list-inline-item">
                         <i class="fa fa-calendar-o"></i> <a href="#">@Model.CreatedDate</a>
                     </li>
                 </ul>
-                <p>@Model.Description</p>
+                <h5>@Model.Description</h5>
+                <img src="@Model.Image" alt="" class="img-fluid mb30" style="display:block; margin-left:auto; margin-right:auto">
+                <p style="font-size:large; text-align:justify">@Model.Detail</p>
                 <ul class="list-inline share-buttons">
                     <li class="list-inline-item">
                         <a href="#" class="social-icon-sm si-dark si-colored-facebook si-gray-round">
@@ -35,10 +37,15 @@
                     </li>
                 </ul>
                 <hr class="mb40">
-                <h4 class="mb40 text-uppercase font500">Về tác giả</h4>
-                <div class="media mb40">
-                    <i class="d-flex mr-3 fa fa-user-circle fa-5x text-primary"></i>
-                </div>
+
+                <h4 class="mb20 text-uppercase font500">Chia sẻ</h4>
+                <ul class="list-unstyled d-flex">
+                    <li style="margin-left: 0;"><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li style="margin-left: 20px;"><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li style="margin-left: 20px;"><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                </ul>
+
+
                 <hr class="mb40">
                 <!--Comment-->
 
