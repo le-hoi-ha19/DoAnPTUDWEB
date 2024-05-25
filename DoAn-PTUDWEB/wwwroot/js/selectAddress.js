@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    var token = 'a2b5cb39-19e4-11ef-9d18-eec40c4c1a75';
     axios.defaults.headers.common['Token'] = token;
     var diachicuthe = $("#diachicuthe");
     var shipAddressElement = $("#shipAddress");
