@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAn_PTUDWEB.Models;
 using X.PagedList;
-using DoAn_PTUDWEB.Infrastructure;
-using DoAn_PTUDWEB.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using DoAn_PTUDWEB.Constains;
 using DoAn_PTUDWEB.Filters;
 
 namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+	[Area("Admin")]
     [Authorize]
     [AdminRequired]
     public class ProductController : Controller

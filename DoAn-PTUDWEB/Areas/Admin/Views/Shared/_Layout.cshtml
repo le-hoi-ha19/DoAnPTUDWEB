@@ -2,17 +2,14 @@
 @using DoAn_PTUDWEB.Utilities;
 @using Microsoft.AspNetCore.Http
 @using Newtonsoft.Json;
-@inject IHttpContextAccessor _httpContextAccessor
-
+@using System.Security.Claims;
+@inject IHttpContextAccessor HttpContextAccessor
 @{
-	// Lấy chuỗi JSON từ phiên
-	var taiKhoanJson = _httpContextAccessor.HttpContext.Session.GetString("taiKhoan");
-	UserViewModel taiKhoan = null;
-	if (!string.IsNullOrEmpty(taiKhoanJson))
-	{
-		taiKhoan = JsonConvert.DeserializeObject<UserViewModel>(taiKhoanJson);
-	}
+	var fullName = HttpContextAccessor.HttpContext.Session.GetString("FullName");
 }
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +33,6 @@
 
 	<!-- link axios--!>
 	<script src="https://cdn.jsdelivr.net/npm/axios@1.6.8/dist/axios.min.js"></script>
-	
 </head>
 <body>
 
@@ -100,9 +96,9 @@
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="/Admin/UserProfile/Index">
+				<a href="#">
 					<i class='bx bxs-cog'></i>
-					<span class="text">Settings</span>
+					<span class="text">Cài đặt</span>
 				</a>
 			</li>
 			<li>
@@ -132,7 +128,7 @@
 				</div>
 				<a href="#" class="profileUser text-decoration-none d-flex flex-column p-4">
 					<img class="rounded-circle" src="~/admin/assets/img/people.png">
-					<span class="title pr-1">lê hội hà</span>
+					<span class="title pr-1">@fullName</span>
 				</a>
 
 			</div>

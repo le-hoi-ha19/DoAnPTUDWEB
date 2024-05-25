@@ -44,9 +44,5 @@ namespace DoAn_PTUDWEB.Utilities
 				str = MD5Hash(str + "_" + str);
 			return str;
 		}
-
-
-
-		
 	}
 }

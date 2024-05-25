@@ -1,4 +1,21 @@
-﻿/* Preloader */
+﻿div.form-error {
+    display: none;
+    color: #ef4040;
+    font-weight: bold;
+    margin-bottom: 28px;
+    -webkit-transform: translatez(0);
+    -moz-transform: translatez(0);
+    -ms-transform: translatez(0);
+    -o-transform: translatez(0);
+    transform: translatez(0);
+}
+
+#provinceSelect, #districtSelect, #wardSelect {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+}
+/* Preloader */
 .preloader {
     position: fixed;
     top: 0;
@@ -67,6 +84,13 @@
 }
 /* End Preloader */
 
+
+
+
+/*css sao đánh giá*/
+.stars .fa-star.active {
+    color: gold; /* Change the color of the active stars */
+}
 
 
 

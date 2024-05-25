@@ -1,5 +1,4 @@
 ﻿
-
 <div class="head-title">
 	<div class="left">
 		<ul class="breadcrumb">
@@ -22,24 +21,27 @@
 	<li>
 		<i class='bx bxs-calendar-check'></i>
 		<span class="text">
-			<h3>1020</h3>
+			<h3>@ViewBag.quantityOrder</h3>
 			<p>Đơn hàng mới</p>
 		</span>
 	</li>
 	<li>
 		<i class='bx bxs-group'></i>
 		<span class="text">
-			<h3>2834</h3>
-			<p>Khách hàng</p>
+			<h3>@ViewBag.quantityUser</h3>
+			<p>Người dùng</p>
 		</span>
 	</li>
 	<li>
 		<i class='bx bxs-dollar-circle'></i>
 		<span class="text">
-			<h3>$2543</h3>
-			<p>Tổng thu nhập</p>
+			<h3>@(ViewBag.sale != null ? string.Format("{0:#,##0}", ViewBag.sale) : "0")đ</h3>
+			<p>Doanh thu</p>
 		</span>
 	</li>
+
+
+
 </ul>
 
 
@@ -59,78 +61,54 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>
-
-						<img src="~/admin/assets/img/people.png">
-						<p>lê hội hà:</p>
-
-					</td>
-					<td>14-04-2024</td>
-					<td><span class="status completed">Hoàn thành</span></td>
-				</tr>
-				<tr>
-					<td>
-						<img src="~/admin/assets/img/iphone2.jpg">
-						<p>Lê Hội Hà</p>
-					</td>
-					<td>10-01-2024</td>
-					<td><span class="status pending">Đang xác thực</span></td>
-				</tr>
-				<tr>
-					<td>
-						<img src="~/admin/assets/img/iphone3.jpg">
-						<p>Nguyễn Kim Cương</p>
-					</td>
-					<td>19-05-2024</td>
-					<td><span class="status process">Đang giao</span></td>
-				</tr>
-				<tr>
-					<td>
-						<img src="~/admin/assets/img/ipad1.jpg">
-						<p>Nguyễn Đình Tiệp</p>
-					</td>
-					<td>01-10-2021</td>
-					<td><span class="status pending">Đang xác thực</span></td>
-				</tr>
-				<tr>
-					<td>
-						<img src="~/admin/assets/img/head1.jpg">
-						<p>Trần Việt Cường</p>
-					</td>
-					<td>11-07-2020</td>
-					<td><span class="status completed">Hoàn thành</span></td>
-				</tr>
+			<tbody>
+					@foreach (var order in ViewBag.orderViewModels)
+					{
+					<tr>
+						<td>
+							<img src="~/admin/assets/img/people.png">
+							<p>@order.CustomerName</p>
+						</td>
+						<td>@order.OrderDate.ToString("dd-MM-yyyy")</td>
+						<td>
+								@if (order.Status == 3)
+								{
+								<span class="status completed">Hoàn thành</span>
+								}
+								else if (order.Status == 1)
+								{
+								<span class="status pending">Đã xác nhận</span>
+								}
+								else if (order.Status == 2)
+								{
+								<span class="status process"> Đang giao</span>
+								}
+								else if (order.Status == 4)
+								{
+								<span class="status bg-danger"> Đã hủy</span>
+								}
+						</td>
+					</tr>
+					}
 			</tbody>
+
 		</table>
 	</div>
 	<div class="todo">
 		<div class="head">
-			<h3>Todos</h3>
+			<h3>Danh sách thương hiệu</h3>
 			<i class='bx bx-plus'></i>
 			<i class='bx bx-filter'></i>
 		</div>
 		<ul class="todo-list">
+			@foreach(var item in ViewBag.listBrand)
+			{
 			<li class="completed">
-				<p>Todo List</p>
+					<p>@item.Name</p>
 				<i class='bx bx-dots-vertical-rounded'></i>
 			</li>
-			<li class="completed">
-				<p>Todo List</p>
-				<i class='bx bx-dots-vertical-rounded'></i>
-			</li>
-			<li class="not-completed">
-				<p>Todo List</p>
-				<i class='bx bx-dots-vertical-rounded'></i>
-			</li>
-			<li class="completed">
-				<p>Todo List</p>
-				<i class='bx bx-dots-vertical-rounded'></i>
-			</li>
-			<li class="not-completed">
-				<p>Todo List</p>
-				<i class='bx bx-dots-vertical-rounded'></i>
-			</li>
+				
+			}
 		</ul>
 	</div>
 </div>

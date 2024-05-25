@@ -2,13 +2,11 @@
 using DoAn_PTUDWEB.Models;
 using DoAn_PTUDWEB.Models.ViewModels;
 using DoAn_PTUDWEB.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
-using System.Drawing.Printing;
-using System.Linq;
+using X.PagedList;
+
 
 namespace DoAn_PTUDWEB.Controllers
 {
@@ -168,6 +166,17 @@ namespace DoAn_PTUDWEB.Controllers
 				ViewBag.AllReview = AllReview;
 			}
 
+            // truy vấn đếm tổng số đánh giá của 1 sản phẩm
+            var totalReview = _context.TbReviews.Where(x =>x.ProductId == ProductId).Count();
+
+            var quantityStarOne = _context.TbReviews.Where(x =>x.ProductId == ProductId && x.Rating == 1).Count();
+            var quantityStarTwo = _context.TbReviews.Where(x =>x.ProductId == ProductId && x.Rating == 2).Count();
+            var quantityStarThree = _context.TbReviews.Where(x =>x.ProductId == ProductId && x.Rating == 3).Count();
+            var quantityStarFour = _context.TbReviews.Where(x =>x.ProductId == ProductId && x.Rating == 4).Count();
+            var quantityStarFive = _context.TbReviews.Where(x =>x.ProductId == ProductId && x.Rating == 5).Count();
+
+
+
 
 			// thông tin chi tiết của 1 sản phẩm
 			var inforDetail = new ProductDetail()
@@ -179,15 +188,22 @@ namespace DoAn_PTUDWEB.Controllers
 				relatedProducts = relatedProduct,
 			};
 
-			
-
+            ViewBag.totalReview = totalReview;
+            ViewBag.quantityStarOne = quantityStarOne;
+            ViewBag.quantityStarTwo = quantityStarTwo;
+            ViewBag.quantityStarThree = quantityStarThree;
+            ViewBag.quantityStarFour = quantityStarFour;
+            ViewBag.quantityStarFive = quantityStarFive;
 			return View(inforDetail);
 		}
 
 		[HttpGet]
 		[Route("/Product/Reviews")]
-		public IActionResult Review(int ProductId ,int? rating)
+		public async Task<IActionResult> Review(int ProductId ,int? rating, int? page)
 		{
+			//const int pageSize = 2; // Số lượng sản phẩm trên mỗi trang
+			//var pageNumber = page ?? 1; // Nếu page là null, sử dụng trang đầu tiên
+
 			var Product = _productService.GetProductById(ProductId);
 			if (Product == null)
 			{
@@ -197,15 +213,26 @@ namespace DoAn_PTUDWEB.Controllers
 			if(!rating.HasValue)
 			{
 				var AllReview = _reviewService.GetAllReview(ProductId);
+				//var pagedAllReview = await AllReview.ToPagedListAsync(pageNumber, pageSize);
 				return Ok(AllReview);
 			}
 			var ReviewByStar = _reviewService.GetReviewByStar(ProductId,rating);
-
+			//var pagedReviewByStar = await ReviewByStar.ToPagedListAsync(pageNumber, pageSize);
 			return Ok(ReviewByStar);
 		}
 
-		
 
-		
+		[HttpPost]
+		[Route("/Product/AddReview")]
+		public async Task<IActionResult> AddReview([FromBody] TbReview review)
+		{
+			if (review == null)
+			{
+                return NotFound();
+			}
+			_context.TbReviews.Add(review);
+			await _context.SaveChangesAsync();
+			return Ok();
+		}
 	}
 }

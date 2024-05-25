@@ -277,7 +277,7 @@ namespace DoAn_PTUDWEB.Models
 
             modelBuilder.Entity<TbReview>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.ReviewId);
 
                 entity.ToTable("tb_Review");
 
@@ -286,13 +286,12 @@ namespace DoAn_PTUDWEB.Models
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.TbReviews)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Review_tb_Product");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.TbReviews)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_tb_Review_tb_User");
             });
@@ -388,7 +387,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.TbUsers)
                     .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tb_Account_tb_Role");
             });
 

@@ -43,6 +43,12 @@ namespace DoAn_PTUDWEB.Controllers
 				TempData["error"] = "Tài khoản hoặc mật khẩu không đúng!";
 				return RedirectToAction("Index", "Login");
 			}
+			if(taiKhoan.Status == false)
+			{
+                // Hiển thị thông báo có thể làm cách khác
+                TempData["error"] = "Tài khoản đang bị khóa vui lòng liên hệ quản trị viên!";
+                return RedirectToAction("Index", "Login");
+            }
 			var role = _context.TbRoles.FirstOrDefault(r => r.RoleId == taiKhoan.RoleId);
 			if (role == null)
 			{

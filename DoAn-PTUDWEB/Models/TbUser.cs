@@ -9,6 +9,7 @@ namespace DoAn_PTUDWEB.Models
         {
             TbOrders = new HashSet<TbOrder>();
             TbPosts = new HashSet<TbPost>();
+            TbReviews = new HashSet<TbReview>();
         }
 
         public int UserId { get; set; }
@@ -27,5 +28,6 @@ namespace DoAn_PTUDWEB.Models
         public virtual TbRole Role { get; set; } = null!;
         public virtual ICollection<TbOrder> TbOrders { get; set; }
         public virtual ICollection<TbPost> TbPosts { get; set; }
+        public virtual ICollection<TbReview> TbReviews { get; set; }
     }
 }

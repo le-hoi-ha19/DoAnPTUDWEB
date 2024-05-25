@@ -27,6 +27,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         // GET: Admin/User
         public async Task<IActionResult> Index()
         {
+
             var dataContext = _context.TbUsers.Include(t => t.Role);
             return View(await dataContext.ToListAsync());
         }
@@ -100,12 +101,9 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
                 try
                 {
-                    _context.Update(tbUser);
+                    _context.TbUsers.Update(tbUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -120,7 +118,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+
             ViewData["RoleId"] = new SelectList(_context.TbRoles, "RoleId", "RoleName", tbUser.RoleId);
             return View(tbUser);
         }

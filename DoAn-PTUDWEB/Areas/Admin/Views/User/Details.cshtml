@@ -33,7 +33,7 @@
                     <td class="details-value">@Html.DisplayFor(model => model.FullName)</td>
                 </tr>
 
-                <tr class="details-row">
+                <tr class="details-row d-none">
                     <td class="details-label">Mật khẩu:</td>
                     <td class="details-value">@Html.DisplayFor(model => model.PasswordHash)</td>
                 </tr>
@@ -52,11 +52,15 @@
                     <td class="details-label">@Html.DisplayNameFor(model => model.Email):</td>
                     <td class="details-value">@Html.DisplayFor(model => model.Email)</td>
                 </tr>
-
                 <tr class="details-row">
                     <td class="details-label">Trạng thái:</td>
-                    <td class="details-value">@Html.DisplayFor(model => model.Status)</td>
+                    <td class="details-value">
+                        @(Model.Status.HasValue ? (Model.Status.Value ? "Mở" : "Khóa") : "Chưa xác định")
+                    </td>
                 </tr>
+
+
+
 
                 <tr class="details-row">
                     <td class="details-label">Ngày tạo:</td>
