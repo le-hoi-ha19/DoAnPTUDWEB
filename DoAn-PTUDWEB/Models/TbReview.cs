@@ -10,7 +10,7 @@ namespace DoAn_PTUDWEB.Models
         public int UserId { get; set; }
         public int Rating { get; set; }
         public string Comment { get; set; } = null!;
-        public DateTime? CreatedDate { get; set; } = DateTime.Now;
+        public DateTime? CreatedDate { get; set; }
 
         public virtual TbProduct Product { get; set; } = null!;
         public virtual TbUser User { get; set; } = null!;

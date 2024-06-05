@@ -16,9 +16,7 @@
                         <i class="fa fa-calendar-o"></i> <a href="#">@Model.CreatedDate</a>
                     </li>
                 </ul>
-                <h5>@Model.Description</h5>
-                <img src="@Model.Image" alt="" class="img-fluid mb30" style="display:block; margin-left:auto; margin-right:auto">
-                <p style="font-size:large; text-align:justify">@Model.Detail</p>
+                <section style="font-size:large; text-align:justify">@Html.Raw(Model.Detail)</section>
                 <ul class="list-inline share-buttons">
                     <li class="list-inline-item">
                         <a href="#" class="social-icon-sm si-dark si-colored-facebook si-gray-round">

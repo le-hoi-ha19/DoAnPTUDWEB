@@ -6,11 +6,21 @@
     var address = {
         province: "",
         district: "",
+        districtId: 0,
         ward: "",
+        wardId: 0,
         diachicuthe:""
     };
     var diachihientai;
+    var totalMoneyElement = $("#totalMoney");
+    var totalMoneyText = totalMoneyElement.text();
+    var totalMoneyValue = totalMoneyText.replace('Tổng tiền:', '').replace(' đ', '').trim();
+    var totalMoneyNumber = parseFloat(totalMoneyValue.replace(/,/g, ''));
+    var tempSelectedService_id;
 
+
+
+  
 
     //lấy danh sách tỉnh/thành phố
     axios.get('https://online-gateway.ghn.vn/shiip/public-api/master-data/province')
@@ -51,7 +61,6 @@
             })
                 .then(function (response) {
                     var data = response.data.data; // Lưu ý rằng dữ liệu thường được lồng trong một field data
-                    console.log("data>>>", data)
                     var $select = $('#districtSelect');
                     $select.empty();
                     // Thêm option mặc định
@@ -75,7 +84,9 @@
     const handleSelectedDistrict = (e) => {
         var selectedDistrictID = $(e).val();
         var selectedDistrictName = $(e).find('option:selected').text();
+        console.log("selectedDistrictID>>>>", selectedDistrictID)
         address.district = selectedDistrictName;
+        address.districtId = selectedDistrictID;
         if (selectedDistrictID) {
             axios({
                 method: 'get',
@@ -110,6 +121,8 @@
         var selectedWardID = $(value).val();
         var selectedWardName = $(value).find('option:selected').text();
         address.ward = selectedWardName;
+        address.wardId = selectedWardID;
+        handleCaculateFee();
     }
 
     diachicuthe.on("input", () => {
@@ -125,7 +138,55 @@
         }
     });
 
-   
+  
 
 
+    const handleCaculateFee = () => {
+        var selectedService_id = 53322;
+        axios({
+            method: 'get',
+            url: ' https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee',
+            params: {
+                service_id: selectedService_id,
+                "insurance_value": totalMoneyNumber,
+                "coupon": null,
+                "from_district_id": 1849,
+                "to_district_id": address.districtId,
+                "to_ward_code": address.wardId.toString(),
+                "height": 15,
+                "length": 15,
+                "weight": 500,
+                "width": 15
+            },
+            headers: { token: token, shop_id: 5087531, },
+        })
+            .then(function (response) {
+                var data = response.data.data; // Lưu ý rằng dữ liệu thường được lồng trong một field data
+                console.log("phí giao hàng", data)
+                $("#feeInsurrent").html(data.insurance_fee); 
+                $("#feeShip").html(data.service_fee); 
+                calculateTotal();
+            })
+            .catch(function (error) {
+                console.error('Có lỗi xảy ra khi gọi API:', error);
+            });
+    }   
+
+
+    // Function to calculate the total amount
+    function calculateTotal() {
+        // Get the values of "Tiền hàng", "Phí bảo hiểm", and "Phí vận chuyển" spans
+        var totalMoney = parseFloat($("#totalMoney").text());
+        var feeInsurrent = parseFloat($("#feeInsurrent").text());
+        var feeShip = parseFloat($("#feeShip").text());
+
+        // Calculate the total amount
+        var totalPrice = totalMoney + feeInsurrent + feeShip;
+
+        // Convert totalPrice to string and remove trailing zeros
+        var totalPriceString = totalPrice.toFixed(4).replace(/\.?0+$/, '');
+
+        // Update the "Tổng tiền" span with the calculated total amount
+        $("#tongtien").text(totalPriceString );
+    }
 });

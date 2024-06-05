@@ -37,6 +37,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
 				Note = order.Note,
 				ShipAddress = order.ShipAddress,
 				Status = order.Status,
+                IsPayment = order.IsPayment
 			}).ToList();
 
 			ViewBag.orders = orders;
@@ -110,7 +111,7 @@ namespace DoAn_PTUDWEB.Areas.Admin.Controllers
         [HttpPost]
         [Route("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("UserId,OrderId,OrderDate,ShipAddress,Note,Status")] TbOrder tbOrder)
+        public async Task<IActionResult> Edit([Bind("UserId,OrderId,OrderDate,ShipAddress,Note,Status,IsPayment")] TbOrder tbOrder)
         {
             if (tbOrder == null)
             {

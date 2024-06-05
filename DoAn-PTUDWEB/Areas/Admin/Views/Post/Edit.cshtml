@@ -48,14 +48,11 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <label for="Detail" class="form-label">Chi tiết</label>
-                    </div>
-                    <div class="col-md-9">
-                        <textarea asp-for="Detail" class="form-control" rows="5"></textarea>
-                        <span asp-validation-for="Detail" class="text-danger"></span>
-                    </div>
+               
+                <div class="form-group row mb-3">
+                    <label asp-for="Detail" class="control-label">Chi tiết nha:</label>
+                    <textarea asp-for="Detail" class="form-control"></textarea>
+                    <span asp-validation-for="Detail" class="text-danger"></span>
                 </div>
 
                 <div class="row mb-3">
@@ -164,6 +161,6 @@
 }
 
 @{
-    var summerNote = new DoAn_PTUDWEB.Areas.Admin.Models.SummerNote("#Contents");
+    var summerNote = new DoAn_PTUDWEB.Areas.Admin.Models.SummerNote("#Detail");
     <partial name="_SummerNote" model="summerNote" />
 }

@@ -7,9 +7,6 @@
 @{
 	var fullName = HttpContextAccessor.HttpContext.Session.GetString("FullName");
 }
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,9 +148,9 @@
 	
 	
 	<!--link js -->
-	<script src="~/admin/assets/js/script.js"></script>
-	@await RenderSectionAsync("Scripts", required: false)
-	<script src="~/admin/assets/js/contact.js"></script>
+	 <script src="~/admin/assets/js/script.js"></script>
+	 @await RenderSectionAsync("Scripts", required: false)
+	 <script src="~/admin/assets/js/contact.js"></script>
 	
 </body>
 </html>

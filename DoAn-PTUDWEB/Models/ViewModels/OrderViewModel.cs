@@ -10,6 +10,8 @@
 		public string? ShipAddress { get; set; }
 		public string? Note { get; set; }
 		public int? Status { get; set; }
-		public List<OrderDetailViewModel>? Details { get; set; }
+        public bool IsPayment { get; set; }
+
+        public List<OrderDetailViewModel>? Details { get; set; }
 	}
 }

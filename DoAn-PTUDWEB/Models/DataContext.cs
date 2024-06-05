@@ -122,11 +122,6 @@ namespace DoAn_PTUDWEB.Models
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ShipAddress).HasMaxLength(200);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.TbOrders)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_tb_Order_tb_User");
             });
 
             modelBuilder.Entity<TbOrderDetail>(entity =>

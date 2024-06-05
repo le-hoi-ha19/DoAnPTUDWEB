@@ -61,7 +61,7 @@
                             </td>
                             <td>
                                 <img src="@item.Thumbnail" alt="Image" />
-                            </td>s
+                            </td>
                             <td>
                                 @item.Price ₫
                             </td>
@@ -74,7 +74,7 @@
 
                             <td>
                                 <p class="status @(item.IsActive.HasValue && item.IsActive.Value ? "delivered" : "cancelled")">
-                                    @(item.IsActive == true ? "Hiển thị":"Ẩn")
+                                    @(item.IsActive == true ? "Hiển thị" : "Ẩn")
                                 </p>
                             </td>
                             <td>
@@ -93,6 +93,7 @@
                 </tbody>
             </table>
         </section>
+  
 
         <!-- Hiển thị thanh phân trang -->
         <section class="pagination-section">

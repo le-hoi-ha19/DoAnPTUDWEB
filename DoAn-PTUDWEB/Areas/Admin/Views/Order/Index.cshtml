@@ -33,7 +33,9 @@
                 <th>
                   Trạng thái đơn hàng
                 </th>
-               
+                <th>
+                    Trạng thái thanh toán
+                </th>
                 <th>Hành động</th>
             </tr>
         </thead>
@@ -80,6 +82,9 @@
                                     <span>Trạng thái không xác định</span>
                                     break;
                             }
+                        </td>
+                        <td>
+                            @(item.IsPayment == true ? "Đã thanh toán":"Chưa thanh toán")
                         </td>
 
 

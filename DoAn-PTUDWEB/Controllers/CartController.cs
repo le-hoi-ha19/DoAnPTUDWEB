@@ -105,6 +105,8 @@ namespace DoAn_PTUDWEB.Controllers
             var id = !string.IsNullOrEmpty(idString) ? int.Parse(idString) : (int?)null;
             var Users = _context.TbUsers.FirstOrDefault(m =>m.UserId == id);
 			ViewBag.Users = Users;
+            Cart = HttpContext.Session.GetJson<Cart>("cart");
+			ViewBag.Cart = Cart;
             return View("FormOrder");
         }
 
@@ -118,6 +120,7 @@ namespace DoAn_PTUDWEB.Controllers
 			var User = _context.TbUsers.FirstOrDefault(m=>m.UserId == tbOrder.UserId);
 			Cart = HttpContext.Session.GetJson<Cart>("cart");
 			TempData["tbOrder"] = JsonConvert.SerializeObject(tbOrder);
+			tbOrder.IsPayment = false;
 			if (payment == "Thanh toán VNPay")
 				{
 				var vnPayModel = new VnPaymentRequestModel
@@ -192,6 +195,7 @@ namespace DoAn_PTUDWEB.Controllers
 			Cart = HttpContext.Session.GetJson<Cart>("cart");
 			var tbOrder1 = TempData["tbOrder"] as string;
 			var tbOrder = JsonConvert.DeserializeObject<TbOrder>(tbOrder1);
+			tbOrder.IsPayment = true;
 			_context.TbOrders.Add(tbOrder);
 			await _context.SaveChangesAsync();
 
